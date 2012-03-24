@@ -1,0 +1,17 @@
+``attribute``
+=============
+
+.. versionadded:: 1.2
+    La función ``attribute`` se añadió en *Twig* 1.2.
+
+Puedes usar ``attribute`` para acceder a los atributos "dinámicos" de una variable:
+
+.. code-block:: jinja
+
+    {{ attribute(object, method) }}
+    {{ attribute(object, method, arguments) }}
+    {{ attribute(array, item) }}
+
+.. note::
+
+    El algoritmo de resolución es el mismo que el utilizado para la notación de punto ("."), salvo que el elemento puede ser cualquier expresión válida.

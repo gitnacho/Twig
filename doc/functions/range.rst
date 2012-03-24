@@ -1,0 +1,36 @@
+``range``
+=========
+
+Devuelve una lista conteniendo una progresión aritmética de enteros:
+
+.. code-block:: jinja
+
+    {% for i in range(0, 3) %}
+        {{ i }},
+    {% endfor %}
+
+    {# devuelve 0, 1, 2, 3 #}
+
+Cuando se da el paso (como tercer parámetro), este especifica el incremento (o decremento):
+
+.. code-block:: jinja
+
+    {% for i in range(0, 6, 2) %}
+        {{ i }},
+    {% endfor %}
+
+    {# devuelve 0, 2, 4, 6 #}
+
+El operador integrado ``..`` es pura azúcar sintáctica para la función ``range`` (con un paso de 1):
+
+.. code-block:: jinja
+
+    {% for i in 0..3 %}
+        {{ i }},
+    {% endfor %}
+
+.. tip::
+
+    La función ``range`` trabaja como la función `range`_ nativa de *PHP*.
+
+.. _`range`: http://mx2.php.net/range

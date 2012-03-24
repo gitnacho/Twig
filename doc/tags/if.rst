@@ -1,0 +1,40 @@
+``if``
+======
+
+La declaración ``if`` en *Twig* es comparable con las declaraciones ``if`` de *PHP*.
+
+En la forma más simple la puedes usar para probar si una expresión evalúa a ``true``:
+
+.. code-block:: jinja
+
+    {% if online == false %}
+        <p>Our website is in maintenance mode. Please, come back later.</p>
+    {% endif %}
+
+También puedes probar si una matriz no está vacía:
+
+.. code-block:: jinja
+
+    {% if users %}
+        <ul>
+            {% for user in users %}
+                <li>{{ user.username|e }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+.. note::
+
+    Si deseas probar si una variable está definida, usa ``if usuarios is defined`` en su lugar.
+
+Para ramificación múltiple puedes utilizar ``elseif`` y ``else`` como en *PHP*. Allí también puedes utilizar ``expresiones`` más complejas:
+
+.. code-block:: jinja
+
+    {% if kenny.sick %}
+        Kenny is sick.
+    {% elseif kenny.dead %}
+        You killed Kenny!  You bastard!!!
+    {% else %}
+        Kenny looks okay --- so far
+    {% endif %}

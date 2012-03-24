@@ -1,0 +1,13 @@
+{% extends "!layout.html" %}
+
+{% block imalogo %}
+  <a href="{{ pathto('index') }}"><img src="{{ pathto('./_static/twig-logo.png', 1) }}" alt="Traducciones de Nacho Pacheco" />
+  {{ super() }}
+{% endblock %}
+
+{% block relbar2 %}
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="{{ pathto('./_static/bifurcame.png', 1) }}" alt="Bifúrcame en GitHub" /></a>
+  {{ super() }}
+{% endblock %}
+
+{% block discus %}{# { super() } #}{% endblock %}

@@ -1,0 +1,10 @@
+``raw``
+=======
+
+El filtro ``raw`` marca el valor como "seguro", lo cual significa que en un entorno con escape automático activado esta variable no será escapada siempre y cuando ``raw`` sea el último filtro que se le aplica:
+
+.. code-block:: jinja
+
+    {% autoescape true %}
+        {{ var|raw }} {# var won't be escaped #}
+    {% endautoescape %}
