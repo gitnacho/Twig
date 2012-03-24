@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>if &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="macro" href="macro.html" />
+    <link rel="prev" title="for" href="for.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="macro.html" title="macro"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="for.html" title="for"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="if">
+<h1><tt class="docutils literal"><span class="pre">if</span></tt><a class="headerlink" href="#if" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La declaración <tt class="docutils literal"><span class="pre">if</span></tt> en <em>Twig</em> es comparable con las declaraciones <tt class="docutils literal"><span class="pre">if</span></tt> de <em>PHP</em>.</p>
+<p>En la forma más simple la puedes usar para probar si una expresión evalúa a <tt class="docutils literal"><span class="pre">true</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">online</span> <span class="o">==</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;p&gt;Our website is in maintenance mode. Please, come back later.&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>También puedes probar si una matriz no está vacía:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Si deseas probar si una variable está definida, usa <tt class="docutils literal"><span class="pre">if</span> <span class="pre">usuarios</span> <span class="pre">is</span> <span class="pre">defined</span></tt> en su lugar.</p>
+</div>
+<p>Para ramificación múltiple puedes utilizar <tt class="docutils literal"><span class="pre">elseif</span></tt> y <tt class="docutils literal"><span class="pre">else</span></tt> como en <em>PHP</em>. Allí también puedes utilizar <tt class="docutils literal"><span class="pre">expresiones</span></tt> más complejas:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">kenny.sick</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Kenny is sick.</span>
+<span class="cp">{%</span> <span class="k">elseif</span> <span class="nv">kenny.dead</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    You killed Kenny!  You bastard!!!</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Kenny looks okay --- so far</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="macro.html" title="macro"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="for.html" title="for"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

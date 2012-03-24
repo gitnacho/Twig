@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>macro &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="filter" href="filter.html" />
+    <link rel="prev" title="if" href="if.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="filter.html" title="filter"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="if.html" title="if"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="macro">
+<h1><tt class="docutils literal"><span class="pre">macro</span></tt><a class="headerlink" href="#macro" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para poner modismos <em>HTML</em> utilizados frecuentemente en elementos reutilizables para no repetirlos.</p>
+<p>He aquí un pequeño ejemplo de una macro que reproduce un elemento de formulario:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;text&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             value=&quot;</span><span class="cp">{{</span> <span class="nv">value</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             size=&quot;</span><span class="cp">{{</span> <span class="nv">size</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="m">20</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; /&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Las macros se diferencian de las funciones <em>PHP</em> nativas en varias formas:</p>
+<ul class="simple">
+<li>Los valores predeterminados de los argumentos se definen usando el filtro <tt class="docutils literal"><span class="pre">default</span></tt> en el cuerpo de la macro;</li>
+<li>Los argumentos de una macro siempre son opcionales.</li>
+</ul>
+<p>Pero como las funciones de <em>PHP</em>, las macros no tienen acceso a las variables de la plantilla actual.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Puedes pasar todo el contexto como un argumento usando la variable especial <tt class="docutils literal"><span class="pre">_context</span></tt>.</p>
+</div>
+<p>Las macros se pueden definir en cualquier plantilla, y es necesario &#8220;importarlas&#8221;, antes de utilizarlas (consulta la etiqueta <a class="reference internal" href="import.html"><em>import</em></a> para más información):</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">import</span> <span class="s2">&quot;formularios.html&quot;</span> <span class="k">as</span> <span class="nv">forms</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La llamada a <tt class="docutils literal"><span class="pre">import</span></tt> anterior importa el archivo &#8220;formularios.html&#8221; (el cual puede contener macros solamente, o una plantilla y algunas macros), e importa las funciones como elementos de la variable <tt class="docutils literal"><span class="pre">forms</span></tt>.</p>
+<p>Entonces puedes llamar a la macro a voluntad:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">forms.input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">forms.input</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="nv">null</span><span class="o">,</span> <span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>Si defines macros y las utilizas en la misma plantilla, puedes usar la variable especial <tt class="docutils literal"><span class="pre">_self</span></tt>, sin necesidad de importarlas:</p>
+<div class="highlight-jinja"><pre>&lt;p&gt;{{ _self.input('nombreusuario') }}&lt;/p&gt;</pre>
+</div>
+<p>Cuando &#8212;en el mismo archivo&#8212; quieras utilizar una macro en otra, utiliza la variable <tt class="docutils literal"><span class="pre">_self</span></tt>:</p>
+<div class="highlight-jinja"><pre>{% macro input(name, value, type, size) %}
+  &lt;input type="{{ type|default('text') }}"
+             name="{{ name }}"
+             value="{{ value|e }}"
+             size="{{ size|default(20) }}" /&gt;
+{% endmacro %}
+
+{% macro wrapped_input(name, value, type, size) %}
+    &lt;div class="field"&gt;
+        {{ _self.input(name, value, type, size) }}
+    &lt;/div&gt;
+{% endmacro %}</pre>
+</div>
+<p>Cuando la macro está definida en otro archivo, necesitas importarla:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# formularios.html #}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;text&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             value=&quot;</span><span class="cp">{{</span> <span class="nv">value</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             size=&quot;</span><span class="cp">{{</span> <span class="nv">size</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="m">20</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; /&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# shortcuts.html #}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">macro</span> <span class="nv">wrapped_input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">import</span> <span class="s2">&quot;formularios.html&quot;</span> <span class="k">as</span> <span class="nv">forms</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;div class=&quot;field&quot;&gt;</span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">forms.input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition-ver-tambien admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<p class="last"><a class="reference internal" href="from.html"><em>from</em></a>, <a class="reference internal" href="import.html"><em>import</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="filter.html" title="filter"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="if.html" title="if"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

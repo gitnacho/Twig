@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Twig para diseñadores de plantillas &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" />
+    <link rel="next" title="Twig para desarrolladores" href="api.html" />
+    <link rel="prev" title="Introducción" href="intro.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="api.html" title="Twig para desarrolladores"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introducción"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twig-para-disenadores-de-plantillas">
+<h1><em>Twig</em> para diseñadores de plantillas<a class="headerlink" href="#twig-para-disenadores-de-plantillas" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este documento describe la sintaxis y semántica del motor de plantillas y será muy útil como referencia para quién esté creando plantillas <em>Twig</em>.</p>
+<div class="section" id="sinopsis">
+<h2>Sinopsis<a class="headerlink" href="#sinopsis" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una plantilla simplemente es un archivo de texto. Esta puede generar cualquier formato basado en texto (<em>HTML</em>, <em>XML</em>, <em>CSV</em>, <em>LaTeX</em>, etc.) No tiene una extensión específica, <tt class="file docutils literal"><span class="pre">.html</span></tt> o <tt class="file docutils literal"><span class="pre">.xml</span></tt> están muy bien.</p>
+<p>Una plantilla contiene <strong>variables</strong> o <strong>expresiones</strong>, las cuales se reemplazan por valores cuando se evalúa la plantilla, y las <strong>etiquetas</strong>, controlan la lógica de la plantilla.</p>
+<p>A continuación mostramos una plantilla mínima que ilustra algunos conceptos básicos. Veremos los detalles más adelante en este documento:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>My Webpage<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">navigation</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">item.href</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">item.caption</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+        <span class="nt">&lt;/ul&gt;</span>
+
+        <span class="nt">&lt;h1&gt;</span>My Webpage<span class="nt">&lt;/h1&gt;</span>
+        <span class="cp">{{</span> <span class="nv">a_variable</span> <span class="cp">}}</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Hay dos tipos de delimitadores: <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></tt> y <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt>. El primero se utiliza para ejecutar declaraciones como bucles <tt class="docutils literal"><span class="pre">for</span></tt>, el último imprime en la plantilla el resultado de una expresión.</p>
+</div>
+<div class="section" id="integrando-con-ides">
+<h2>Integrando con <em>IDEs</em><a class="headerlink" href="#integrando-con-ides" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los <em>IDEs</em> modernos son compatibles con el resaltado de sintaxis y autocompletado en una amplia gama de lenguajes.</p>
+<ul class="simple">
+<li><em>Textmate</em> vía el <a class="reference external" href="https://github.com/Anomareh/PHP-Twig.tmbundle">paquete Twig</a></li>
+<li><em>Vim</em> vía el <a class="reference external" href="http://jinja.pocoo.org/2/documentation/integration">complemento de sintaxis Jinja</a></li>
+<li><em>Netbeans</em> vía el <a class="reference external" href="http://plugins.netbeans.org/plugin/37069/php-twig">complemento de sintaxis Twig</a></li>
+<li><em>PhpStorm</em> (nativo desde la versión 2.1)</li>
+<li><em>Eclipse</em> vía el <a class="reference external" href="https://github.com/pulse00/Twig-Eclipse-Plugin">complemento Twig</a></li>
+<li><em>Sublime Text</em> vía el <a class="reference external" href="https://github.com/Anomareh/PHP-Twig.tmbundle">paquete Twig</a></li>
+<li><em>GtkSourceView</em> vía el <a class="reference external" href="https://github.com/gabrielcorpse/gedit-twig-template-language">Twig language definition</a> (usado por <em>gedit</em> y otros proyectos)</li>
+<li><em>Coda</em> y <em>SubEthaEdit</em> vía el <a class="reference external" href="https://github.com/bobthecow/Twig-HTML.mode">Twig syntax mode</a></li>
+</ul>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La aplicación pasa variables a las plantillas para que puedas combinarlas en la plantilla. Las variables pueden tener atributos o elementos en ellas a los cuales puedes acceder también. Cómo se ve una variable, en gran medida, depende de la aplicación que la proporcione.</p>
+<p>Puedes utilizar un punto (<tt class="docutils literal"><span class="pre">.</span></tt>) para acceder a los atributos de una variable (métodos o propiedades de un objeto <em>PHP</em>, o elementos de una matriz <em>PHP</em>), o la así llamada sintaxis de &#8220;subíndice&#8221; (<tt class="docutils literal"><span class="pre">[]</span></tt>).</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">foo.bar</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">foo</span><span class="o">[</span><span class="s1">&#39;bar&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Es importante saber que las llaves no son parte de la variable, sino de la declaración de impresión. Si accedes a variables dentro de las etiquetas no las envuelvas con llaves.</p>
+</div>
+<p>Si una variable o atributo no existe, recibirás un valor <tt class="docutils literal"><span class="pre">nulo</span></tt>.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Implementación</p>
+<p>Por razones de conveniencia <tt class="file docutils literal"><span class="pre">foo.bar</span></tt> hace lo siguiente en la capa <em>PHP</em>:</p>
+<ul class="simple">
+<li>Comprueba si <tt class="docutils literal"><span class="pre">foo</span></tt> es una matriz y <tt class="docutils literal"><span class="pre">bar</span></tt> un elemento válido;</li>
+<li>si no, y si <tt class="docutils literal"><span class="pre">foo</span></tt> es un objeto, comprueba que <tt class="docutils literal"><span class="pre">bar</span></tt> es una propiedad válida;</li>
+<li>si no, y si <tt class="docutils literal"><span class="pre">foo</span></tt> es un objeto, comprueba que <tt class="docutils literal"><span class="pre">bar</span></tt> es un método válido (incluso si <tt class="docutils literal"><span class="pre">bar</span></tt> es el constructor &#8212; usa <tt class="docutils literal"><span class="pre">__construct()</span></tt> en su lugar);</li>
+<li>si no, y si <tt class="docutils literal"><span class="pre">foo</span></tt> es un objeto, comprueba que <tt class="docutils literal"><span class="pre">getBar</span></tt> es un método válido;</li>
+<li>si no, y si <tt class="docutils literal"><span class="pre">foo</span></tt> es un objeto, comprueba que <tt class="docutils literal"><span class="pre">isBar</span></tt> es un método válido;</li>
+<li>si no, devuelve un valor <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">foo['bar']</span></tt> por el contrario sólo trabaja con matrices <em>PHP</em>:</p>
+<ul class="last simple">
+<li>Comprueba si <tt class="docutils literal"><span class="pre">foo</span></tt> es una matriz y <tt class="docutils literal"><span class="pre">bar</span></tt> un elemento válido;</li>
+<li>si no, devuelve un valor <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Si deseas obtener un atributo dinámico en una variable, utiliza la función <a class="reference internal" href="functions/attribute.html"><em>attribute</em></a> en su lugar.</p>
+</div>
+<div class="section" id="variables-globales">
+<h3>Variables globales<a class="headerlink" href="#variables-globales" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Las siguientes variables siempre están disponibles en las plantillas:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">_self</span></tt>: hace referencia a la plantilla actual;</li>
+<li><tt class="docutils literal"><span class="pre">_context</span></tt>: hace referencia al contexto actual;</li>
+<li><tt class="docutils literal"><span class="pre">_charset</span></tt>: hace referencia al juego de caracteres actual.</li>
+</ul>
+</div>
+<div class="section" id="definiendo-variables">
+<h3>Definiendo variables<a class="headerlink" href="#definiendo-variables" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Puedes asignar valores a las variables dentro de los bloques de código. Las asignaciones usan la etiqueta <a class="reference internal" href="tags/set.html"><em>set</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">foo</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">foo</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">foo</span> <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtros">
+<h2>Filtros<a class="headerlink" href="#filtros" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los <strong>filtros</strong> pueden modificar variables. Los filtros están separados de la variable por un símbolo de tubo (<tt class="docutils literal"><span class="pre">|</span></tt>) y pueden tener argumentos opcionales entre paréntesis. Puedes encadenar múltiples filtros. La salida de un filtro se aplica al siguiente.</p>
+<p>El siguiente ejemplo elimina todas las etiquetas <em>HTML</em> del <tt class="docutils literal"><span class="pre">name</span></tt> y lo formatea como nombre propio:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">name</span><span class="o">|</span><span class="nf">striptags</span><span class="o">|</span><span class="nf">title</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Los filtros que aceptan argumentos llevan paréntesis en torno a los argumentos. Este ejemplo unirá una lista con comas:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">list</span><span class="o">|</span><span class="nf">join</span><span class="o">(</span><span class="s1">&#39;, &#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Para aplicar un filtro en una sección de código, envuélvelo con la etiqueta <a class="reference internal" href="tags/filter.html"><em>filter</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">filter</span> <span class="nf">upper</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  Este texto cambia a mayúsculas</span>
+<span class="cp">{%</span> <span class="k">endfilter</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Ve a la página de <a class="reference internal" href="filters/index.html"><em>filtros</em></a> para aprender más acerca de los filtros incorporados.</p>
+</div>
+<div class="section" id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las funciones se pueden llamar para generar contenido. Las funciones son llamadas por su nombre seguido de paréntesis (<tt class="docutils literal"><span class="pre">()</span></tt>) y pueden tener argumentos.</p>
+<p>Por ejemplo, la función <tt class="docutils literal"><span class="pre">range</span></tt> devuelve una lista que contiene una progresión aritmética de números enteros:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="m">0</span><span class="o">,</span> <span class="m">3</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">i</span> <span class="cp">}}</span><span class="x">,</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Ve a la página <a class="reference internal" href="functions/index.html"><em>funciones</em></a> para aprender más acerca de las funciones incorporadas.</p>
+</div>
+<div class="section" id="estructuras-de-control">
+<h2>Estructuras de control<a class="headerlink" href="#estructuras-de-control" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una estructura de control se refiere a todas esas cosas que controlan el flujo de un programa &#8212; condicionales (es decir, <tt class="docutils literal"><span class="pre">if</span></tt>/<tt class="docutils literal"><span class="pre">elseif</span></tt>/<tt class="docutils literal"><span class="pre">else</span></tt>), bucles <tt class="docutils literal"><span class="pre">for</span></tt>, así como cosas tales como bloques. Las estructuras de control aparecen dentro de bloques <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></tt>.</p>
+<p>Por ejemplo, para mostrar una lista de usuarios provista en una variable llamada <tt class="docutils literal"><span class="pre">users</span></tt>, usa la etiqueta <a class="reference internal" href="tags/for.html"><em>for</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;h1&gt;Members&lt;/h1&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>Puedes utilizar la etiqueta <a class="reference internal" href="tags/if.html"><em>if</em></a> para probar una expresión:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">users</span><span class="o">|</span><span class="nf">length</span> <span class="o">&gt;</span> <span class="m">0</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;ul&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Ve a la página <a class="reference internal" href="tags/index.html"><em>etiquetas</em></a> para aprender más acerca de las etiquetas incorporadas.</p>
+</div>
+<div class="section" id="comentarios">
+<h2>Comentarios<a class="headerlink" href="#comentarios" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para comentar parte de una línea en una plantilla, utiliza la sintaxis de comentario <tt class="docutils literal"><span class="pre">{#</span> <span class="pre">...</span> <span class="pre">#}</span></tt>. Esta es útil para depuración o para agregar información para los diseñadores de otra plantilla o para ti mismo:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# nota: inhabilitado en la plantilla porque ya no se utiliza</span>
+<span class="c">    {% for user in users %}</span>
+<span class="c">        ...</span>
+<span class="c">    {% endfor %}</span>
+<span class="c">#}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="incluyendo-otras-plantillas">
+<h2>Incluyendo otras plantillas<a class="headerlink" href="#incluyendo-otras-plantillas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La etiqueta <a class="reference internal" href="tags/include.html"><em>include</em></a> es útil para incluir una plantilla y devolver el contenido reproducido de esa plantilla a la actual:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;sidebar.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>De manera predeterminada se pasa el contexto actual a las plantillas incluidas.</p>
+<p>El contexto que se pasa a la plantilla incluida incorpora las variables definidas en la plantilla:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">box</span> <span class="k">in</span> <span class="nv">boxes</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;render_box.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La plantilla incluida <tt class="file docutils literal"><span class="pre">render_box.html</span></tt> es capaz de acceder a <tt class="docutils literal"><span class="pre">box</span></tt>.</p>
+<p>El nombre de archivo de la plantilla depende del gestor de plantillas. Por ejemplo, el <tt class="docutils literal"><span class="pre">Twig_Loader_Filesystem</span></tt> te permite acceder a otras plantillas, dando el nombre del archivo. Puedes acceder a plantillas en subdirectorios con una barra inclinada:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;sections/articles/sidebar.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Este comportamiento depende de la aplicación en que integres <em>Twig</em>.</p>
+</div>
+<div class="section" id="herencia-en-plantillas">
+<h2>Herencia en plantillas<a class="headerlink" href="#herencia-en-plantillas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La parte más poderosa de <em>Twig</em> es la herencia entre plantillas. La herencia de plantillas te permite crear un &#8220;esqueleto&#8221; de plantilla base que contenga todos los elementos comunes de tu sitio y define los <strong>bloques</strong> que las plantillas descendientes pueden sustituir.</p>
+<p>Suena complicado pero es muy básico. Es más fácil entenderlo si comenzamos con un ejemplo.</p>
+<p>Vamos a definir una plantilla base, <tt class="file docutils literal"><span class="pre">base.html</span></tt>, la cual define el esqueleto de un documento <em>HTML</em> simple que puedes usar para una sencilla página de dos columnas:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span>
+            <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span> - My Webpage<span class="nt">&lt;/title&gt;</span>
+        <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">{%</span> <span class="k">block</span> <span class="nv">footer</span> <span class="cp">%}</span>
+                <span class="ni">&amp;copy;</span> Copyright 2011 by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://dominio.invalido/&quot;</span><span class="nt">&gt;</span>
+                                             tú
+                                         <span class="nt">&lt;/a&gt;</span>.
+            <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>En este ejemplo, las etiquetas <a class="reference internal" href="tags/block.html"><em>block</em></a> definen cuatro bloques que las plantillas herederas pueden rellenar. Todas las etiquetas <tt class="docutils literal"><span class="pre">block</span></tt> le dicen al motor de plantillas que una plantilla heredera puede sustituir esas porciones de la plantilla.</p>
+<p>Una plantilla hija podría tener este aspecto:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span><span class="x">Index</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;style type=&quot;text/css&quot;&gt;</span>
+<span class="x">        .important { color: #336699; }</span>
+<span class="x">    &lt;/style&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h1&gt;Index&lt;/h1&gt;</span>
+<span class="x">    &lt;p class=&quot;important&quot;&gt;</span>
+<span class="x">        Welcome on my awesome homepage.</span>
+<span class="x">    &lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Aquí, la clave es la etiqueta <a class="reference internal" href="tags/extends.html"><em>extends</em></a>. Esta le dice al motor de plantillas que esta plantilla &#8220;extiende&#8221; otra plantilla. Cuando el sistema de plantillas evalúa esta plantilla, en primer lugar busca la plantilla padre. La etiqueta <tt class="docutils literal"><span class="pre">extends</span></tt> debe ser la primera etiqueta en la plantilla.</p>
+<p>Ten en cuenta que debido a que la plantilla heredera no define el bloque <tt class="docutils literal"><span class="pre">footer</span></tt>, en su lugar se utiliza el valor de la plantilla padre.</p>
+<p>Es posible reproducir el contenido del bloque padre usando la función <a class="reference internal" href="functions/parent.html"><em>parent</em></a>. Esta devuelve el resultado del bloque padre:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h3&gt;Table Of Contents&lt;/h3&gt;</span>
+<span class="x">    ...</span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">La página de documentación para la etiqueta <a class="reference internal" href="tags/extends.html"><em>extends</em></a> describe características más avanzadas como el anidamiento de bloques, ámbito, herencia dinámica, y herencia condicional.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><em>Twig</em> también es compatible con herencia múltiple por medio del así llamado reuso horizontal con la ayuda de la etiqueta <a class="reference internal" href="tags/use.html"><em>use</em></a>. Esta es una característica que casi nunca se necesita en las plantillas normales.</p>
+</div>
+</div>
+<div class="section" id="escapando-html">
+<h2>Escapando <em>HTML</em><a class="headerlink" href="#escapando-html" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando generas <em>HTML</em> desde plantillas, siempre existe el riesgo de que una variable incluya caracteres que afecten el <em>HTML</em> resultante. Hay dos enfoques: escapar cada variable manualmente o de manera predeterminada escapar todo automáticamente.</p>
+<p><em>Twig</em> apoya ambos, el escape automático está habilitado por omisión.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">El escape automático sólo se admite si has habilitado la extensión <em>escaper</em> (el cual es el valor predeterminado).</p>
+</div>
+<div class="section" id="trabajando-con-el-escape-manual">
+<h3>Trabajando con el escape manual<a class="headerlink" href="#trabajando-con-el-escape-manual" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si está habilitado el escape manual es <strong>tu</strong> responsabilidad escapar las variables si es necesario. ¿Qué escapar? Si tienes una variable que <em>puede</em> incluir cualquiera de los siguientes caracteres (<tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&amp;</span></tt> o <tt class="docutils literal"><span class="pre">&quot;</span></tt>) <strong>tienes</strong> que escaparla a menos que la variable contenga <em>HTML</em> bien formado y sea de confianza. El escape trabaja <em>entubando</em> la variable a través del filtro <tt class="docutils literal"><span class="pre">|e</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span><span class="o">(</span><span class="s1">&#39;js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trabajando-con-escape-automatico">
+<h3>Trabajando con escape automático<a class="headerlink" href="#trabajando-con-escape-automatico" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ya sea que el escape automático esté habilitado o no, puedes marcar una sección de una plantilla para que sea escapada o no utilizando la etiqueta <a class="reference internal" href="tags/autoescape.html"><em>autoescape</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Todo en este bloque se va a escapar automáticamente</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="escapando">
+<h2>Escapando<a class="headerlink" href="#escapando" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A veces es deseable e incluso necesario contar con que <em>Twig</em> omita partes que de lo contrario manejaría como variables o bloques. Por ejemplo, si utilizas la sintaxis predeterminada y deseas utilizar <tt class="docutils literal"><span class="pre">{{</span></tt> como cadena sin procesar en la plantilla y no iniciar una variable, tienes que usar un truco.</p>
+<p>La forma más sencilla es extraer la variable del delimitador (<tt class="docutils literal"><span class="pre">{{</span></tt>) usando una expresión variable:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s1">&#39;{{&#39;</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Para secciones mayores tiene sentido marcar un bloque como <a class="reference internal" href="tags/raw.html"><em>raw</em></a>.</p>
+</div>
+<div class="section" id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para poner modismos <em>HTML</em> utilizados frecuentemente en elementos reutilizables para no repetirlos.</p>
+<p>Una macro se define a través de la etiqueta <a class="reference internal" href="tags/macro.html"><em>macro</em></a>. He aquí un pequeño ejemplo de una macro que reproduce un elemento de formulario:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;text&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             value=&quot;</span><span class="cp">{{</span> <span class="nv">value</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">             size=&quot;</span><span class="cp">{{</span> <span class="nv">size</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="m">20</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; /&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Las macros se pueden definir en cualquier plantilla, y es necesario &#8220;importarlas&#8221;, antes de utilizarlas usando la etiqueta <a class="reference internal" href="tags/import.html"><em>import</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">import</span> <span class="s2">&quot;formularios.html&quot;</span> <span class="k">as</span> <span class="nv">forms</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">forms.input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>Alternativamente, puedes importar nombres desde la plantilla al espacio de nombres actual vía la etiqueta <a class="reference internal" href="tags/from.html"><em>from</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">from</span> <span class="s1">&#39;formularios.html&#39;</span> <span class="k">import</span> <span class="nv">input</span> <span class="k">as</span> <span class="nv">campo_input</span><span class="o">,</span> <span class="nv">textarea</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">&lt;dl&gt;</span>
+<span class="x">    &lt;dt&gt;Username&lt;/dt&gt;</span>
+<span class="x">    &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">input_field</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
+<span class="x">    &lt;dt&gt;Password&lt;/dt&gt;</span>
+<span class="x">    &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">input_field</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
+<span class="x">&lt;/dl&gt;</span>
+<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">textarea</span><span class="o">(</span><span class="s1">&#39;comment&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="expresiones">
+<h2>Expresiones<a class="headerlink" href="#expresiones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Twig</em> acepta expresiones en cualquier parte. Estas funcionan de manera muy similar a <em>PHP</em> regular e incluso si no estás trabajando con <em>PHP</em> te debes sentir cómodo con estas.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">La precedencia de los operadores es la siguiente, mostrando los operadores de menor precedencia en primer lugar: <tt class="docutils literal"><span class="pre">&amp;</span></tt>, <tt class="docutils literal"><span class="pre">^</span></tt>, <tt class="docutils literal"><span class="pre">|</span></tt>, <tt class="docutils literal"><span class="pre">or</span></tt>, <tt class="docutils literal"><span class="pre">and</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>,
+<tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">in</span></tt>, <tt class="docutils literal"><span class="pre">..</span></tt>, <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">~</span></tt>,
+<tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt>, <tt class="docutils literal"><span class="pre">//</span></tt>, <tt class="docutils literal"><span class="pre">%</span></tt>, <tt class="docutils literal"><span class="pre">is</span></tt>, y <tt class="docutils literal"><span class="pre">**</span></tt>.</p>
+</div>
+<div class="section" id="literales">
+<h3>Literales<a class="headerlink" href="#literales" title="Enlazar permanentemente con este título">¶</a></h3>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.5: </span>El soporte para codificar claves como nombres y expresiones se añadió en <em>Twig</em> 1.5.</p>
+<p>La forma más simple de las expresiones son literales. Los literales son representaciones para tipos <em>PHP</em>, tal como cadenas, números y matrices. Existen los siguientes literales:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">&quot;Hello</span> <span class="pre">World&quot;</span></tt>: Todo lo que esté entre comillas simples o dobles es una cadena. Son útiles cuando necesitas una cadena en la plantilla (por ejemplo, como argumentos para llamadas a función, filtros o simplemente para extender o incluir una plantilla).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">42</span></tt> / <tt class="docutils literal"><span class="pre">42.23</span></tt>: Números enteros y números en coma flotante se crean tan sólo escribiendo el número. Si está presente un punto es un número en coma flotante, de lo contrario es un número entero.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">[&quot;foo&quot;,</span> <span class="pre">&quot;bar&quot;]</span></tt>: Las matrices se definen por medio de una secuencia de expresiones separadas por una coma (<tt class="docutils literal"><span class="pre">,</span></tt>) y envueltas entre paréntesis cuadrados (<tt class="docutils literal"><span class="pre">[]</span></tt>).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">{&quot;foo&quot;:</span> <span class="pre">&quot;bar&quot;}</span></tt>: Los valores <tt class="docutils literal"><span class="pre">hash</span></tt> se definen con una lista de claves y valores separados por una coma (<tt class="docutils literal"><span class="pre">,</span></tt>) y envueltos entre llaves (<tt class="docutils literal"><span class="pre">{}</span></tt>).</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# claves como cadena #}</span><span class="x"></span>
+<span class="x">{ &#39;foo&#39;: &#39;foo&#39;, &#39;bar&#39;: &#39;bar&#39; }</span>
+
+<span class="c">{# claves como nombres (equivalente al hash anterior) -- a partir</span>
+<span class="c">   de Twig 1.5 #}</span><span class="x"></span>
+<span class="x">{ foo: &#39;foo&#39;, bar: &#39;bar&#39; }</span>
+
+<span class="c">{# keys as integer #}</span><span class="x"></span>
+<span class="x">{ 2: &#39;foo&#39;, 4: &#39;bar&#39; }</span>
+
+<span class="c">{# claves como expresiones (la expresión se debe encerrar entre</span>
+<span class="c">   paréntesis) -- a partir de Twig 1.5 #}</span><span class="x"></span>
+<span class="x">{ (1 + 1): &#39;foo&#39;, (a ~ &#39;b&#39;): &#39;bar&#39; }</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">true</span></tt> / <tt class="docutils literal"><span class="pre">false</span></tt>: <tt class="docutils literal"><span class="pre">true</span></tt> representa el valor verdadero, <tt class="docutils literal"><span class="pre">false</span></tt> representa el valor falso.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">null</span></tt>: <tt class="docutils literal"><span class="pre">null</span></tt> no representa un valor específico. Este es el valor devuelto cuando una variable no existe. <tt class="docutils literal"><span class="pre">none</span></tt> es un alias para <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+</li>
+</ul>
+<p>Los arreglos y <tt class="docutils literal"><span class="pre">hashes</span></tt> se pueden anidar:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">foo</span> <span class="o">=</span> <span class="o">[</span><span class="m">1</span><span class="o">,</span> <span class="o">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="o">}]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="matematicas">
+<h3>Matemáticas<a class="headerlink" href="#matematicas" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><em>Twig</em> te permite calcular valores. Esto no suele ser útil en las plantillas, pero existe por el bien de la integridad. Admite los siguientes operadores:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">+</span></tt>: Suma dos objetos (los operandos se convierten a números). <tt class="docutils literal"><span class="pre">{{</span>
+<span class="pre">1</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">}}</span></tt> is <tt class="docutils literal"><span class="pre">2</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">-</span></tt>: Sustrae el segundo número del primero. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">3</span> <span class="pre">-</span> <span class="pre">2</span> <span class="pre">}}</span></tt> es <tt class="docutils literal"><span class="pre">1</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">/</span></tt>: Divide dos números. El valor devuelto será un número en coma flotante. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">}}</span></tt> es <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">0.5</span> <span class="pre">}}</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">%</span></tt>: Calcula el residuo de una división entera. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">11</span> <span class="pre">%</span> <span class="pre">7</span> <span class="pre">}}</span></tt> es <tt class="docutils literal"><span class="pre">4</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">//</span></tt>: Divide dos números y devuelve el resultado entero truncado. <tt class="docutils literal"><span class="pre">{{</span>
+<span class="pre">20</span> <span class="pre">//</span> <span class="pre">7</span> <span class="pre">}}</span></tt> is <tt class="docutils literal"><span class="pre">2</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">*</span></tt>: Multiplica el operando de la izquierda con el de la derecha. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">2</span> <span class="pre">}}</span></tt> devolverá <tt class="docutils literal"><span class="pre">4</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">**</span></tt>: Eleva el operando izquierdo a la potencia del operando derecho. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">2</span> <span class="pre">**</span> <span class="pre">3</span> <span class="pre">}}</span></tt> would return <tt class="docutils literal"><span class="pre">8</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="logica">
+<h3>Lógica<a class="headerlink" href="#logica" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Puedes combinar varias expresiones con los siguientes operadores:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">and</span></tt>: Devuelve <tt class="docutils literal"><span class="pre">true</span></tt> si ambos operandos izquierdo y derecho son <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">or</span></tt>: Devuelve <tt class="docutils literal"><span class="pre">true</span></tt> si el operando izquierdo o derecho es <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">not</span></tt>: Niega una declaración.</li>
+<li><tt class="docutils literal"><span class="pre">(expr)</span></tt>: Agrupa una expresión.</li>
+</ul>
+</div>
+<div class="section" id="comparaciones">
+<h3>Comparaciones<a class="headerlink" href="#comparaciones" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los siguientes operadores de comparación son compatibles con cualquier expresión: <tt class="docutils literal"><span class="pre">==</span></tt>,
+<tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, y <tt class="docutils literal"><span class="pre">&lt;=</span></tt>.</p>
+</div>
+<div class="section" id="operador-de-contencion">
+<h3>Operador de contención<a class="headerlink" href="#operador-de-contencion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El operador <tt class="docutils literal"><span class="pre">in</span></tt> realiza la prueba de contención.</p>
+<p>Esta devuelve <tt class="docutils literal"><span class="pre">true</span></tt> si el operando de la izquierda figura entre los de la derecha:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# devuelve true #}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="m">1</span> <span class="k">in</span> <span class="o">[</span><span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="s1">&#39;cd&#39;</span> <span class="k">in</span> <span class="s1">&#39;abcde&#39;</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Puedes utilizar este filtro para realizar una prueba de contención en cadenas, arreglos u objetos que implementan la interfaz <tt class="docutils literal"><span class="pre">Traversable</span></tt>.</p>
+</div>
+<p>Para llevar a cabo una prueba negativa, utiliza el operador <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="m">1</span> <span class="k">not</span> <span class="k">in</span> <span class="o">[</span><span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# es equivalente a #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="o">(</span><span class="m">1</span> <span class="k">in</span> <span class="o">[</span><span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">])</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operador-de-prueba">
+<h3>Operador de prueba<a class="headerlink" href="#operador-de-prueba" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El operador <tt class="docutils literal"><span class="pre">is</span></tt> realiza pruebas. Puedes utilizar las pruebas para comprobar una variable con una expresión común. El operando de la derecha es el nombre de la prueba:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# averigua si una variable es impar #}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">nombre</span> <span class="k">is</span> <span class="nf">odd</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Las pruebas también pueden aceptar argumentos:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="k">is</span> <span class="nf">divisibleby</span><span class="o">(</span><span class="m">3</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Puedes negar las pruebas usando el operador <tt class="docutils literal"><span class="pre">is</span> <span class="pre">not</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">divisibleby</span><span class="o">(</span><span class="m">3</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# es equivalente a #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="o">(</span><span class="nb">loop</span><span class="nv">.index</span> <span class="k">is</span> <span class="nf">divisibleby</span><span class="o">(</span><span class="m">3</span><span class="o">))</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Ve a la página <a class="reference internal" href="tests/index.html"><em>Probando</em></a> para aprender más sobre las pruebas integradas.</p>
+</div>
+<div class="section" id="otros-operadores">
+<h3>Otros operadores<a class="headerlink" href="#otros-operadores" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los siguientes operadores son muy útiles pero no encajan en ninguna de las otras dos categorías:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">..</span></tt>: Crea una secuencia basada en el operando antes y después del operador (esta sólo es pura azúcar sintáctica para la función <a class="reference internal" href="functions/range.html"><em>range</em></a>).</li>
+<li><tt class="docutils literal"><span class="pre">|</span></tt>: Aplica un filtro.</li>
+<li><tt class="docutils literal"><span class="pre">~</span></tt>: Convierte todos los operandos en cadenas y los concatena. <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">&quot;Hello</span> <span class="pre">&quot;</span> <span class="pre">~</span> <span class="pre">name</span> <span class="pre">~</span> <span class="pre">&quot;!&quot;</span> <span class="pre">}}</span></tt> debería devolver (suponiendo que <tt class="docutils literal"><span class="pre">name</span></tt> es <tt class="docutils literal"><span class="pre">'John'</span></tt>) <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">John!</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">.</span></tt>, <tt class="docutils literal"><span class="pre">[]</span></tt>: Obtiene un atributo de un objeto.</li>
+<li><tt class="docutils literal"><span class="pre">?:</span></tt>: El operador ternario de <em>PHP</em>: <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">foo</span> <span class="pre">?</span> <span class="pre">'yes'</span> <span class="pre">:</span> <span class="pre">'no'</span> <span class="pre">}}</span></tt></li>
+</ul>
+</div>
+<div class="section" id="interpolando-cadenas">
+<h3>Interpolando cadenas<a class="headerlink" href="#interpolando-cadenas" title="Enlazar permanentemente con este título">¶</a></h3>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.5: </span>La interpolación de cadenas se añadió en <em>Twig</em> 1.5.</p>
+<p>La interpolación de cadena (<cite>#{expresión}</cite>) permite que cualquier expresión válida aparezca
+dentro de una cadena. El resultado de la evaluación esa expresión se inserta en la cadena:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;foo #{bar} baz&quot;</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="s2">&quot;foo #{1 + 2} baz&quot;</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="controlando-el-espacio-en-blanco">
+<h2>Controlando el espacio en blanco<a class="headerlink" href="#controlando-el-espacio-en-blanco" title="Enlazar permanentemente con este título">¶</a></h2>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.1: </span>La etiqueta para controlar el nivel de los espacios en blanco se añadió en la <em>Twig</em> 1.1.</p>
+<p>La primer nueva línea después de una etiqueta de plantilla se elimina automáticamente (como en <em>PHP</em>). El motor de plantillas no modifica el espacio en blanco, por lo tanto cada espacio en blanco (espacios, tabuladores, nuevas líneas, etc.) se devuelve sin cambios.</p>
+<p>Utiliza la etiqueta <tt class="docutils literal"><span class="pre">spaceless</span></tt> para quitar los espacios en blanco entre las etiquetas <em>HTML</em>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">spaceless</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;div&gt;</span>
+<span class="x">        &lt;strong&gt;foo&lt;/strong&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endspaceless</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# Producirá &lt;div&gt;&lt;strong&gt;foo&lt;/strong&gt;&lt;/div&gt; #}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Además de la etiqueta <tt class="docutils literal"><span class="pre">spaceless</span></tt> también puedes controlar los espacios en blanco a nivel de etiquetas. Utilizando el modificador de control de los espacios en blanco en tus etiquetas, puedes recortar los espacios en blanco en ambos extremos:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">value</span> <span class="o">=</span> <span class="s1">&#39;no spaces&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="c">{#- No deja espacios en blanco en ambos extremos -#}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">if</span> <span class="kp">true</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span><span class="o">-</span> <span class="nv">value</span> -<span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endif</span> -<span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# produce &#39;sin espacios&#39; #}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>El ejemplo anterior muestra el modificador de control de espacios en blanco predeterminado, y cómo lo puedes utilizar para quitar los espacios en blanco alrededor de las etiquetas.  Recortar el espacio debe consumir todos los espacios en blanco a ese lado de la etiqueta.  Es posible utilizar el recorte de espacios en blanco en un lado de una etiqueta:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">value</span> <span class="o">=</span> <span class="s1">&#39;no spaces&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;li&gt;    </span><span class="cp">{{</span><span class="o">-</span> <span class="nv">value</span> <span class="cp">}}</span><span class="x">    &lt;/li&gt;</span>
+
+<span class="c">{# produce &#39;&lt;li&gt;no spaces    &lt;/li&gt;&#39; #}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extendiendo">
+<h2>Extendiendo<a class="headerlink" href="#extendiendo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Puedes extender <em>Twig</em> fácilmente.</p>
+<p>Si estás buscando nuevas etiquetas, filtros, o funciones, echa un vistazo al <a class="reference external" href="http://github.com/fabpot/Twig-extensions">repositorio de extensiones oficial de Twig</a>.</p>
+<p>Si deseas crear una propia, lee <a class="reference internal" href="extensions.html"><em>extensiones</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="api.html" title="Twig para desarrolladores"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introducción"
+             >anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Recetas &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" />
+    <link rel="next" title="Estándares de codificación" href="coding_standards.html" />
+    <link rel="prev" title="Mejorando Twig" href="hacking.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="coding_standards.html" title="Estándares de codificación"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="hacking.html" title="Mejorando Twig"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="recetas">
+<h1>Recetas<a class="headerlink" href="#recetas" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="haciendo-un-diseno-condicional">
+<h2>Haciendo un diseño condicional<a class="headerlink" href="#haciendo-un-diseno-condicional" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Trabajar con <em>Ajax</em> significa que el mismo contenido a veces se muestra tal cual, y, a veces se decora con un diseño. Dado que el nombre del diseño de las plantillas <em>Twig</em> puede ser cualquier expresión válida, puedes pasar una variable que evalúe a <tt class="docutils literal"><span class="pre">true</span></tt> cuando se hace la petición a través de <em>Ajax</em> y elegir el diseño en consecuencia:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="nv">request.ajax</span> <span class="p">?</span> <span class="s2">&quot;base_ajax.html&quot;</span> <span class="o">:</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Este es el contenido a mostrar.</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="haciendo-una-inclusion-dinamica">
+<h2>Haciendo una inclusión dinámica<a class="headerlink" href="#haciendo-una-inclusion-dinamica" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando incluyes una plantilla, su nombre no tiene por qué ser una cadena. Por ejemplo, el nombre puede depender del valor de una variable:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="nv">var</span> <span class="o">~</span> <span class="s1">&#39;_foo.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Si <tt class="docutils literal"><span class="pre">var</span></tt> evalúa como <tt class="docutils literal"><span class="pre">index</span></tt>, se reproducirá la plantilla <tt class="file docutils literal"><span class="pre">index_foo.html</span></tt>.</p>
+<p>De hecho, el nombre de la plantilla puede ser cualquier expresión válida, como la siguiente:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="nv">var</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;index&#39;</span><span class="o">)</span> <span class="o">~</span> <span class="s1">&#39;_foo.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sustituyendo-una-plantilla-que-ademas-se-extiende-a-si-misma">
+<h2>Sustituyendo una plantilla que además se extiende a sí misma<a class="headerlink" href="#sustituyendo-una-plantilla-que-ademas-se-extiende-a-si-misma" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Puedes personalizar una plantilla de dos formas diferentes:</p>
+<ul class="simple">
+<li><em>Herencia</em>: Una plantilla <em>extiende</em> a una plantilla padre y sustituye algunos bloques;</li>
+<li><em>Sustitución</em>: Si utilizas el cargador del sistema de archivos, <em>Twig</em> carga la primera plantilla que encuentre en una lista de directorios configurados; una plantilla que se encuentra en un directorio <em>sustituye</em> a otra de un directorio más en la lista.</li>
+</ul>
+<p>Pero, ¿cómo se combinan las dos cosas?: <em>sustituir</em> una plantilla que también se extiende a sí misma (también conocida como una plantilla en un directorio más en la lista)</p>
+<p>Digamos que tus plantillas se cargan tanto desde <tt class="docutils literal"><span class="pre">.../templates/mysite</span></tt> como de <tt class="docutils literal"><span class="pre">.../templates/default</span></tt>, en este orden. La plantilla <tt class="file docutils literal"><span class="pre">page.twig</span></tt> almacenada en <tt class="file docutils literal"><span class="pre">../templates/default</span></tt> es la siguiente:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# page.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Puedes sustituir esta plantilla poniendo un archivo con el mismo nombre en <tt class="docutils literal"><span class="pre">.../templates/mysite</span></tt>. Y si deseas ampliar la plantilla original, podrías tener la tentación de escribir lo siguiente:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# page.twig in .../templates/mysite #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;page.twig&quot;</span> <span class="cp">%}</span><span class="x"> </span><span class="c">{# from .../templates/default #}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Por supuesto, esto no funcionará debido a que <em>Twig</em> siempre carga la plantilla desde <tt class="docutils literal"><span class="pre">.../templates/mysite</span></tt>.</p>
+<p>Resulta que es posible conseguir que esto funcione, añadiendo el directorio adecuado al final de tus directorios de plantilla, el cual es el padre de todos los otros directorios: <tt class="docutils literal"><span class="pre">.../templates</span></tt> en nuestro caso. Esto tiene el efecto de hacer que cada archivo de plantilla dentro de nuestro sistema sea direccionable unívocamente. La mayoría de las veces utilizarás rutas &#8220;normales&#8221;, pero en el caso especial de querer extender una plantilla con una versión que se redefine a sí misma podemos referirnos a la ruta completa del padre, sin ambigüedades, en la etiqueta <tt class="docutils literal"><span class="pre">extends</span></tt> de la plantilla:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# page.twig in .../templates/mysite #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;default/page.twig&quot;</span> <span class="cp">%}</span><span class="x"> </span><span class="c">{# from .../templates #}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Esta receta está inspirada en la página &#8220;Extendiendo plantillas&#8221; del <em>wiki</em> de <em>Django</em>:
+La puedes ver <a class="reference external" href="http://code.djangoproject.com/wiki/ExtendingTemplates">aquí</a></p>
+</div>
+</div>
+<div class="section" id="personalizando-la-sintaxis">
+<h2>Personalizando la sintaxis<a class="headerlink" href="#personalizando-la-sintaxis" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Twig</em> te permite personalizar alguna sintaxis de los delimitadores de bloque. No se recomienda usar esta característica puesto que las plantillas serán vinculadas con tu sintaxis personalizada. Sin embargo, para proyectos específicos, puede tener sentido cambiar los valores predeterminados.</p>
+<p>Para cambiar los delimitadores de bloque, necesitas crear tu propio objeto analizador sintáctico (o <em>lexer</em>):</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">();</span>
+
+<span class="nv">$lexer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Lexer</span><span class="p">(</span><span class="nv">$twig</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;tag_comment&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{#&#39;</span><span class="p">,</span> <span class="s1">&#39;#}&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_block&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{%&#39;</span><span class="p">,</span> <span class="s1">&#39;%}&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_variable&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{{&#39;</span><span class="p">,</span> <span class="s1">&#39;}}&#39;</span><span class="p">),</span>
+<span class="p">));</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">setLexer</span><span class="p">(</span><span class="nv">$lexer</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Éstos son algunos ejemplos de configuración que simulan la sintaxis de algunos otros motores de plantilla:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// sintaxis erb de Ruby</span>
+<span class="nv">$lexer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Lexer</span><span class="p">(</span><span class="nv">$twig</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;tag_comment&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;&lt;%#&#39;</span><span class="p">,</span> <span class="s1">&#39;%&gt;&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_block&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;&lt;%&#39;</span><span class="p">,</span> <span class="s1">&#39;%&gt;&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_variable&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;&lt;%=&#39;</span><span class="p">,</span> <span class="s1">&#39;%&gt;&#39;</span><span class="p">),</span>
+<span class="p">));</span>
+
+<span class="c1">// sintaxis de comentarios SGML</span>
+<span class="nv">$lexer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Lexer</span><span class="p">(</span><span class="nv">$twig</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;tag_comment&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;&lt;!--#&#39;</span><span class="p">,</span> <span class="s1">&#39;--&gt;&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_block&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;&lt;!--&#39;</span><span class="p">,</span> <span class="s1">&#39;--&gt;&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_variable&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;${&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">),</span>
+<span class="p">));</span>
+
+<span class="c1">// como Smarty</span>
+<span class="nv">$lexer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Lexer</span><span class="p">(</span><span class="nv">$twig</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;tag_comment&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{*&#39;</span><span class="p">,</span> <span class="s1">&#39;*}&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_block&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;tag_variable&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;{$&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">),</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usando-propiedades-dinamicas-de-objetos">
+<h2>Usando propiedades dinámicas de objetos<a class="headerlink" href="#usando-propiedades-dinamicas-de-objetos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando <em>Twig</em> encuentra una variable como <tt class="docutils literal"><span class="pre">articulo.titulo</span></tt>, trata de encontrar una propiedad pública <tt class="docutils literal"><span class="pre">titulo</span></tt> en el objeto <tt class="docutils literal"><span class="pre">articulo</span></tt>.</p>
+<p>También funciona si la propiedad no existe, pero más bien está definida de forma dinámica gracias a la magia del método <tt class="docutils literal"><span class="pre">__get()</span></tt>; sólo tienes que implementar también el método mágico <tt class="docutils literal"><span class="pre">__isset()</span></tt>, como muestra el siguiente fragmento de código:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Article</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="s1">&#39;The title&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// lanza algún tipo de error</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__isset</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accediendo-al-contexto-del-padre-en-bucles-anidados">
+<h2>Accediendo al contexto del padre en bucles anidados<a class="headerlink" href="#accediendo-al-contexto-del-padre-en-bucles-anidados" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A veces, cuando utilizas bucles anidados, necesitas acceder al contexto del padre. El contexto del padre siempre es accesible a través de la variable <tt class="docutils literal"><span class="pre">loop.parent</span></tt>. Por ejemplo, si tienes los siguientes datos de plantilla:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$datos</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;temas&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;tema1&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Mensaje 1 del tema 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Mensaje 2 del tema 1&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;tema2&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Mensaje 1 del tema 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Mensaje 2 del tema 2&#39;</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Y la siguiente plantilla para mostrar todos los mensajes en todos los temas:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">topic</span><span class="o">,</span> <span class="nv">messages</span> <span class="k">in</span> <span class="nv">topics</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    * </span><span class="cp">{{</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span> <span class="nv">topic</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">message</span> <span class="k">in</span> <span class="nv">messages</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">      - </span><span class="cp">{{</span> <span class="nb">loop</span><span class="nv">.parent.loop.index</span> <span class="cp">}}</span><span class="x">.</span><span class="cp">{{</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span> <span class="nv">message</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Reproducirá algo similar a:</p>
+<div class="highlight-text"><div class="highlight"><pre>* 1: topic1
+  - 1.1: The message 1 of topic 1
+  - 1.2: The message 2 of topic 1
+* 2: topic2
+  - 2.1: The message 1 of topic 2
+  - 2.2: The message 2 of topic 2
+</pre></div>
+</div>
+<p>En el bucle interno, utilizamos la variable <tt class="docutils literal"><span class="pre">loop.parent</span></tt> para acceder al contexto externo. Así, el índice del <tt class="docutils literal"><span class="pre">tema</span></tt> actual definido en el exterior del bucle es accesible a través de la variable <tt class="docutils literal"><span class="pre">loop.parent.loop.index</span></tt>.</p>
+</div>
+<div class="section" id="definiendo-al-vuelo-funciones-indefinidas-y-filtros">
+<h2>Definiendo al vuelo funciones indefinidas y filtros<a class="headerlink" href="#definiendo-al-vuelo-funciones-indefinidas-y-filtros" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando una función (o un filtro) no está definido, de manera predeterminada <em>Twig</em> lanza una excepción <tt class="docutils literal"><span class="pre">Twig_Error_Syntax</span></tt>. Sin embargo, también puede invocar una <a class="reference external" href="http://www.php.net/manual/es/function.is-callable.php">retrollamada</a> (cualquier <em>PHP</em> válido que se pueda ejecutar) la cual debe devolver una función (o un filtro).</p>
+<p>Para filtros, registra las retrollamadas con <tt class="docutils literal"><span class="pre">registerUndefinedFilterCallback()</span></tt>.
+Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndefinedFunctionCallback()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// Autoregistra todas las funciones nativas de PHP como funciones Twig</span>
+<span class="c1">// no intentes esto en casa, ¡ya que no es seguro en absoluto!</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">registerUndefinedFunctionCallback</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">function_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Twig_Function_Function</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Si el ejecutable no es capaz de devolver una función válida (o filtro), deberá devolver <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<p>Si registras más de una retrollamada, <em>Twig</em> la llamará a su vez hasta que una no devuelva <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Debido a que la resolución de funciones y filtros se realiza durante la compilación, no hay ninguna sobrecarga cuando registras estas retrollamadas.</p>
+</div>
+</div>
+<div class="section" id="validando-la-sintaxis-de-la-plantilla">
+<h2>Validando la sintaxis de la plantilla<a class="headerlink" href="#validando-la-sintaxis-de-la-plantilla" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando el código de plantilla lo proporciona un tercero (a través de una interfaz web, por ejemplo), podría ser interesante validar la sintaxis de la plantilla antes de guardarla. Si el código de la plantilla se almacena en una variable <tt class="docutils literal"><span class="pre">$template</span></tt>, así es cómo lo puedes hacer:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">parse</span><span class="p">(</span><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">tokenize</span><span class="p">(</span><span class="nv">$template</span><span class="p">));</span>
+
+    <span class="c1">// $template  es válida</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Twig_Error_Syntax</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// $template contiene uno o más errores de sintaxis</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="actualizando-plantillas-modificadas-cuando-apc-esta-habilitado-y-apc-stat-0">
+<h2>Actualizando plantillas modificadas cuando <em>APC</em> está habilitado y <tt class="docutils literal"><span class="pre">apc.stat=0</span></tt><a class="headerlink" href="#actualizando-plantillas-modificadas-cuando-apc-esta-habilitado-y-apc-stat-0" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando utilizas <em>APC</em> con <tt class="docutils literal"><span class="pre">apc.stat</span></tt> establecido en <tt class="docutils literal"><span class="pre">0</span></tt> y está habilitada la memorización en caché de <em>Twig</em>, borra la caché de la plantilla que no va a actualizar la memoria caché <em>APC</em>. Para evitar esto, puedes extender <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt> y forzar la actualización de la caché <em>APC</em> cuando <em>Twig</em> reescriba la memoria caché:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Twig_Environment_APC</span> <span class="k">extends</span> <span class="nx">Twig_Environment</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">writeCacheFile</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nv">$content</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">writeCacheFile</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+
+        <span class="c1">// Archivo memorizado y compilado a bytecode</span>
+        <span class="nx">apc_compile_file</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reutilizando-el-estado-de-un-visitante-de-nodo">
+<h2>Reutilizando el estado de un visitante de nodo<a class="headerlink" href="#reutilizando-el-estado-de-un-visitante-de-nodo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Al asociar un visitante a una instancia de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>, <em>Twig</em> lo utilizará para visitar <em>todas</em> las plantillas que compile. Si necesitas mantener cierta información de estado, probablemente desees restablecerla cuando visites una nueva plantilla.</p>
+<p>Lo puedes lograr fácilmente con el siguiente código:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">protected</span> <span class="nv">$someTemplateState</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">enterNode</span><span class="p">(</span><span class="nx">Twig_NodeInterface</span> <span class="nv">$node</span><span class="p">,</span> <span class="nx">Twig_Environment</span> <span class="nv">$env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$node</span> <span class="nx">instanceof</span> <span class="nx">Twig_Node_Module</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Restablece</span> <span class="nx">el</span> <span class="nx">estado</span> <span class="nx">puesto</span> <span class="nx">que</span> <span class="nx">estamos</span> <span class="nx">entrando</span> <span class="nx">en</span> <span class="nx">una</span>
+        <span class="c1">// nueva plantilla</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">someTemplateState</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="k">return</span> <span class="nv">$node</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="coding_standards.html" title="Estándares de codificación"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="hacking.html" title="Mejorando Twig"
+             >anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

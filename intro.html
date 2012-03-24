@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introducción &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" />
+    <link rel="next" title="Twig para diseñadores de plantillas" href="templates.html" />
+    <link rel="prev" title="Twig" href="index.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="templates.html" title="Twig para diseñadores de plantillas"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Twig"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduccion">
+<h1>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Esta es la documentación de <em>Twig</em>, el flexible, rápido y seguro motor de plantillas para <em>PHP</em>.</p>
+<p>Si has estado expuesto a otros lenguajes de plantilla basados en texto, tal como <em>Smarty, Django</em> o <em>Jinja</em>, debes sentirte como en casa con <em>Twig</em>. Es a la vez, un amigable ambiente para el diseñador y desarrollador apegado a los principios de <em>PHP</em>, añadiendo útil funcionalidad a los entornos de plantillas.</p>
+<p>Las características clave son...</p>
+<ul class="simple">
+<li><em>Rápido</em>: <em>Twig</em> compila las plantillas hasta código <em>PHP</em> regular optimizado. El costo general en comparación con código <em>PHP</em> regular se ha reducido al mínimo.</li>
+<li><em>Seguro</em>: <em>Twig</em> tiene un modo de recinto de seguridad para evaluar el código de plantilla que no es confiable. Esto te permite utilizar <em>Twig</em> como un lenguaje de plantillas para aplicaciones donde los usuarios pueden modificar el diseño de la plantilla.</li>
+<li><em>Flexible</em>: <em>Twig</em> es alimentado por flexibles analizadores léxico y sintáctico. Esto permite al desarrollador definir sus propias etiquetas y filtros personalizados, y crear su propio <em>DSL</em>.</li>
+</ul>
+<div class="section" id="requisitos-previos">
+<h2>Requisitos previos<a class="headerlink" href="#requisitos-previos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Twig</em> necesita por lo menos <strong>PHP 5.2.4</strong> para funcionar.</p>
+</div>
+<div class="section" id="instalando">
+<h2>Instalando<a class="headerlink" href="#instalando" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Tienes varias formas de instalar <em>Twig</em>. Si no estás seguro qué hacer, descarga el archivo comprimido (<tt class="docutils literal"><span class="pre">tarball</span></tt>).</p>
+<div class="section" id="instalando-la-version-comprimida">
+<h3>Instalando la versión comprimida<a class="headerlink" href="#instalando-la-version-comprimida" title="Enlazar permanentemente con este título">¶</a></h3>
+<ol class="arabic simple">
+<li>Descarga el archivo comprimido más reciente desde la <a class="reference external" href="https://github.com/fabpot/Twig/tags">página de descarga</a></li>
+<li>Descomprime el archivo</li>
+<li>Mueve los archivos a algún lugar en tu proyecto</li>
+</ol>
+</div>
+<div class="section" id="instalando-la-version-de-desarrollo">
+<h3>Instalando la versión de desarrollo<a class="headerlink" href="#instalando-la-version-de-desarrollo" title="Enlazar permanentemente con este título">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Instala desde <em>Subversión</em> o <em>Git</em></p>
+</li>
+<li><p class="first">Para <em>Git</em>:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>git clone git://github.com/fabpot/Twig.git
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Para <em>Subversión</em>:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>svn co http://svn.twig-project.org/trunk/ twig
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="instalando-el-paquete-pear">
+<h3>Instalando el paquete <em>PEAR</em><a class="headerlink" href="#instalando-el-paquete-pear" title="Enlazar permanentemente con este título">¶</a></h3>
+<ol class="arabic simple">
+<li>Instala <em>PEAR</em></li>
+<li><tt class="docutils literal"><span class="pre">pear</span> <span class="pre">channel-discover</span> <span class="pre">pear.twig-project.org</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">pear</span> <span class="pre">install</span> <span class="pre">twig/Twig</span></tt> (o <tt class="docutils literal"><span class="pre">pear</span> <span class="pre">install</span> <span class="pre">twig/Twig-beta</span></tt>)</li>
+</ol>
+</div>
+<div class="section" id="instalando-via-composer">
+<h3>Instalando vía <tt class="docutils literal"><span class="pre">Composer</span></tt><a class="headerlink" href="#instalando-via-composer" title="Enlazar permanentemente con este título">¶</a></h3>
+<ol class="arabic simple">
+<li>Instala <tt class="docutils literal"><span class="pre">composer</span></tt> en tu proyecto:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>curl -s http://getcomposer.org/installer | php
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Crea un archivo <tt class="file docutils literal"><span class="pre">composer.json</span></tt> en el directorio raíz de tu proyecto:</li>
+</ol>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;require&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;twig/twig&quot;</span><span class="o">:</span> <span class="s2">&quot;1.6.0&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Instala vía <tt class="docutils literal"><span class="pre">composer</span></tt></li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>php composer.phar install
+</pre></div>
+</div>
+</div>
+<div class="section" id="instalando-la-extension-c">
+<h3>Instalando la extensión <em>C</em><a class="headerlink" href="#instalando-la-extension-c" title="Enlazar permanentemente con este título">¶</a></h3>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.4: </span>La extensión <em>C</em> se añadió en Twig 1.4.</p>
+<p><em>Twig</em> viene con una extensión <em>C</em> que mejora el rendimiento del motor <em>Twig</em> en tiempo de ejecución. La puedes instalar como cualquier otra extensión de <em>PHP</em>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>ext/twig
+<span class="nv">$ </span>phpize
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make
+<span class="nv">$ </span>make install
+</pre></div>
+</div>
+<p>Por último, activa la extensión en tu archivo de configuración <tt class="file docutils literal"><span class="pre">php.ini</span></tt>:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">extension</span><span class="o">=</span><span class="s">twig.so</span>
+</pre></div>
+</div>
+<p>Y a partir de ahora, <em>Twig</em> compilará automáticamente tus plantillas para tomar ventaja de la extensión <em>C</em>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">En <em>Windows</em> también, puedes simplemente descargar e instalar una extensión <a class="reference external" href="https://github.com/stealth35/stealth35.github.com/downloads">DLL preconstruida</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="uso-basico-de-la-api">
+<h2>Uso básico de la <em>API</em><a class="headerlink" href="#uso-basico-de-la-api" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Esta sección te ofrece una breve introducción a la <em>API PHP</em> de <em>Twig</em>.</p>
+<p>El primer paso para utilizar <em>Twig</em> es registrar su cargador automático:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">require_once</span> <span class="s1">&#39;/ruta/a/lib/Twig/Autoloader.php&#39;</span><span class="p">;</span>
+<span class="nx">Twig_Autoloader</span><span class="o">::</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Sustituye <tt class="docutils literal"><span class="pre">/ruta/a/lib/</span></tt> con la ruta que utilizaste en la instalación de <em>Twig</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><em>Twig</em> sigue la convención de nombres de <em>PEAR</em> para sus clases, lo cual significa que puedes integrar fácilmente las clases de <em>Twig</em> cargándolo en tu propio cargador automático.</p>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_String</span><span class="p">();</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;Hello {{ name }}!&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p><em>Twig</em> utiliza un cargador (<tt class="docutils literal"><span class="pre">Twig_Loader_String</span></tt>) para buscar las plantillas, y un entorno (<tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>) para almacenar la configuración.</p>
+<p>El método <tt class="docutils literal"><span class="pre">render()</span></tt> carga la plantilla pasada como primer argumento y la reproduce con las variables pasadas como segundo argumento.</p>
+<p>Debido a que las plantillas generalmente se guardan en el sistema de archivos, <em>Twig</em> también viene con un cargador del sistema de archivos:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Filesystem</span><span class="p">(</span><span class="s1">&#39;/ruta/a/templates&#39;</span><span class="p">);</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;cache&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/ruta/a/compilation_cache&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="k">echo</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="templates.html" title="Twig para diseñadores de plantillas"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Twig"
+             >anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

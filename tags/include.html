@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>include &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="import" href="import.html" />
+    <link rel="prev" title="block" href="block.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="import.html" title="import"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="block.html" title="block"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="include">
+<h1><tt class="docutils literal"><span class="pre">include</span></tt><a class="headerlink" href="#include" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La declaración <tt class="docutils literal"><span class="pre">include</span></tt> inserta una plantilla y devuelve el contenido presentado por ese archivo en el espacio de nombres actual:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;header.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Body</span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;footer.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Las plantillas incluidas tienen acceso a las variables del contexto activo.</p>
+<p>Si estás utilizando el cargador del sistema de archivos, las plantillas se buscan en la ruta definida por este.</p>
+<p>Puedes añadir variables adicionales pasándolas después de la palabra clave <tt class="docutils literal"><span class="pre">with</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# la plantilla foo tendrá acceso a las variables del contexto</span>
+<span class="c">   actual y al de foo #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;foo&#39;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">vars</span> <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;foo&#39;</span> <span class="k">with</span> <span class="nv">vars</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Puedes desactivar el acceso al contexto añadiendo la palabra clave <tt class="docutils literal"><span class="pre">only</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# únicamente la variable foo será accesible #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;foo&#39;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# ninguna variable será accesible #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;foo&#39;</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Cuando incluyes una plantilla creada por un usuario final, debes considerar supervisarla. Más información en el capítulo <a class="reference internal" href="../api.html"><em>Twig para Desarrolladores</em></a>.</p>
+</div>
+<p>El nombre de la plantilla puede ser cualquier expresión <em>Twig</em> válida:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="nv">some_var</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="nv">ajax</span> <span class="p">?</span> <span class="s1">&#39;ajax.html&#39;</span> <span class="o">:</span> <span class="s1">&#39;not_ajax.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Y si la expresión evalúa como un objeto <tt class="docutils literal"><span class="pre">Twig_Template</span></tt>, <em>Twig</em> la usará directamente:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// {% include template %}</span>
+
+<span class="nv">$template</span> <span class="o">=</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">loadTemplate</span><span class="p">(</span><span class="s1">&#39;some_template.twig&#39;</span><span class="p">);</span>
+
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">loadTemplate</span><span class="p">(</span><span class="s1">&#39;template.twig&#39;</span><span class="p">)</span>
+     <span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="nv">$template</span><span class="p">));</span>
+</pre></div>
+</div>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.2: </span>La característica <tt class="docutils literal"><span class="pre">ignore</span> <span class="pre">missing</span></tt> se añadió en <em>Twig</em> 1.2.</p>
+<p>Puedes marcar un <tt class="docutils literal"><span class="pre">include</span></tt> con <tt class="docutils literal"><span class="pre">ignore</span> <span class="pre">missing</span></tt> en cuyo caso <em>Twig</em> omitirá la declaración si la plantilla a ignorar no existe. Se tiene que colocar justo después del nombre de la plantilla. He aquí algunos ejemplos válidos:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;sidebar.html&quot;</span> <span class="k">ignore missing</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;sidebar.html&quot;</span> <span class="k">ignore missing</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="p">&#39;</span><span class="nv">bar</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">include</span> <span class="s2">&quot;sidebar.html&quot;</span> <span class="k">ignore missing</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.2: </span>La posibilidad de pasar un arreglo de plantillas se añadió en <em>Twig</em> 1.2.</p>
+<p>También puedes proporcionar una lista de plantillas para comprobar su existencia antes de la inclusión. La primer plantilla existente será incluida:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="o">[</span><span class="s1">&#39;page_detailed.html&#39;</span><span class="o">,</span> <span class="s1">&#39;page.html&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Si se le da <tt class="docutils literal"><span class="pre">ignore</span> <span class="pre">missing</span></tt>, caerá de nuevo en reproducir nada si ninguna de las plantillas existe, de lo contrario se producirá una excepción.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="import.html" title="import"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="block.html" title="block"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

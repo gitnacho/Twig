@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Extendiendo Twig &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" />
+    <link rel="next" title="Creando una extensión Twig" href="extensions.html" />
+    <link rel="prev" title="Twig para desarrolladores" href="api.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="extensions.html" title="Creando una extensión Twig"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Twig para desarrolladores"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="extendiendo-twig">
+<h1>Extendiendo <em>Twig</em><a class="headerlink" href="#extendiendo-twig" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><em>Twig</em> se puede extender en muchos aspectos; puedes añadir etiquetas adicionales, filtros, pruebas, operadores, variables globales y funciones. Incluso puedes extender el propio analizador con visitantes de nodo.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Este capítulo describe cómo extender <em>Twig</em> fácilmente. Si deseas reutilizar tus cambios en diferentes proyectos o si quieres compartirlos con los demás, entonces, debes crear una extensión tal como se describe en el siguiente capítulo.</p>
+</div>
+<p>Antes de extender <em>Twig</em>, debes entender las diferencias entre todos los diferentes puntos de extensión posibles y cuándo utilizarlos.</p>
+<p>En primer lugar, recuerda que el lenguaje de <em>Twig</em> tiene dos construcciones principales:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{{</span> <span class="pre">}}</span></tt>: Utilizada para imprimir el resultado de la evaluación de la expresión;</li>
+<li><tt class="docutils literal"><span class="pre">{%</span> <span class="pre">%}</span></tt>: Utilizada para ejecutar declaraciones.</li>
+</ul>
+<p>Para entender por qué <em>Twig</em> expone tantos puntos de extensión, vamos a ver cómo implementar un generador <em>Lorem ipsum</em> (este necesita saber el número de palabras a generar).</p>
+<p>Puedes utilizar una <em>etiqueta</em> <tt class="docutils literal"><span class="pre">Lipsum</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">lipsum</span> <span class="m">40</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Eso funciona, pero usar una etiqueta para <tt class="docutils literal"><span class="pre">lipsum</span></tt> no es una buena idea por al menos tres razones principales:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">lipsum</span></tt> no es una construcción del lenguaje;</p>
+</li>
+<li><p class="first">La etiqueta produce algo;</p>
+</li>
+<li><p class="first">La etiqueta no es flexible ya que no la puedes utilizar en una expresión:</p>
+<div class="highlight-jinja"><pre>{{ 'algún texto' ~ {% lipsum 40 %} ~ 'algo más de texto' }}</pre>
+</div>
+</li>
+</ul>
+<p>De hecho, rara vez es necesario crear etiquetas; y es una muy buena noticia porque las etiquetas son el punto de extensión más complejo de <em>Twig</em>.</p>
+<p>Ahora, vamos a utilizar un <em>filtro</em> <tt class="docutils literal"><span class="pre">lipsum</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="m">40</span><span class="o">|</span><span class="nf">lipsum</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Una vez más, funciona, pero se ve raro. Un filtro transforma el valor que se le pasa a alguna otra cosa, pero aquí utilizamos el valor para indicar el número de palabras a generar.</p>
+<p>En seguida, vamos a utilizar una <em>función</em> <tt class="docutils literal"><span class="pre">lipsum</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">lipsum</span><span class="o">(</span><span class="m">40</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Aquí vamos. Para este ejemplo concreto, la creación de una función es el punto de extensión a usar. Y la puedes usar en cualquier lugar en que se acepte una expresión:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s1">&#39;algún texto&#39;</span> <span class="o">~</span> <span class="nv">lipsum</span><span class="o">(</span><span class="m">40</span><span class="o">)</span> <span class="o">~</span> <span class="s1">&#39;algo más de texto&#39;</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">lipsum</span> <span class="o">=</span> <span class="nv">lipsum</span><span class="o">(</span><span class="m">40</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Por último pero no menos importante, también puedes utilizar un objeto <em>global</em> con un método capaz de generar texto <em>Lorem Ipsum</em>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">text.lipsum</span><span class="o">(</span><span class="m">40</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Como regla general, utiliza funciones para las características más utilizadas y objetos globales para todo lo demás.</p>
+<p>Ten en cuenta lo siguiente cuando desees extender <em>Twig</em>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="35%" />
+<col width="22%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">¿Qué?</th>
+<th class="head">¿dificultad para implementación?</th>
+<th class="head">¿Con qué frecuencia?</th>
+<th class="head">¿Cuándo?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><em>macro</em></td>
+<td>trivial</td>
+<td>frecuente</td>
+<td>Generación de contenido</td>
+</tr>
+<tr class="row-odd"><td><em>global</em></td>
+<td>trivial</td>
+<td>frecuente</td>
+<td>Objeto ayudante</td>
+</tr>
+<tr class="row-even"><td><em>function</em></td>
+<td>trivial</td>
+<td>frecuente</td>
+<td>Generación de contenido</td>
+</tr>
+<tr class="row-odd"><td><em>filter</em></td>
+<td>trivial</td>
+<td>frecuente</td>
+<td>Transformación de valor</td>
+</tr>
+<tr class="row-even"><td><em>tag</em></td>
+<td>complejo</td>
+<td>raro</td>
+<td>Constructor del lenguaje <em>DSL</em></td>
+</tr>
+<tr class="row-odd"><td><em>test</em></td>
+<td>trivial</td>
+<td>raro</td>
+<td>Decisión booleana</td>
+</tr>
+<tr class="row-even"><td><em>operator</em></td>
+<td>trivial</td>
+<td>raro</td>
+<td>Transformación de valores</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="globales">
+<h2>Globales<a class="headerlink" href="#globales" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una variable global es como cualquier otra variable de plantilla, excepto que está disponible en todas las plantillas y macros:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addGlobal</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Text</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Entonces puedes utilizar la variable <tt class="docutils literal"><span class="pre">text</span></tt> en cualquier parte de una plantilla:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">text.lipsum</span><span class="o">(</span><span class="m">40</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtros">
+<h2>Filtros<a class="headerlink" href="#filtros" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Un filtro es una función <em>PHP</em> regular o un método de objeto que toma el lado izquierdo del filtro (antes del tubo <tt class="docutils literal"><span class="pre">|</span></tt>) como primer argumento y los argumentos adicionales pasados ​​al filtro (entre paréntesis <tt class="docutils literal"><span class="pre">()</span></tt>) como argumentos adicionales.</p>
+<p>La definición de un filtro es tan fácil como asociar el nombre del filtro con un ejecutable de <em>PHP</em>. Por ejemplo, digamos que tienes el siguiente código en una plantilla:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s1">&#39;TWIG&#39;</span><span class="o">|</span><span class="nf">lower</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Al compilar esta plantilla para <em>PHP</em>, <em>Twig</em> busca el ejecutable <em>PHP</em> asociado con el filtro <tt class="docutils literal"><span class="pre">lower</span></tt>. El filtro <tt class="docutils literal"><span class="pre">lower</span></tt> es un filtro integrado en <em>Twig</em>, y simplemente se asigna a la función <em>PHP</em> <tt class="docutils literal"><span class="pre">strtolower()</span></tt>. Después de la compilación, el código generado por <em>PHP</em> es más o menos equivalente a:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">strtolower</span><span class="p">(</span><span class="s1">&#39;TWIG&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Como puedes ver, la cadena <tt class="docutils literal"><span class="pre">'TWIG'</span></tt> se pasa como primer argumento a la función de <em>PHP</em>.</p>
+<p>Un filtro también puede tomar argumentos adicionales como en el siguiente ejemplo:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">now</span><span class="o">|</span><span class="nf">date</span><span class="o">(</span><span class="s1">&#39;d/m/Y&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>En este caso, los argumentos adicionales son pasados​ a la función después del argumento principal, y el código compilado es equivalente a:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">twig_date_format_filter</span><span class="p">(</span><span class="nv">$now</span><span class="p">,</span> <span class="s1">&#39;d/m/Y&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Vamos a ver cómo crear un nuevo filtro.</p>
+<p>En esta sección, vamos a crear un filtro <tt class="docutils literal"><span class="pre">rot13</span></tt>, el cual debe devolver la transformación <a class="reference external" href="http://www.php.net/manual/en/function.str-rot13.php">rot13</a> de una cadena. Aquí está un ejemplo de su uso y los resultados esperados:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;Twig&quot;</span><span class="o">|</span><span class="nf">rot13</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# debería mostrar Gjvt #}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Agregar un filtro es tan sencillo como llamar al método <tt class="docutils literal"><span class="pre">addFilter()</span></tt> en la instancia de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="s1">&#39;rot13&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;str_rot13&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>El segundo argumento de <tt class="docutils literal"><span class="pre">addFilter()</span></tt> es una instancia de <tt class="docutils literal"><span class="pre">Twig_Filter</span></tt>.
+Aquí, utilizamos <tt class="docutils literal"><span class="pre">Twig_Filter_Function</span></tt> puesto que el filtro es una función <em>PHP</em>. El primer argumento pasado al constructor <tt class="docutils literal"><span class="pre">Twig_Filter_Function</span></tt> es el nombre de la función <em>PHP</em> a llamar, aquí <tt class="docutils literal"><span class="pre">str_rot13</span></tt>, una función nativa de <em>PHP</em>.</p>
+<p>Digamos que ahora deseas poder añadir un prefijo antes de la cadena convertida:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;Twig&quot;</span><span class="o">|</span><span class="nf">rot13</span><span class="o">(</span><span class="s1">&#39;prefijo_&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# debe mostrar prefijo_Gjvt #}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Como la función <tt class="docutils literal"><span class="pre">str_rot13()</span></tt> de <em>PHP</em> no es compatible con este requisito, vamos a crear una nueva función <em>PHP</em>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">function</span> <span class="nf">project_compute_rot13</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="nv">$prefix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$prefix</span><span class="o">.</span><span class="nb">str_rot13</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Como puedes ver, el argumento <tt class="docutils literal"><span class="pre">prefix</span></tt> del filtro se pasa como un argumento adicional a la función <tt class="docutils literal"><span class="pre">project_compute_rot13()</span></tt>.</p>
+<p>La adición de este filtro es tan fácil como antes:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span> <span class="s1">&#39;rot13&#39;</span><span class="p">,</span>
+                  <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;project_compute_rot13&#39;</span>
+                <span class="p">));</span>
+</pre></div>
+</div>
+<p>Para una mejor encapsulación, también puedes definir un filtro como un método estático de una clase. También puedes utilizar la clase <tt class="docutils literal"><span class="pre">Twig_Filter_Function</span></tt> para registrar métodos estáticos, tal como filtros:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span> <span class="s1">&#39;rot13&#39;</span><span class="p">,</span>
+                  <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;SomeClass::rot13Filter&#39;</span>
+                <span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">En una extensión, también puedes definir un filtro como un método estático de la clase extendida.</p>
+</div>
+<div class="section" id="entorno-consciente-de-filtros">
+<h3>Entorno consciente de filtros<a class="headerlink" href="#entorno-consciente-de-filtros" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La clase <tt class="docutils literal"><span class="pre">Twig_Filter</span></tt> toma opciones como su último argumento. Por ejemplo, si deseas acceder a la instancia del entorno actual en tu filtro, establece la opción <tt class="docutils literal"><span class="pre">needs_environment</span></tt> a <tt class="docutils literal"><span class="pre">true</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$filter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span>  <span class="s1">&#39;str_rot13&#39;</span><span class="p">,</span>
+                                     <span class="k">array</span><span class="p">(</span>  <span class="s1">&#39;needs_environment&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
+                                  <span class="p">));</span>
+</pre></div>
+</div>
+<p><em>Twig</em> entonces pasará el entorno actual como primer argumento al invocar el filtro:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">function</span> <span class="nf">twig_compute_rot13</span><span class="p">(</span><span class="nx">Twig_Environment</span> <span class="nv">$env</span><span class="p">,</span> <span class="nv">$string</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// obtiene el juego de caracteres actual, por ejemplo</span>
+    <span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$env</span><span class="o">-&gt;</span><span class="na">getCharset</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nb">str_rot13</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="escapando-automaticamente">
+<h3>Escapando automáticamente<a class="headerlink" href="#escapando-automaticamente" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si está habilitado el escape automático, puedes escapar la salida del filtro antes de imprimir. Si tu filtro actúa como un escapista (o explícitamente produce código <em>html</em> o <em>javascript</em>), desearás que se imprima la salida cruda. En tal caso, establece la opción <tt class="docutils literal"><span class="pre">is_safe</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$filter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span>  <span class="s1">&#39;nl2br&#39;</span><span class="p">,</span>
+                                     <span class="k">array</span><span class="p">(</span><span class="s1">&#39;is_safe&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">)</span>
+                                  <span class="p">));</span>
+</pre></div>
+</div>
+<p>Algunos filtros posiblemente tengan que trabajar en valores ya escapados o seguros. En tal caso, establece la opción <tt class="docutils literal"><span class="pre">pre_escape</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$filter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span>  <span class="s1">&#39;somefilter&#39;</span><span class="p">,</span>
+                                     <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;pre_escape&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;html&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;is_safe&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">)</span>
+                                  <span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtros-dinamicos">
+<h3>Filtros dinámicos<a class="headerlink" href="#filtros-dinamicos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.5: </span>El apoyo a los filtros dinámicos se añadió en <em>Twig</em> 1.5.</p>
+<p>Un nombre de filtro que contiene el carácter especial <tt class="docutils literal"><span class="pre">*</span></tt> es un filtro dinámico debido a que el <tt class="docutils literal"><span class="pre">*</span></tt> puede ser cualquier cadena:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="s1">&#39;*_path&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;twig_path&#39;</span><span class="p">));</span>
+
+<span class="k">function</span> <span class="nf">twig_path</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Los siguientes filtros deben corresponder con el filtro dinámico definido anteriormente:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">product_path</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">category_path</span></tt></li>
+</ul>
+<p>Un filtro dinámico puede definir más de una parte dinámica:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="s1">&#39;*_path_*&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;twig_path&#39;</span><span class="p">));</span>
+
+<span class="k">function</span> <span class="nf">twig_path</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$suffix</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>El filtro debe recibir todos los valores de las partes dinámicas antes de los argumentos normales de los filtros. Por ejemplo, una llamada a <tt class="docutils literal"><span class="pre">'foo'|a_path_b()</span></tt> resultará en la siguiente llamada <em>PHP</em>: <tt class="docutils literal"><span class="pre">twig_path('a',</span> <span class="pre">'b',</span> <span class="pre">'foo')</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una función es una función <em>PHP</em> regular o un método de objeto que puedes llamar desde las plantillas.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">constant</span><span class="o">(</span><span class="s2">&quot;DATE_W3C&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Al compilar esta plantilla para <em>PHP</em>, <em>Twig</em> busca el <em>PHP</em> ejecutable asociado con la función <tt class="docutils literal"><span class="pre">constant</span></tt>. La función <tt class="docutils literal"><span class="pre">constant</span></tt> está integrada en las funciones <em>Twig</em>, asignada simplemente a la función <tt class="docutils literal"><span class="pre">constant()</span></tt> de <em>PHP</em>. Después de la compilación, el código generado por <em>PHP</em> es más o menos equivalente a:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">constant</span><span class="p">(</span><span class="s1">&#39;DATE_W3C&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Agregar una función es similar a agregar un filtro. Esto se puede hacer llamando al método <tt class="docutils literal"><span class="pre">addFunction()</span></tt> en la instancia de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFunction</span><span class="p">(</span><span class="s1">&#39;functionName&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Function_Function</span><span class="p">(</span><span class="s1">&#39;someFunction&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>También puedes exponer los métodos de extensión como funciones en tus plantillas:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// $this es un objeto que implementa a Twig_ExtensionInterface.</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFunction</span><span class="p">(</span><span class="s1">&#39;otherFunction&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Function_Method</span><span class="p">(</span>  <span class="nv">$this</span><span class="p">,</span>
+                                                               <span class="s1">&#39;someMethod&#39;</span>
+                                                            <span class="p">));</span>
+</pre></div>
+</div>
+<p>Las funciones también son compatibles con los parámetros <tt class="docutils literal"><span class="pre">needs_environment</span></tt> e <tt class="docutils literal"><span class="pre">is_safe</span></tt>.</p>
+<div class="section" id="funciones-dinamicas">
+<h3>Funciones dinámicas<a class="headerlink" href="#funciones-dinamicas" title="Enlazar permanentemente con este título">¶</a></h3>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.5: </span>La compatibilidad con las funciones dinámicas se añadió en <em>Twig</em> 1.5.</p>
+<p>Un nombre de función que contiene el carácter especial <tt class="docutils literal"><span class="pre">*</span></tt> es una función dinámica debido a que el <tt class="docutils literal"><span class="pre">*</span></tt> puede ser cualquier cadena:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFunction</span><span class="p">(</span><span class="s1">&#39;*_path&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Function_Function</span><span class="p">(</span><span class="s1">&#39;twig_path&#39;</span><span class="p">));</span>
+
+<span class="k">function</span> <span class="nf">twig_path</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Las siguientes funciones deben corresponder con la función dinámica definida anteriormente:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">product_path</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">category_path</span></tt></li>
+</ul>
+<p>Una función dinámica puede definir más de una parte dinámica:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addFilter</span><span class="p">(</span><span class="s1">&#39;*_path_*&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Twig_Filter_Function</span><span class="p">(</span><span class="s1">&#39;twig_path&#39;</span><span class="p">));</span>
+
+<span class="k">function</span> <span class="nf">twig_path</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$suffix</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>La función debe recibir todos los valores de las partes dinámicas antes de los argumentos normales de las funciones. Por ejemplo, una llamada a <tt class="docutils literal"><span class="pre">a_path_b('foo')</span></tt> resultará en la siguiente llamada <em>PHP</em>: <tt class="docutils literal"><span class="pre">twig_path('a',</span> <span class="pre">'b',</span> <span class="pre">'foo')</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="etiquetas">
+<h2>Etiquetas<a class="headerlink" href="#etiquetas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una de las características más interesantes de un motor de plantillas como <em>Twig</em> es la posibilidad de definir nuevas construcciones del lenguaje. Esta también es la característica más compleja que necesitas comprender de cómo trabaja <em>Twig</em> internamente.</p>
+<p>Vamos a crear una simple etiqueta <tt class="docutils literal"><span class="pre">set</span></tt> que te permita definir variables simples dentro de una plantilla. Puedes utilizar la etiqueta de la siguiente manera:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">name</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# debe producir value #}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">La etiqueta <tt class="docutils literal"><span class="pre">set</span></tt> es parte de la extensión <tt class="docutils literal"><span class="pre">core</span></tt> y como tal siempre está disponible. La versión integrada es un poco más potente y de manera predeterminada es compatible con múltiples asignaciones (consulta el capítulo <a class="reference internal" href="templates.html"><em>Twig para diseñadores de plantillas</em></a> para más información).</p>
+</div>
+<p>para definir una nueva etiqueta son necesarios tres pasos:</p>
+<ul class="simple">
+<li>Definir una clase para analizar segmentos (responsable de analizar el código de la plantilla);</li>
+<li>Definir una clase Nodo (responsable de convertir el código analizado a <em>PHP</em>);</li>
+<li>Registrar la etiqueta.</li>
+</ul>
+<div class="section" id="registrando-una-nueva-etiqueta">
+<h3>Registrando una nueva etiqueta<a class="headerlink" href="#registrando-una-nueva-etiqueta" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Agregar una etiqueta es tan simple como una llamada al método <tt class="docutils literal"><span class="pre">addTokenParser</span></tt> en la instancia de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addTokenParser</span><span class="p">(</span><span class="k">new</span> <span class="nx">Project_Set_TokenParser</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="definiendo-un-analizador-de-fragmentos">
+<h3>Definiendo un analizador de fragmentos<a class="headerlink" href="#definiendo-un-analizador-de-fragmentos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ahora, vamos a ver el código real de esta clase:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Project_Set_TokenParser</span> <span class="k">extends</span> <span class="nx">Twig_TokenParser</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">parse</span><span class="p">(</span><span class="nx">Twig_Token</span> <span class="nv">$token</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$lineno</span> <span class="o">=</span> <span class="nv">$token</span><span class="o">-&gt;</span><span class="na">getLine</span><span class="p">();</span>
+        <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parser</span>
+                      <span class="o">-&gt;</span><span class="na">getStream</span><span class="p">()</span>
+                      <span class="o">-&gt;</span><span class="na">expect</span><span class="p">(</span><span class="nx">Twig_Token</span><span class="o">::</span><span class="na">NAME_TYPE</span><span class="p">)</span>
+                      <span class="o">-&gt;</span><span class="na">getValue</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parser</span><span class="o">-&gt;</span><span class="na">getExpressionParser</span><span class="p">()</span>
+                     <span class="o">-&gt;</span><span class="na">expect</span><span class="p">(</span><span class="nx">Twig_Token</span><span class="o">::</span><span class="na">OPERATOR_TYPE</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">);</span>
+        <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parser</span>
+                      <span class="o">-&gt;</span><span class="na">getExpressionParser</span><span class="p">()</span>
+                      <span class="o">-&gt;</span><span class="na">parseExpression</span><span class="p">();</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parser</span><span class="o">-&gt;</span><span class="na">getStream</span><span class="p">()</span>
+                     <span class="o">-&gt;</span><span class="na">expect</span><span class="p">(</span><span class="nx">Twig_Token</span><span class="o">::</span><span class="na">BLOCK_END_TYPE</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Project_Set_Node</span><span class="p">(</span>  <span class="nv">$name</span><span class="p">,</span>
+                                      <span class="nv">$value</span><span class="p">,</span>
+                                      <span class="nv">$lineno</span><span class="p">,</span>
+                                      <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTag</span><span class="p">()</span>
+                                   <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTag</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;set&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>El método <tt class="docutils literal"><span class="pre">getTag()</span></tt> debe devolver la etiqueta que queremos analizar, aquí <tt class="docutils literal"><span class="pre">set</span></tt>.</p>
+<p>El método <tt class="docutils literal"><span class="pre">parse()</span></tt> se invoca cada vez que el analizador encuentra una etiqueta <tt class="docutils literal"><span class="pre">set</span></tt>. Este debe devolver una instancia de <tt class="docutils literal"><span class="pre">Twig_Node</span></tt> que representa el nodo (la llamada para la creación del <tt class="docutils literal"><span class="pre">Project_Set_Node</span></tt> se explica en la siguiente sección).</p>
+<p>El proceso de análisis se simplifica gracias a un montón de métodos que se pueden llamar desde el fragmento del flujo (<tt class="docutils literal"><span class="pre">$this-&gt;parser-&gt;getStream()</span></tt>):</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">getCurrent()</span></tt>: Obtiene el segmento actual del flujo.</li>
+<li><tt class="docutils literal"><span class="pre">next()</span></tt>: Mueve al siguiente segmento en la secuencia, <em>pero devuelve el antiguo</em>.</li>
+<li><tt class="docutils literal"><span class="pre">test($type)</span></tt>, <tt class="docutils literal"><span class="pre">test($value)</span></tt> o <tt class="docutils literal"><span class="pre">test($type,</span> <span class="pre">$value)</span></tt>: Determina si el segmento actual es de un tipo o valor particular (o ambos). El valor puede ser una matriz de varios posibles valores.</li>
+<li><tt class="docutils literal"><span class="pre">expect($type[,</span> <span class="pre">$value[,</span> <span class="pre">$message]])</span></tt>: Si el segmento actual no es del tipo/valor dado lanza un error de sintaxis. De lo contrario, si el tipo y valor son correctos, devuelve el segmento y mueve el flujo al siguiente segmento.</li>
+<li><tt class="docutils literal"><span class="pre">look()</span></tt>: Busca el siguiente segmento sin consumirlo.</li>
+</ul>
+<p>Las expresiones de análisis se llevan a cabo llamando a <tt class="docutils literal"><span class="pre">parseExpression()</span></tt> como lo hicimos para la etiqueta <tt class="docutils literal"><span class="pre">set</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Leer las clases <tt class="docutils literal"><span class="pre">TokenParser</span></tt> existentes es la mejor manera de aprender todos los detalles esenciales del proceso de análisis.</p>
+</div>
+</div>
+<div class="section" id="definiendo-un-nodo">
+<h3>Definiendo un nodo<a class="headerlink" href="#definiendo-un-nodo" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La clase <tt class="docutils literal"><span class="pre">Project_Set_Node</span></tt> en sí misma es bastante simple:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Project_Set_Node</span> <span class="k">extends</span> <span class="nx">Twig_Node</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span>  <span class="nv">$name</span><span class="p">,</span>
+                                  <span class="nx">Twig_Node_Expression</span> <span class="nv">$value</span><span class="p">,</span>
+                                  <span class="nv">$lineno</span><span class="p">,</span>
+                                  <span class="nv">$tag</span> <span class="o">=</span> <span class="k">null</span>
+                               <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span>  <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nv">$value</span> <span class="p">),</span>
+                              <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$name</span>  <span class="p">),</span>
+                              <span class="nv">$lineno</span><span class="p">,</span>
+                              <span class="nv">$tag</span>
+                           <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">compile</span><span class="p">(</span><span class="nx">Twig_Compiler</span> <span class="nv">$compiler</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$compiler</span>
+            <span class="o">-&gt;</span><span class="na">addDebugInfo</span><span class="p">(</span><span class="nv">$this</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;$context[\&#39;&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;\&#39;] = &#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">subcompile</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getNode</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">))</span>
+            <span class="o">-&gt;</span><span class="na">raw</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>El compilador implementa una interfaz fluida y proporciona métodos que ayudan a los desarrolladores a generar código <em>PHP</em> hermoso y fácil de leer:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">subcompile()</span></tt>: Compila un nodo.</li>
+<li><tt class="docutils literal"><span class="pre">raw()</span></tt>: Escribe la cadena dada tal cual.</li>
+<li><tt class="docutils literal"><span class="pre">write()</span></tt>: Escribe la cadena dada añadiendo sangría al principio de cada línea.</li>
+<li><tt class="docutils literal"><span class="pre">string()</span></tt>: Escribe una cadena entre comillas.</li>
+<li><tt class="docutils literal"><span class="pre">repr()</span></tt>: Escribe una representación <em>PHP</em> de un valor dado (consulta <tt class="docutils literal"><span class="pre">Twig_Node_For</span></tt> para un ejemplo real).</li>
+<li><tt class="docutils literal"><span class="pre">addDebugInfo()</span></tt>: Agrega como comentario la línea del archivo de plantilla original relacionado con el nodo actual.</li>
+<li><tt class="docutils literal"><span class="pre">indent()</span></tt>: Aplica sangrías el código generado (consulta <tt class="docutils literal"><span class="pre">Twig_Node_Block</span></tt> para un ejemplo real).</li>
+<li><tt class="docutils literal"><span class="pre">outdent()</span></tt>: Quita la sangría el código generado (consulta <tt class="docutils literal"><span class="pre">Twig_Node_Block</span></tt> para un ejemplo real).</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="extensions.html" title="Creando una extensión Twig"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Twig para desarrolladores"
+             >anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

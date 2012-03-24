@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>use &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.7.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="spaceless" href="spaceless.html" />
+    <link rel="prev" title="from" href="from.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="spaceless.html" title="spaceless"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="from.html" title="from"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="use">
+<h1><tt class="docutils literal"><span class="pre">use</span></tt><a class="headerlink" href="#use" title="Enlazar permanentemente con este título">¶</a></h1>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.1: </span>La reutilización horizontal se añadió en <em>Twig</em> 1.1.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">La reutilización horizontal es una característica avanzada de <em>Twig</em> que casi nunca es necesaria en plantillas regulares. La utilizan principalmente proyectos que tienen que reutilizar bloques de plantilla sin utilizar herencia.</p>
+</div>
+<p>La herencia de plantillas es una de las más poderosas características de <em>Twig</em>, pero está limitada a herencia simple; una plantilla sólo puede extender a una plantilla más.
+Esta limitación facilita el entendimiento y depuración de la herencia de plantillas:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La reutilización horizontal es una forma de conseguir el mismo objetivo que la herencia múltiple, pero sin la complejidad asociada:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">use</span> <span class="s2">&quot;bloques.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La declaración <tt class="docutils literal"><span class="pre">use</span></tt> dice a <em>Twig</em> que importe los bloques definidos en <tt class="file docutils literal"><span class="pre">bloques.html</span></tt> a la plantilla actual (es como las macros, pero para bloques):</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# bloques.html #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>En este ejemplo, la declaración <tt class="docutils literal"><span class="pre">use</span></tt> importa la declaración del bloque <tt class="docutils literal"><span class="pre">sidebar</span></tt> en la plantilla principal. El código &#8212;en su mayoría&#8212; es equivalente a lo siguiente (los bloques importados no se generan automáticamente):</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<blockquote>
+<div>La etiqueta <tt class="docutils literal"><span class="pre">use</span></tt> sólo importa una plantilla si esta:</div></blockquote>
+<ul class="last simple">
+<li>no extiende a otra plantilla</li>
+<li>no define macros, y</li>
+<li>si el cuerpo está vacío. Pero puedes <em>usar</em> otras plantillas.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Debido a que las declaraciones <tt class="docutils literal"><span class="pre">use</span></tt> se resuelven independientemente del contexto pasado a la plantilla, la referencia de la plantilla no puede ser una expresión.</p>
+</div>
+<p>La plantilla principal también puede sustituir cualquier bloque importado. Si la plantilla ya define el bloque <tt class="docutils literal"><span class="pre">sidebar</span></tt>, entonces, se ignora el definido en <tt class="file docutils literal"><span class="pre">bloques.html</span></tt>. Para evitar conflictos de nombre, puedes cambiar el nombre de los bloques importados:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">use</span> <span class="s2">&quot;bloques.html&quot;</span> <span class="k">with</span> <span class="nv">sidebar</span> <span class="k">as</span> <span class="nv">base_sidebar</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.3: </span>El apoyo a <tt class="docutils literal"><span class="pre">parent()</span></tt> se añadió en <em>Twig 1.3</em>.</p>
+<p>La función <tt class="docutils literal"><span class="pre">parent()</span></tt> determina automáticamente el árbol de herencia correcto, por lo tanto lo puedes utilizar cuando reemplaces un bloque definido en una plantilla importada:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">use</span> <span class="s2">&quot;bloques.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>En este ejemplo, el <tt class="docutils literal"><span class="pre">parent()</span></tt> correctamente llama al bloque <tt class="docutils literal"><span class="pre">sidebar</span></tt> de la plantilla <tt class="file docutils literal"><span class="pre">blocks.html</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p>En <em>Twig 1.2</em>, el cambio de nombre te permite simular la herencia llamando al bloque &#8220;padre&#8221;:</p>
+<div class="last highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">use</span> <span class="s2">&quot;bloques.html&quot;</span> <span class="k">with</span> <span class="nv">sidebar</span> <span class="k">as</span> <span class="nv">parent_sidebar</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">block</span><span class="o">(</span><span class="s1">&#39;parent_sidebar&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Puedes utilizar tantas instrucciones <tt class="docutils literal"><span class="pre">use</span></tt> como quieras en cualquier plantilla determinada.
+Si dos plantillas importadas definen el mismo bloque, la última gana.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="spaceless.html" title="spaceless"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="from.html" title="from"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     
+    <div class="footer">
+        &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Mar 24, 2012.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+     <div id="disqus_thread"></div>
+   </div>
+   <script type="text/javascript"> 
+    var disqus_shortname = 'documentos-mx';
+    
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script> 
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>
