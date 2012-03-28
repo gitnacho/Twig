@@ -1,7 +1,7 @@
 Mejorando *Twig*
 ================
 
-*Twig* es muy extensible y lo puedes mejorar fácilmente. Ten en cuenta que probablemente deberías tratar de crear una extensión antes de sumergirte en el núcleo, puesto que la mayoría de las características y mejoras se pueden hacer con extensiones. Este capítulo también es útil para personas que quieren entender cómo funciona *Twig* debajo del capó.
+*Twig* es muy extensible y lo puedes mejorar fácilmente. Ten en cuenta que probablemente deberías tratar de crear una extensión antes de sumergirte en el núcleo, puesto que la mayoría de las características y mejoras se pueden hacer con extensiones. Este capítulo también es útil para personas que quieren entender cómo funciona *Twig* bajo el capó.
 
 ¿Cómo funciona *Twig*?
 ----------------------
