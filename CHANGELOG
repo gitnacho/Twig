@@ -1,172 +1,650 @@
 * 1.6.3 (2012-03-22)
 
- * fixed usage of Z_ADDREF_P for PHP 5.2 in the C extension
- * fixed compilation of numeric values used in templates when using a locale where the decimal separator is not a dot
- * made the strategy used to guess the real template file name and line number in exception messages much faster and more accurate
+ * Se corrigió el uso de "Z_ADDREF_P" para PHP 5.2 en la extensión "C"
+ * corregida la compilación de valores numéricos utilizados en las plantillas cuando se usa una región donde el separador decimal no es un punto
+ * se hizo la estrategia utilizada para adivinar el nombre del archivo de plantilla real y número de línea en los mensajes de excepción, ahora es mucho más rápida y precisa
 
 * 1.6.2 (2012-03-18)
 
- * fixed sandbox mode when used with inheritance
- * added preserveKeys support for the slice filter
- * fixed the date filter when a DateTime instance is passed with a specific timezone
- * added a trim filter
+ * se corrigió el modo de recinto de seguridad cuando se utiliza con herencia
+ * se añadió la compatibilidad con "preserveKeys" para el filtro "slice"
+ * Corregido el filtro "date" cuando se pasa una instancia de "DateTime" con una zona horaria específica
+ * Se añadió el filtro ``trim``
 
 * 1.6.1 (2012-02-29)
 
- * fixed Twig C extension
- * removed the creation of Twig_Markup instances when not needed
- * added a way to set the default global timezone for dates
- * fixed the slice filter on strings when the length is not specified
- * fixed the creation of the cache directory in case of a race condition
+ * corregida la extensión "C" de Twig eliminada la creación de instancias de ``Twig_Markup`` cuando no se necesitan
+ * se agregó una manera de establecer la zona horaria global para las fechas
+ * corregido el filtro "slice" en las cadenas cuando no se especifica la longitud
+ * corregida la creación del directorio de caché en el caso de una condición de carrera
 
 * 1.6.0 (2012-02-04)
 
- * fixed raw blocks when used with the whitespace trim option
- * made a speed optimization to macro calls when imported via the "from" tag
- * fixed globals, parsers, visitors, filters, tests, and functions management in Twig_Environment when a new one or new extension is added
- * fixed the attribute function when passing arguments
- * added slice notation support for the [] operator (syntactic sugar for the slice operator)
- * added a slice filter
- * added string support for the reverse filter
- * fixed the empty test and the length filter for Twig_Markup instances
- * added a date function to ease date comparison
- * fixed unary operators precedence
- * added recursive parsing support in the parser
- * added string and integer handling for the random function
+ * corregidos los bloques "raw" cuando se utilizan con la opción de recorte de espacios en blanco ("trim")
+ * se hizo una optimización de velocidad para las llamadas a macro cuando se importan a través de la etiqueta "from"
+ * corregidas las globales, analizadores, visitantes, filtros, pruebas y funciones de gestión en "Twig_Environment" cuando se añade un nuevo filtro o nueva extensión
+ * corregida la función "attribute" cuando se le pasan argumentos
+ * se añadió soporte para la notación "slice" para el operador [] (pura azúcar sintáctica para el operador "slice")
+ * se añadió un filtro "slice"
+ * se añadió soporte para el filtro de cadenas "reverse"
+ * corregida la prueba "empty" y el filtro "length" de las instancias de "Twig_Markup"
+ * añadida una función "date" para facilitar la comparación de fechas
+ * corregida la prioridad de los operadores unarios
+ * apoyo de análisis recursivo adicional en el analizador
+ * agregado el manejo de cadenas y números enteros para la función "random"
 
 * 1.5.1 (2012-01-05)
 
- * fixed a regression when parsing strings
+ * corregida una regresión al analizar cadenas
 
 * 1.5.0 (2012-01-04)
 
- * added Traversable objects support for the join filter
+ * Se añadió soporte para objetos "Traversable" del filtro "join"
 
 * 1.5.0-RC2 (2011-12-30)
 
- * added a way to set the default global date interval format
- * fixed the date filter for DateInterval instances (setTimezone() does not exist for them)
- * refactored Twig_Template::display() to ease its extension
- * added a number_format filter
+ * se agregó una manera de establecer el valor predeterminado global para el formato del intervalo de fecha
+ * corregido el filtro "date" para las instancias "DateInterval" ("setTimezone()" no existe para ellos)
+ * reconstruido "Twig_Template::display()" para facilitar su extensión
+ * se añadió el filtro "number_format"
 
 * 1.5.0-RC1 (2011-12-26)
 
- * removed the need to quote hash keys
- * allowed hash keys to be any expression
- * added a do tag
- * added a flush tag
- * added support for dynamically named filters and functions
- * added a dump function to help debugging templates
- * added a nl2br filter
- * added a random function
- * added a way to change the default format for the date filter
- * fixed the lexer when an operator ending with a letter ends a line
- * added string interpolation support
- * enhanced exceptions for unknown filters, functions, tests, and tags
+ * eliminada la necesidad de citar claves "hash"
+ * ahora se permite que las claves hash sean cualquier expresión
+ * añade una etiqueta "do"
+ * añade una etiqueta "flush"
+ * Añadido soporte para filtros y funciones nombrados dinámicamente
+ * se añadió una función de volcado para ayudar a la depuración de plantillas
+ * se añadió un filtro "nl2br"
+ * añadida la función "random"
+ * añadida la forma de cambiar el formato predefinido del filtro "date"
+ * corregido el analizador léxico cuando un operador que termina con una letra termina una línea
+ * se añadido soporte para la interpolación de cadenas
+ * excepciones mejoradas para filtros, funciones, pruebas, y etiquetas desconocidas
 
 * 1.4.0 (2011-12-07)
 
- * fixed lexer when using big numbers (> PHP_INT_MAX)
- * added missing preserveKeys argument to the reverse filter
- * fixed macros containing filter tag calls
+ * corregido el analizado cuando se usan números grandes (> PHP_INT_MAX)
+ * se añadieron argumento "preserveKeys" faltantes al filtro "reverse"
+ * corregidas las macros que contienen llamadas al filtro "tag"
 
 * 1.4.0-RC2 (2011-11-27)
 
- * removed usage of Reflection in Twig_Template::getAttribute()
- * added a C extension that can optionally replace Twig_Template::getAttribute()
- * added negative timestamp support to the date filter
+ * se quitó el uso de la reflexión en "Twig_Template::getAttribute()"
+ * añadida una extensión de C que opcionalmente puede reemplazar a "Twig_Template::getAttribute()"
+ * apoyo adicional a la marca de tiempo negativo del filtro "date"
 
 * 1.4.0-RC1 (2011-11-20)
 
- * optimized variable access when using PHP 5.4
- * changed the precedence of the .. operator to be more consistent with languages that implements such a feature like Ruby
- * added an Exception to Twig_Loader_Array::isFresh() method when the template does not exist to be consistent with other loaders
- * added Twig_Function_Node to allow more complex functions to have their own Node class
- * added Twig_Filter_Node to allow more complex filters to have their own Node class
- * added Twig_Test_Node to allow more complex tests to have their own Node class
- * added a better error message when a template is empty but contain a BOM
- * fixed "in" operator for empty strings
- * fixed the "defined" test and the "default" filter (now works with more than one call (foo.bar.foo) and for both values of the strict_variables option)
- * changed the way extensions are loaded (addFilter/addFunction/addGlobal/addTest/addNodeVisitor/addTokenParser/addExtension can now be called in any order)
- * added Twig_Environment::display()
- * made the escape filter smarter when the encoding is not supported by PHP
- * added a convert_encoding filter
- * moved all node manipulations outside the compile() Node method
- * made several speed optimizations
+ * acceso optimizado a variables al usar PHP 5.4 cambiar la prioridad del operador .. para ser más consistente con los idiomas que implementan esta característica como Ruby añade una excepción al método "Twig_Loader_Array::isFresh ()" cuando la plantilla no existe para ser compatible con otros cargadores
+ * se añadió "Twig_Function_Node" para permitir funciones más complejas que tienen su propia clase "Node"
+ * se añadió "Twig_Filter_Node" para permitir filtros más complejos que tienen su propia clase "Node"
+ * se añadido "Twig_Test_Node" para permitir pruebas más complejas para tener su propia clase "Node"
+ * se agregó un mejor mensaje de error cuando una plantilla está vacía, pero que contienen una lista de materiales ("BOM")
+ * corregido el operador "in" para cadenas vacías
+ * corregida la prueba "definida" y el filtro "default" (ahora trabaja con más de una llamada (foo.bar.foo) y por tanto ambos valores de la opción "strict_variables")
+ * cambiada la forma en que se cargan las extensiones (addFilter/addFunction/addGlobal/addTest/addNodeVisitor/addTokenParser/addExtension ahora se pueden llamar en cualquier orden)
+ * se añadió "Twig_Environment::display()"
+ * se hizo más inteligente el filtro "escape" cuando la codificación no es compatible con PHP
+ * se añadió el filtro "convert_encoding"
+ * se movieron todas las manipulaciones de nodos fuera del método "compile()" del Nodo
+ * se realizaron varias optimizaciones de velocidad
 
 * 1.3.0 (2011-10-08)
 
-no changes
+sin cambios
 
 * 1.3.0-RC1 (2011-10-04)
 
- * added an optimization for the parent() function
- * added cache reloading when auto_reload is true and an extension has been modified
- * added the possibility to force the escaping of a string already marked as safe (instance of Twig_Markup)
- * allowed empty templates to be used as traits
- * added traits support for the "parent" function
+ * se añadió una optimización para la función "parent()"
+ * se añadió recarga desde caché cuando "auto_reload" es "true" y se ha modificado una extensión
+ * se ha añadido la posibilidad de forzar el escape de una cadena que ya está marcada como segura (instancia de "Twig_Markup")
+ * ahora permite que las plantillas vacías sean utilizadas como características
+ * se añadió la compatibilidad de características a la función ``parent``
 
 * 1.2.0 (2011-09-13)
 
-no changes
+sin cambios
 
 * 1.2.0-RC1 (2011-09-10)
 
- * enhanced the exception when a tag remains unclosed
- * added support for empty Countable objects for the "empty" test
- * fixed algorithm that determines if a template using inheritance is valid (no output between block definitions)
- * added better support for encoding problems when escaping a string (available as of PHP 5.4)
- * added a way to ignore a missing template when using the "include" tag ({% include "foo" ignore missing %})
- * added support for an array of templates to the "include" and "extends" tags ({% include ['foo', 'bar'] %})
- * added support for bitwise operators in expressions
- * added the "attribute" function to allow getting dynamic attributes on variables
- * added Twig_Loader_Chain
- * added Twig_Loader_Array::setTemplate()
- * added an optimization for the set tag when used to capture a large chunk of static text
- * changed name regex to match PHP one "[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" (works for blocks, tags, functions, filters, and macros)
- * removed the possibility to use the "extends" tag from a block
- * added "if" modifier support to "for" loops
+ * Se mejoró la excepción para cuando no se cierra una etiqueta
+ * Se añadió el soporte para objetos contables vacíos en la prueba ``empty``
+ * Corregido el algoritmo que determina si una plantilla que utiliza la herencia es válida (sin salida entre los bloques de definición)
+ * Se añadió un mejor soporte para los problemas de codificación al escapar una cadena (disponible a partir de PHP 5.4)
+ * Se añadió una forma de ignorar una plantilla faltante cuando se utiliza la etiqueta ``include`` ({% include "foo" ignore missing %})
+ * Se añadió el soporte para una matriz de plantillas de etiquetas "include" y "extends" ({% include ['foo', 'bar'] }%)
+ * Se añadió el soporte para los operadores de bit a bit en expresiones
+ * Se agregó el "atributo" función que permite obtener los atributos dinámicos de las variables
+ * Se añadió ``Twig_Loader_Chain``
+ * Se añadió ``Twig_Loader_Array::setTemplate()``
+ * Se añadió una optimización para la etiqueta ``set`` cuando se utiliza para capturar una gran porción de texto estático
+ * Cambiaron de nombre las expresiones regulares para que "[a-zA-Z\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" coincida con *PHP* (funciona en bloques, etiquetas, funciones, filtros y macros)
+ * Elimina la posibilidad de utilizar la etiqueta "extends" desde un bloque
+ * Se agregó soporte para el modificador ``"if"`` en bucles ``"for"``
 
 * 1.1.2 (2011-07-30)
 
- * fixed json_encode filter on PHP 5.2
- * fixed regression introduced in 1.1.1 ({{ block(foo|lower) }})
- * fixed inheritance when using conditional parents
- * fixed compilation of templates when the body of a child template is not empty
- * fixed output when a macro throws an exception
- * fixed a parsing problem when a large chunk of text is enclosed in a comment tag
- * added PHPDoc for all Token parsers and Core extension functions
+ * Se corrigió el filtro ``json_encode`` en PHP 5.2
+ * Corregida la regresión introducida en 1.1.1 ({{ block(foo|lower) }})
+ * Corregida la herencia cuando se utilizan "parents" condicionales
+ * Corregida la compilación de plantillas cuando no está vacío el cuerpo de una plantilla descendiente
+ * Se corrigió la salida cuando una macro produce una excepción
+ * Se corrigió un problema de análisis, cuando un gran trozo de texto está encerrado en una etiqueta de comentario
+ * Se añadió PHPDoc para todos los analizadores de testigos y funciones de extensión del núcleo
 
 * 1.1.1 (2011-07-17)
 
- * added a performance optimization in the Optimizer (also helps to lower the number of nested level calls)
- * made some performance improvement for some edge cases
+ * Se añadió una optimización de rendimiento al ``Optimizer`` (también ayuda a reducir el número de llamadas anidadas)
+ * Se hicieron algunas mejoras de rendimiento para algunos casos extremos
 
 * 1.1.0 (2011-06-28)
 
- * fixed json_encode filter
+ * Se corrigió el filtro ``json_encode``
 
 * 1.1.0-RC3 (2011-06-24)
 
- * fixed method case-sensitivity when using the sandbox mode
- * added timezone support for the date filter
- * fixed possible security problems with NUL bytes
+ * Se corrigió el método de mayúsculas y minúsculas al utilizar el modo de recinto de seguridad
+ * Se añadió el soporte para la zona horaria en el filtro "date"
+ * Se corrigieron posibles problemas de seguridad con "bytes NUL"
 
 * 1.1.0-RC2 (2011-06-16)
 
- * added an exception when the template passed to "use" is not a string
- * made 'a.b is defined' not throw an exception if a is not defined (in strict mode)
- * added {% line \d+ %} directive
+ * Se añadió una excepción cuando la plantilla pasada a "use" no es una cadena
+ * hace que 'a.b is defined' no produzca una excepción si una no está definida (en modo estricto)
+ * Se añadió la directiva {% line \d+ %}
 
 * 1.1.0-RC1 (2011-05-28)
 
-Flush your cache after upgrading.
+Limpie tu caché después de actualizar.
 
- * fixed date filter when using a timestamp
- * fixed the defined test for some cases
- * fixed a parsing problem when a large chunk of text is enclosed in a raw tag
- * added support for horizontal reuse of template blocks (see docs for more information)
- * added whitespace control modifier to all tags (see docs for more information)
+ * Se corrigió el filtro "date" cuando utiliza una marca de tiempo
+ * Se corrigió la prueba definida para algunos casos
+ * Se corrigió un problema de análisis, cuando una gran porción de texto se incluye en una etiqueta "raw"
+ * Se añadió el soporte para la reutilización horizontal de bloques de plantilla (ve la documentación para más información)
+ *añade espacio en blanco modificador de control para todas las etiquetas (ver documentación para más información)
+nula añadido como un alias para nada (la prueba nula es también un alias para la prueba no ahora)
+hecho VERDADERO, FALSO, NINGUNO equivalentes a sus contrapartes en minúsculas
+envuelve todas las excepciones de compilación y tiempo de ejecución con Twig_Error_Runtime y agregó lógica para adivinar el nombre de la plantilla y la línea
+pantalla se movió () para Twig_Template (plantillas generadas ahora debe usar doDisplay () en su lugar)
+salida corregida cuando se utiliza mbstring
+corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
+hizo el juego de caracteres configurable para el filtro de escape
+cambiado la forma {%%} conjunto trabaja en la captura (el contenido ahora está marcado como seguro)
+Añadido soporte para nombre de la macro en la etiqueta endmacro
+que Twig_Error compatible con PHP 5.3.0>
+corregidado en un bucle infinito en algunas configuraciones de Windows
+corregida la "longitud" de filtro para los números
+fijo de plantilla :: getAttribute () como propiedades en PHP entre mayúsculas y minúsculas
+acoplamiento entre el retirado y Twig_Node Twig_Template
+fijó la regla de prioridad de los operadores ternarios
+la "elementos" del filtro, que ha quedado en desuso desde hace mucho tiempo, se ha eliminado
+el "rango" filtro se ha convertido en una función: 0 | Gama (10) -> Rango (0, 10)
+la "constante" filtro se ha convertido en una función: {{some_date | fecha ('DATE_W3C' | constante)}} -> {{some_date | fecha (constante ('DATE_W3C'))}}
+el "ciclo" del filtro se ha convertido en una función: {{['extraña', 'incluso'] | ciclo (i)}} -> {{ciclo (['extraña', 'incluso'], i)}}
+el "de" etiqueta no es compatible con "acompañado por" más
+el "Autoescape" el primer argumento es ahora "verdadero" / "falso" (en lugar de "en" / "off")
+el "padre" etiqueta ha sido sustituido por un "padre" de función ({{parent ()}} {% en lugar de los padres%})
+la "pantalla" etiqueta ha sido sustituido por un "bloque" de función ({{bloque ('titulo')}} {display en lugar de% title%})
+eliminó la gramática y el analizador sencilla razón (movido al repositorio de extensiones Twig)
+agregó: "needs_context" opción por los filtros y funciones (el contexto se pasa como primer argumento)
+soporte adicional variables globales
+hecho macros devolver su valor en lugar de eco directamente (correcciones de llamadas de una macro en el modo de recinto de seguridad)
+añadió el "de" etiqueta para importar macros como funciones
+Añadido soporte para las funciones (una función es simplemente una ayuda sintáctica para una getAttribute () de llamada)
+hecho que se puede llamar las macros cuando el modo de recinto de seguridad está activado
+añade una excepción cuando una macro utiliza un nombre reservado
+el "incumplimiento" de filtro ahora usa el "vacío" prueba en lugar de sólo la comprobación de null
+agregó el "vacío" de pruebas
+
+
+La extensión Escaper está activado por defecto, lo que significa que toda la muestra
+   Las variables son automáticamente escapó. Puede volver a la anterior
+   el comportamiento mediante la eliminación de la extensión a través de $ env-> removeExtension ('Escaper')
+   o simplemente poner la 'Autoescape' para 'false'.
+quitado el "sin bucle" atributo de la "para" tag (no se necesita más
+   como el Optimizador de cuidar de que para la mayoría de los casos)
+arrays y hashes tienen ahora una sintaxis diferente
+    matrices de mantener la misma sintaxis con corchetes: [1, 2]
+    hashes ahora utilizan llaves (["a": "B"] ahora se debe escribir como {"a": "b"})
+    el apoyo a "las matrices con las teclas" y "hash sin teclas" no es soportado ([1, "foo": "bar"] o {"foo": "bar", 1})
+la extensión de i18n es ahora parte del repositorio de extensiones de la Twig
+añadió el filtro de combinación
+eliminado "is_escaper" opción por los filtros (un remanente de la versión anterior) - debe utilizar 'is_safe' ahora, en lugar
+el uso de los operadores corregidos como los nombres de método (como es, en, y no)
+cambiado el orden de ejecución para los visitantes de nodo
+corregida por defecto () el comportamiento del filtro cuando se utiliza con strict_variables establecidos en el
+sistema de archivos corregida la compatibilidad con el gestor de archivos PHAR
+Mensajes de error mejorados cuando un elemento inesperado es analizada en una expresión
+Nombre de archivo fijo no se agregan a los mensajes de error de sintaxis
+añadido la opción Autoescape para activar / desactivar autoescaping
+eliminar el salto de línea después de un comentario (imita el comportamiento de PHP)
+añade una excepción de error de sintaxis cuando el bloque principal se utiliza en una plantilla que no se extiende otra
+hizo la extensión Escaper activado por defecto
+extensión de recinto de seguridad fijo cuando se utiliza con la producción de automóviles escapar
+Escaper corregida al envolver un Twig_Node_Print (la clase original debe ser preservado)
+añadido una extensión Optimizer (activado por defecto, optimiza "para" bucles y filtros "en bruto")
+añadió prioridad para los visitantes de nodo
+
+la variable especial self ha sido renombrado a _self
+los filtros de pares e impares son ahora las pruebas:
+     {{Foo | impar}} ahora se debe escribir {{foo es impar}}
+el "seguro" de filtro ha sido renombrado a "cruda"
+en las clases de nodos,
+        subnodos ahora accede a través de GetNode () (en lugar del acceso a la propiedad)
+        atributos a través de getAttribute () (en lugar de acceso a una matriz)
+el filtro de urlencode había sido renombrado a url_encode
+la etiqueta de inclusión ya la fusión de las variables que se pasan con el contexto actual de forma predeterminada
+   (El comportamiento anterior es posible mediante la adición de la "única" palabra clave)
+Las excepciones se trasladaron a Twig_Error_ * (Twig_SyntaxError / Twig_RuntimeError ahora Twig_Error_Syntax / Twig_Error_Runtime)
+apoyo eliminado {{1 <i <3}} (usar {{i> 1 y 3 i <}} en su lugar)
+el "en" filtro ha sido removido ({{a | en (b)}} ahora se debe escribir {{a en b}})
+
+Cambios:
+archivo agregado y la línea de las excepciones Twig_Error_Runtime lanzados desde Twig_Template
+etiqueta de trans cambiado a aceptar ninguna de las variables de la cuenta en plural
+corregida el modo de recinto de seguridad (__toString () método de control no ha sido aplicada si se llama de manera implícita de instrucciones complejas)
+agregó el ** (potencia) del operador
+cambiado el algoritmo utilizado para las expresiones de análisis
+añadido de la etiqueta sin espacio
+opción de retirar trim_blocks
+Añadido soporte para los métodos de es * () para los atributos (foo.bar ahora busca foo-> getBar () o foo-> isBar ())
+cambiado todas las excepciones para extender Twig_Error
+corregidos expresiones unarias ({{no (1 o 0)}})
+plantillas corregidas de niños (con una etiqueta de Extend) que utiliza uno o más importaciones
+Añadido soporte para {{1 no está en [2, 3]}} (más legible que la actual {{no (1 en [2, 3])}})
+escape ha sido reescrito
+la aplicación de la herencia de plantillas ha sido reescrito
+   (Bloques de ahora puede ser llamado de forma individual y siguen trabajando con la herencia)
+el manejo de errores corregida por si la etiqueta cuando un error de sintaxis dentro de un proceso subparse
+agregó una manera de implementar lógica personalizada para la resolución de los analizadores simbólicos dado un nombre de la etiqueta
+corregida Escaper js a ser más estrictos (en la actualidad utiliza un Escaper whilelist basado en js)
+añadido los siguientes: los contribuyentes "constante", "trans", "Reemplazar", "json_encode"
+agregó una "constante" de pruebas
+objetos corregidos con __ toString () que no se autoescaped
+expresiones corregidas subíndice cuando se llama a __ call () (métodos ya mantener el caso)
+agregó que "prueba" función (accesible a través del "es" el operador)
+eliminar la etiqueta de depuración (se debe hacer en una extensión)
+etiqueta corregida trans cuando no vars se utilizan en forma plural
+condición de carrera corregida la hora de escribir cache de las plantillas
+agregó la variable _charset especial para hacer referencia al juego de caracteres actual
+agregó la variable _context especial para hacer referencia al contexto actual
+auto renombrado a _self (para evitar conflictos)
+corregida Twig_Template :: getAttribute () para los bienes protegidos
+
+el número de etiqueta de plural trans es que ahora se atribuye a la etiqueta de plural:
+    edad: `{% count% trans} ... {%% plural} ... {%%}` endtrans
+    nueva: {`%% de trans ...} {PLURAL% count%} {...}%% endtrans`
+
+agregó una manera de traducir las cadenas procedentes de una variable ({var%% trans})
+etiqueta corregida trans cuando se utiliza con la extensión Escaper
+valor corregidado por defecto umask caché
+eliminar instancias Twig_Template de la salida de la etiqueta de depuración
+objetos corregidos con isset __ () definido
+corregida etiqueta de conjunto cuando se utiliza con una captura
+haciendo alusión a tipo fijo Twig_Environment :: addFilter () método
+cambiado 'como' a '=' para la etiqueta de conjunto ({title set% como "Título"}% ahora debe ser conjunto {title% = "Título"%})
+quitar el atributo de espacio aislado de la etiqueta include (utilizar la etiqueta de caja de arena nueva en su lugar)
+reprogramado para el nodo del sistema (si tiene nodos personalizados, tendrá que actualizar para usar la nueva API)
+auto añade como una variable especial que se refiere a la plantilla actual (útil para importar las macros de la plantilla actual)
+Añadido soporte Twig_Template ejemplo, para la etiqueta include
+Añadido soporte para la herencia dinámica y condicional ({% extends% una_variable} y {% extends independiente "mínimo": "la base"%})
+agregó una gramática sub-framework para facilitar la creación de etiquetas personalizadas
+corregida la etiqueta de grandes series de algunas variables de bucle (ahora sólo está disponible para las matrices y los objetos que implementan la interfaz contable)
+eliminado el Twig_Resource :: resolveMissingFilter () método
+corregida la etiqueta de filtro que no se aplica el filtrado de archivos incluidos
+añadido un montón de pruebas unitarias
+añadido un montón de phpdoc
+añade una etiqueta de caja de arena en la extensión del recinto de seguridad
+cambió la fecha de filtro para soportar cualquier formato de fecha con el apoyo de DateTime
+añade valor strict_variable se producirá una excepción cuando una variable no válido se utiliza en una plantilla (desactivado por defecto)
+agregó el léxico, el analizador y el compilador como argumentos al constructor Twig_Environment
+cambiado la opción de caché de sólo acepta una ruta explícita a un directorio de caché o falso
+añadido un modo de añadir analizadores simbólicos, filtros, y los visitantes sin necesidad de crear una extensión
+agregó tres interfaces: Twig_NodeInterface, Twig_TokenParserInterface y Twig_FilterInterface
+cambiado el código generado para que coincida con los nuevos estándares de codificación
+corregida el modo de recinto de seguridad (__toString () el método de verificación no se aplica si llama implícitamente a partir de una simple declaración como {{artículo}})
+añade una excepción cuando una plantilla niño tiene un cuerpo que no esté vacía (ya que siempre se omite en la representación)
+variables corregidas se define fuera de un bucle y para el cual los cambios de valor en un bucle for
+versiones corregidas el conjunto de pruebas para PHP 5.2 y anteriores de PHPUnit
+Añadido soporte para __ call () en la resolución de la expresión
+nodo fijo de visita para las macros (macros están ahora visitadas por el usuario como cualquier otro nodo)
+corregida las definiciones de bloque anidadas con una llamada de los padres (suele ser útil pero no obstante el apoyo hasta ahora)
+añadió el filtro ciclo
+corregida la Lexer cuando mbstring.func_overload se utiliza con un diferente mbstring.internal_encoding de ASCII
+añade una sintaxis de largo por la etiqueta de conjunto ({set% foo%} {...}%% endset)
+pruebas unitarias están ahora propulsadas por PHPUnit
+Añadido soporte para gettext a través de la extensión de `i18n`
+twig_capitalize_string_filter corregida () y twig_length_filter corregida () cuando se utiliza con UTF-8 valores
+añade una excepción más útil si uno si la etiqueta no está bien cerrada
+Añadido soporte para escapar de la estrategia en la etiqueta Autoescape
+lexer fijo cuando una plantilla tiene una gran parte del texto entre / en un bloque
+En cuanto a cualquier nuevo lanzamiento, no se olvide de quitar todas las plantillas almacenadas en caché después de la
+actualización.
+Si se han definido filtros personalizados, usted DEBE actualizar a esta versión. A
+actualización, reemplace "matriz" con "Twig_Filter_Function nuevo", y sustituir el
+ambiente constante por el "needs_environment" opción:
+  / / Antes de
+  / / Después de
+Si ha creado clases NodeTransformer, usted tendrá que actualizar a
+la nueva interfaz (por favor, tenga en cuenta que la interfaz aún no se considera
+estable).
+nodos corregidos de lista que no extienden la Twig_NodeListInterface
+agregó el "sin lazo" a la opción para la etiqueta (se desactiva la generación de la variable de bucle)
+transformadores refactorizado nodo a nodo de visitantes
+fijo automático-escapar de bloques
+añade una forma de especificar las variables a pasar a una plantilla que se incluye
+cambió las reglas automáticas que escapan a ser más sensible y más configurable para crear filtros personalizados (la documentación muestra todas las reglas)
+mejorado el sistema de filtro para permitir que los métodos de objeto para ser utilizado como filtros
+cambiado los cargadores de matrices y de cadenas para hacer realidad el uso del mecanismo de caché
+incluye las definiciones de función de filtrado predeterminadas en los archivos de extensión de la clase directamente (Core, Escaper)
+agregó el operador / / (como el suelo () de PHP)
+añadió la .. operador (como azúcar sintáctico para el filtro de rango cuando el paso es 1)
+agregó el operador in (como azúcar sintáctico para el en el filtro)
+añadido los siguientes filtros de la extensión: en Core, de rango
+Añadido soporte para matrices (mismo comportamiento que en PHP, una mezcla entre listas y diccionarios, arreglos y hashes)
+mejorado algunos mensajes de error para proporcionar una mejor respuesta en caso de errores de análisis
+Si tiene cargadores de encargo, usted DEBE actualizar a esta versión: El
+Twig_Loader clase base se ha eliminado, y el Twig_LoaderInterface también ha
+ha cambiado (ver el código fuente para obtener más información o la documentación).
+soporte adicional para las instancias de fecha y hora para el filtro de la fecha
+corregida loop.last cuando la matriz sólo tiene un elemento
+hizo posible para insertar saltos de línea en la etiqueta y los bloques de variables
+Arreglado un error cuando un literal '\ n' estuvieron presentes en un texto de la plantilla
+Corregido un error cuando el nombre de archivo de una plantilla contiene * /
+cargadores refactorizado
+Esta versión no es compatible con las versiones anteriores.
+  Los cargadores no tienen en la memoria caché y los argumentos autoreload más. En su lugar,
+  la clase Twig_Environment cuenta con dos nuevas opciones: la memoria caché y auto_reload.
+  Actualización del código significa que el cambio de este tipo de código:
+  a algo como esto:
+obsoleto el "elementos" del filtro, ya que no se necesita más
+hecho de caché y auto_reload opciones de Twig_Environment en lugar de argumentos de Twig_Loader
+plantilla optimizado la velocidad de carga
+eliminado de salida cuando se produce un error en una plantilla y render () se utiliza
+hechos importantes mejoras en la velocidad de los bucles (hasta un 300%, incluso en los más pequeños bucles)
+propiedades adicionales como parte del modo de recinto
+soporte añadido propiedades públicas (obj.item ahora puede ser la propiedad del elemento en el objeto obj)
+etiqueta de conjunto extendido para apoyar la expresión como valor ({% foo establece como 'foo'% ~ 'bar'})
+Corregido bug al \ se utiliza en HTML
+hecho algunas optimizaciones de velocidad
+cambiado la extensión de caché para php.
+añadió un JS escapar estrategia
+Añadido soporte para la etiqueta de bloque corto
+cambiado la etiqueta de filtro para permitir filtros encadenados
+lexer hecho más flexible ya que ahora puede cambiar los delimitadores por default
+conjunto se añade etiqueta
+cambios en los permisos por defecto del directorio cuando el directorio caché no existe (más seguro)
+macro añadido soporte
+filtros cambiados argumento opcional primero en ser una instancia Twig_Environment lugar de una instancia Twig_Template
+Twig_Autoloader hizo :: autoload () de un método estático
+evitar la escritura de archivo de plantilla, si se produce un error
+añade $ escapar cuando la salida cuerdas primas
+mejorado algunos mensajes de error para facilitar la depuración
+corregida los archivos de caché vacías cuando la plantilla contiene un error
+corregido un error en PHP 5.2.6
+números corregidos con un que un decimal
+Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}})mejorada la excepción cuando una etiqueta de permanecer sin cerrarse
+Añadido soporte para los objetos vacíos contables para el "vacío" de pruebas
+algoritmo fijo que determina si una plantilla utilizando la herencia es válido (sin salida entre las definiciones de bloque)
+añadido un mejor soporte para los problemas de codificación al escapar de una cadena (disponible a partir de PHP 5.4)
+añade una forma de ignorar una plantilla de falta cuando se utiliza la opción "Incluir" etiquetas ({% include "foo" ignorar% faltante})
+añadido soporte para una gran variedad de plantillas para el "incluir" y "se extiende" (etiquetas {% include ['foo', 'valor']}%)
+soporte añadido para los operadores bit a bit en las expresiones
+agregó el "atributo" función que permite obtener los atributos dinámicos de las variables
+añadido Twig_Loader_Chain
+añadido Twig_Loader_Array :: setTemplate ()
+añadido una optimización de la etiqueta de conjunto cuando se utiliza para capturar una gran porción de texto estático
+cambio de nombre de expresiones regulares para que coincida con PHP un "[a-zA-Z \ x7f-\ xff] [a-zA-Z0-9_ \ x7f-\ xff] *" (obras de los bloques, etiquetas, funciones, filtros y macros)
+elimina la posibilidad de utilizar el "extends" etiqueta de un bloque
+agregó que "si" modificador de apoyo a "los lazos"
+corregida json_encode filtro en PHP 5.2
+de regresión corregida introducida en el apartado 1.1.1 ({{bloque (foo | inferior)}})
+la herencia corregida cuando se utilizan los padres condicionales
+compilación fijo de plantillas cuando el cuerpo de un niño plantilla no está vacío
+salida corregida cuando una macro se produce una excepción
+corregidado un problema de análisis, cuando una gran parte del texto está encerrado en una etiqueta de comentario
+PHPDoc añadido para todos los analizadores de testigo y las funciones básicas de extensión
+añadido una optimización del rendimiento en el Optimizer (también ayuda a reducir el número de llamadas a nivel anidadas)
+hecho algunas mejoras de rendimiento para algunos casos extremos
+corregida json_encode filtro
+método fijo de mayúsculas y minúsculas cuando se utiliza el modo de recinto
+zona horaria añadido soporte para el filtro de la fecha
+corregidos posibles problemas de seguridad con bytes NUL
+
+
+añade una excepción cuando la plantilla pasó de "utilizar" no es una cadena
+hecho 'ab se define "no produce una excepción si una no está definido (en modo estricto)
+agregado {la línea% \% d +} Directiva
+Limpie su caché después de actualizar.
+fecha corregida filtrar cuando se utiliza una marca de tiempo
+corregida el ensayo definido por algunos casos
+corregidado un problema de análisis, cuando una gran parte del texto se incluye en una etiqueta en bruto
+Añadido soporte para la reutilización horizontal de los bloques de la plantilla (ver documentación para más información)
+añade espacio en blanco modificador de control para todas las etiquetas (ver documentación para más información)
+nula añadido como un alias para nada (la prueba nula es también un alias para la prueba no ahora)
+hecho VERDADERO, FALSO, NINGUNO equivalentes a sus contrapartes en minúsculas
+envuelve todas las excepciones de compilación y tiempo de ejecución con Twig_Error_Runtime y agregó lógica para adivinar el nombre de la plantilla y la línea
+pantalla se movió () para Twig_Template (plantillas generadas ahora debe usar doDisplay () en su lugar)
+salida corregida cuando se utiliza mbstring
+corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
+hizo el juego de caracteres configurable para el filtro de escape
+cambiado la forma {%%} conjunto trabaja en la captura (el contenido ahora está marcado como seguro)
+Añadido soporte para nombre de la macro en la etiqueta endmacro
+que Twig_Error compatible con PHP 5.3.0>
+corregidado en un bucle infinito en algunas configuraciones de Windows
+corregida la "longitud" de filtro para los números
+fijo de plantilla :: getAttribute () como propiedades en PHP entre mayúsculas y minúsculas
+acoplamiento entre el retirado y Twig_Node Twig_Template
+fijó la regla de prioridad de los operadores ternarios
+la "elementos" del filtro, que ha quedado en desuso desde hace mucho tiempo, se ha eliminado
+el "rango" filtro se ha convertido en una función: 0 | Gama (10) -> Rango (0, 10)
+la "constante" filtro se ha convertido en una función: {{some_date | fecha ('DATE_W3C' | constante)}} -> {{some_date | fecha (constante ('DATE_W3C'))}}
+el "ciclo" del filtro se ha convertido en una función: {{['extraña', 'incluso'] | ciclo (i)}} -> {{ciclo (['extraña', 'incluso'], i)}}
+el "de" etiqueta no es compatible con "acompañado por" más
+el "Autoescape" el primer argumento es ahora "verdadero" / "falso" (en lugar de "en" / "off")
+el "padre" etiqueta ha sido sustituido por un "padre" de función ({{parent ()}} {% en lugar de los padres%})
+la "pantalla" etiqueta ha sido sustituido por un "bloque" de función ({{bloque ('titulo')}} {display en lugar de% title%})
+eliminó la gramática y el analizador sencilla razón (movido al repositorio de extensiones Twig)
+agregó: "needs_context" opción por los filtros y funciones (el contexto se pasa como primer argumento)
+soporte adicional variables globales
+hecho macros devolver su valor en lugar de eco directamente (correcciones de llamadas de una macro en el modo de recinto de seguridad)
+añadió el "de" etiqueta para importar macros como funciones
+Añadido soporte para las funciones (una función es simplemente una ayuda sintáctica para una getAttribute () de llamada)
+hecho que se puede llamar las macros cuando el modo de recinto de seguridad está activado
+añade una excepción cuando una macro utiliza un nombre reservado
+el "incumplimiento" de filtro ahora usa el "vacío" prueba en lugar de sólo la comprobación de null
+agregó el "vacío" de pruebas
+
+
+La extensión Escaper está activado por defecto, lo que significa que toda la muestra
+   Las variables son automáticamente escapó. Puede volver a la anterior
+   el comportamiento mediante la eliminación de la extensión a través de $ env-> removeExtension ('Escaper')
+   o simplemente poner la 'Autoescape' para 'false'.
+quitado el "sin bucle" atributo de la "para" tag (no se necesita más
+   como el Optimizador de cuidar de que para la mayoría de los casos)
+arrays y hashes tienen ahora una sintaxis diferente
+    matrices de mantener la misma sintaxis con corchetes: [1, 2]
+    hashes ahora utilizan llaves (["a": "B"] ahora se debe escribir como {"a": "b"})
+    el apoyo a "las matrices con las teclas" y "hash sin teclas" no es soportado ([1, "foo": "bar"] o {"foo": "bar", 1})
+la extensión de i18n es ahora parte del repositorio de extensiones de la Twig
+añadió el filtro de combinación
+eliminado "is_escaper" opción por los filtros (un remanente de la versión anterior) - debe utilizar 'is_safe' ahora, en lugar
+el uso de los operadores corregidos como los nombres de método (como es, en, y no)
+cambiado el orden de ejecución para los visitantes de nodo
+corregida por defecto () el comportamiento del filtro cuando se utiliza con strict_variables establecidos en el
+sistema de archivos corregida la compatibilidad con el gestor de archivos PHAR
+Mensajes de error mejorados cuando un elemento inesperado es analizada en una expresión
+Nombre de archivo fijo no se agregan a los mensajes de error de sintaxis
+añadido la opción Autoescape para activar / desactivar autoescaping
+eliminar el salto de línea después de un comentario (imita el comportamiento de PHP)
+añade una excepción de error de sintaxis cuando el bloque principal se utiliza en una plantilla que no se extiende otra
+hizo la extensión Escaper activado por defecto
+extensión de recinto de seguridad fijo cuando se utiliza con la producción de automóviles escapar
+Escaper corregida al envolver un Twig_Node_Print (la clase original debe ser preservado)
+añadido una extensión Optimizer (activado por defecto, optimiza "para" bucles y filtros "en bruto")
+añadió prioridad para los visitantes de nodo
+
+la variable especial self ha sido renombrado a _self
+los filtros de pares e impares son ahora las pruebas:
+     {{Foo | impar}} ahora se debe escribir {{foo es impar}}
+el "seguro" de filtro ha sido renombrado a "cruda"
+en las clases de nodos,
+        subnodos ahora accede a través de GetNode () (en lugar del acceso a la propiedad)
+        atributos a través de getAttribute () (en lugar de acceso a una matriz)
+el filtro de urlencode había sido renombrado a url_encode
+la etiqueta de inclusión ya la fusión de las variables que se pasan con el contexto actual de forma predeterminada
+   (El comportamiento anterior es posible mediante la adición de la "única" palabra clave)
+Las excepciones se trasladaron a Twig_Error_ * (Twig_SyntaxError / Twig_RuntimeError ahora Twig_Error_Syntax / Twig_Error_Runtime)
+apoyo eliminado {{1 <i <3}} (usar {{i> 1 y 3 i <}} en su lugar)
+el "en" filtro ha sido removido ({{a | en (b)}} ahora se debe escribir {{a en b}})
+
+Cambios:
+archivo agregado y la línea de las excepciones Twig_Error_Runtime lanzados desde Twig_Template
+etiqueta de trans cambiado a aceptar ninguna de las variables de la cuenta en plural
+corregida el modo de recinto de seguridad (__toString () método de control no ha sido aplicada si se llama de manera implícita de instrucciones complejas)
+agregó el ** (potencia) del operador
+cambiado el algoritmo utilizado para las expresiones de análisis
+añadido de la etiqueta sin espacio
+opción de retirar trim_blocks
+Añadido soporte para los métodos de es * () para los atributos (foo.bar ahora busca foo-> getBar () o foo-> isBar ())
+cambiado todas las excepciones para extender Twig_Error
+corregidos expresiones unarias ({{no (1 o 0)}})
+plantillas corregidas de niños (con una etiqueta de Extend) que utiliza uno o más importaciones
+Añadido soporte para {{1 no está en [2, 3]}} (más legible que la actual {{no (1 en [2, 3])}})
+escape ha sido reescrito
+la aplicación de la herencia de plantillas ha sido reescrito
+   (Bloques de ahora puede ser llamado de forma individual y siguen trabajando con la herencia)
+el manejo de errores corregida por si la etiqueta cuando un error de sintaxis dentro de un proceso subparse
+agregó una manera de implementar lógica personalizada para la resolución de los analizadores simbólicos dado un nombre de la etiqueta
+corregida Escaper js a ser más estrictos (en la actualidad utiliza un Escaper whilelist basado en js)
+añadido los siguientes: los contribuyentes "constante", "trans", "Reemplazar", "json_encode"
+agregó una "constante" de pruebas
+objetos corregidos con __ toString () que no se autoescaped
+expresiones corregidas subíndice cuando se llama a __ call () (métodos ya mantener el caso)
+agregó que "prueba" función (accesible a través del "es" el operador)
+eliminar la etiqueta de depuración (se debe hacer en una extensión)
+etiqueta corregida trans cuando no vars se utilizan en forma plural
+condición de carrera corregida la hora de escribir cache de las plantillas
+agregó la variable _charset especial para hacer referencia al juego de caracteres actual
+agregó la variable _context especial para hacer referencia al contexto actual
+auto renombrado a _self (para evitar conflictos)
+corregida Twig_Template :: getAttribute () para los bienes protegidos
+
+el número de etiqueta de plural trans es que ahora se atribuye a la etiqueta de plural:
+    edad: `{% count% trans} ... {%% plural} ... {%%}` endtrans
+    nueva: {`%% de trans ...} {PLURAL% count%} {...}%% endtrans`
+
+agregó una manera de traducir las cadenas procedentes de una variable ({var%% trans})
+etiqueta corregida trans cuando se utiliza con la extensión Escaper
+valor corregidado por defecto umask caché
+eliminar instancias Twig_Template de la salida de la etiqueta de depuración
+objetos corregidos con isset __ () definido
+corregida etiqueta de conjunto cuando se utiliza con una captura
+haciendo alusión a tipo fijo Twig_Environment :: addFilter () método
+cambiado 'como' a '=' para la etiqueta de conjunto ({title set% como "Título"}% ahora debe ser conjunto {title% = "Título"%})
+quitar el atributo de espacio aislado de la etiqueta include (utilizar la etiqueta de caja de arena nueva en su lugar)
+reprogramado para el nodo del sistema (si tiene nodos personalizados, tendrá que actualizar para usar la nueva API)
+auto añade como una variable especial que se refiere a la plantilla actual (útil para importar las macros de la plantilla actual)
+Añadido soporte Twig_Template ejemplo, para la etiqueta include
+Añadido soporte para la herencia dinámica y condicional ({% extends% una_variable} y {% extends independiente "mínimo": "la base"%})
+agregó una gramática sub-framework para facilitar la creación de etiquetas personalizadas
+corregida la etiqueta de grandes series de algunas variables de bucle (ahora sólo está disponible para las matrices y los objetos que implementan la interfaz contable)
+eliminado el Twig_Resource :: resolveMissingFilter () método
+corregida la etiqueta de filtro que no se aplica el filtrado de archivos incluidos
+añadido un montón de pruebas unitarias
+añadido un montón de phpdoc
+añade una etiqueta de caja de arena en la extensión del recinto de seguridad
+cambió la fecha de filtro para soportar cualquier formato de fecha con el apoyo de DateTime
+añade valor strict_variable se producirá una excepción cuando una variable no válido se utiliza en una plantilla (desactivado por defecto)
+agregó el léxico, el analizador y el compilador como argumentos al constructor Twig_Environment
+cambiado la opción de caché de sólo acepta una ruta explícita a un directorio de caché o falso
+añadido un modo de añadir analizadores simbólicos, filtros, y los visitantes sin necesidad de crear una extensión
+agregó tres interfaces: Twig_NodeInterface, Twig_TokenParserInterface y Twig_FilterInterface
+cambiado el código generado para que coincida con los nuevos estándares de codificación
+corregida el modo de recinto de seguridad (__toString () el método de verificación no se aplica si llama implícitamente a partir de una simple declaración como {{artículo}})
+añade una excepción cuando una plantilla niño tiene un cuerpo que no esté vacía (ya que siempre se omite en la representación)
+variables corregidas se define fuera de un bucle y para el cual los cambios de valor en un bucle for
+versiones corregidas el conjunto de pruebas para PHP 5.2 y anteriores de PHPUnit
+Añadido soporte para __ call () en la resolución de la expresión
+nodo fijo de visita para las macros (macros están ahora visitadas por el usuario como cualquier otro nodo)
+corregida las definiciones de bloque anidadas con una llamada de los padres (suele ser útil pero no obstante el apoyo hasta ahora)
+añadió el filtro ciclo
+corregida la Lexer cuando mbstring.func_overload se utiliza con un diferente mbstring.internal_encoding de ASCII
+añade una sintaxis de largo por la etiqueta de conjunto ({set% foo%} {...}%% endset)
+pruebas unitarias están ahora propulsadas por PHPUnit
+Añadido soporte para gettext a través de la extensión de `i18n`
+twig_capitalize_string_filter corregida () y twig_length_filter corregida () cuando se utiliza con UTF-8 valores
+añade una excepción más útil si uno si la etiqueta no está bien cerrada
+Añadido soporte para escapar de la estrategia en la etiqueta Autoescape
+lexer fijo cuando una plantilla tiene una gran parte del texto entre / en un bloque
+En cuanto a cualquier nuevo lanzamiento, no se olvide de quitar todas las plantillas almacenadas en caché después de la
+actualización.
+Si se han definido filtros personalizados, usted DEBE actualizar a esta versión. A
+actualización, reemplace "matriz" con "Twig_Filter_Function nuevo", y sustituir el
+ambiente constante por el "needs_environment" opción:
+  / / Antes de
+  / / Después de
+Si ha creado clases NodeTransformer, usted tendrá que actualizar a
+la nueva interfaz (por favor, tenga en cuenta que la interfaz aún no se considera
+estable).
+nodos corregidos de lista que no extienden la Twig_NodeListInterface
+agregó el "sin lazo" a la opción para la etiqueta (se desactiva la generación de la variable de bucle)
+transformadores refactorizado nodo a nodo de visitantes
+fijo automático-escapar de bloques
+añade una forma de especificar las variables a pasar a una plantilla que se incluye
+cambió las reglas automáticas que escapan a ser más sensible y más configurable para crear filtros personalizados (la documentación muestra todas las reglas)
+mejorado el sistema de filtro para permitir que los métodos de objeto para ser utilizado como filtros
+cambiado los cargadores de matrices y de cadenas para hacer realidad el uso del mecanismo de caché
+incluye las definiciones de función de filtrado predeterminadas en los archivos de extensión de la clase directamente (Core, Escaper)
+agregó el operador / / (como el suelo () de PHP)
+añadió la .. operador (como azúcar sintáctico para el filtro de rango cuando el paso es 1)
+agregó el operador in (como azúcar sintáctico para el en el filtro)
+añadido los siguientes filtros de la extensión: en Core, de rango
+Añadido soporte para matrices (mismo comportamiento que en PHP, una mezcla entre listas y diccionarios, arreglos y hashes)
+mejorado algunos mensajes de error para proporcionar una mejor respuesta en caso de errores de análisis
+Si tiene cargadores de encargo, usted DEBE actualizar a esta versión: El
+Twig_Loader clase base se ha eliminado, y el Twig_LoaderInterface también ha
+ha cambiado (ver el código fuente para obtener más información o la documentación).
+soporte adicional para las instancias de fecha y hora para el filtro de la fecha
+corregida loop.last cuando la matriz sólo tiene un elemento
+hizo posible para insertar saltos de línea en la etiqueta y los bloques de variables
+Arreglado un error cuando un literal '\ n' estuvieron presentes en un texto de la plantilla
+Corregido un error cuando el nombre de archivo de una plantilla contiene * /
+cargadores refactorizado
+Esta versión no es compatible con las versiones anteriores.
+  Los cargadores no tienen en la memoria caché y los argumentos autoreload más. En su lugar,
+  la clase Twig_Environment cuenta con dos nuevas opciones: la memoria caché y auto_reload.
+  Actualización del código significa que el cambio de este tipo de código:
+  a algo como esto:
+obsoleto el "elementos" del filtro, ya que no se necesita más
+hecho de caché y auto_reload opciones de Twig_Environment en lugar de argumentos de Twig_Loader
+plantilla optimizado la velocidad de carga
+eliminado de salida cuando se produce un error en una plantilla y render () se utiliza
+hechos importantes mejoras en la velocidad de los bucles (hasta un 300%, incluso en los más pequeños bucles)
+propiedades adicionales como parte del modo de recinto
+soporte añadido propiedades públicas (obj.item ahora puede ser la propiedad del elemento en el objeto obj)
+etiqueta de conjunto extendido para apoyar la expresión como valor ({% foo establece como 'foo'% ~ 'bar'})
+Corregido bug al \ se utiliza en HTML
+hecho algunas optimizaciones de velocidad
+cambiado la extensión de caché para php.
+añadió un JS escapar estrategia
+Añadido soporte para la etiqueta de bloque corto
+cambiado la etiqueta de filtro para permitir filtros encadenados
+lexer hecho más flexible ya que ahora puede cambiar los delimitadores por default
+conjunto se añade etiqueta
+cambios en los permisos por defecto del directorio cuando el directorio caché no existe (más seguro)
+macro añadido soporte
+filtros cambiados argumento opcional primero en ser una instancia Twig_Environment lugar de una instancia Twig_Template
+Twig_Autoloader hizo :: autoload () de un método estático
+evitar la escritura de archivo de plantilla, si se produce un error
+añade $ escapar cuando la salida cuerdas primas
+mejorado algunos mensajes de error para facilitar la depuración
+corregida los archivos de caché vacías cuando la plantilla contiene un error
+corregido un error en PHP 5.2.6
+números corregidos con un que un decimal
+Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) added whitespace control modifier to all tags (see docs for more information)
  * added null as an alias for none (the null test is also an alias for the none test now)
  * made TRUE, FALSE, NONE equivalent to their lowercase counterparts
  * wrapped all compilation and runtime exceptions with Twig_Error_Runtime and added logic to guess the template name and line
@@ -191,7 +669,7 @@ Flush your cache after upgrading.
 
 * 1.0.0-RC1 (2011-01-09)
 
-Backward incompatibilities:
+Incompatibilidades hacia atrás:
 
  * the "items" filter, which has been deprecated for quite a long time now, has been removed
  * the "range" filter has been converted to a function: 0|range(10) -> range(0, 10)
@@ -203,7 +681,7 @@ Backward incompatibilities:
  * the "display" tag has been replaced by a "block" function ({{ block('title') }} instead of {% display title %})
  * removed the grammar and simple token parser (moved to the Twig Extensions repository)
 
-Changes:
+Cambios:
 
  * added "needs_context" option for filters and functions (the context is then passed as a first argument)
  * added global variables support
@@ -217,7 +695,7 @@ Changes:
 
 * 0.9.10 (2010-12-16)
 
-Backward incompatibilities:
+Incompatibilidades hacia atrás:
 
  * The Escaper extension is enabled by default, which means that all displayed
    variables are now automatically escaped. You can revert to the previous
@@ -231,7 +709,7 @@ Backward incompatibilities:
      * support for "arrays with keys" and "hashes without keys" is not supported anymore ([1, "foo": "bar"] or {"foo": "bar", 1})
  * the i18n extension is now part of the Twig Extensions repository
 
-Changes:
+Cambios:
 
  * added the merge filter
  * removed 'is_escaper' option for filters (a left over from the previous version) -- you must use 'is_safe' now instead
@@ -252,7 +730,7 @@ Changes:
 
 * 0.9.9 (2010-11-28)
 
-Backward incompatibilities:
+Incompatibilidades hacia atrás:
  * the self special variable has been renamed to _self
  * the odd and even filters are now tests:
      {{ foo|odd }} must now be written {{ foo is odd }}
@@ -267,7 +745,7 @@ Backward incompatibilities:
  * removed support for {{ 1 < i < 3 }} (use {{ i > 1 and i < 3 }} instead)
  * the "in" filter has been removed ({{ a|in(b) }} should now be written {{ a in b }})
 
-Changes:
+Cambios:
  * added file and line to Twig_Error_Runtime exceptions thrown from Twig_Template
  * changed trans tag to accept any variable for the plural count
  * fixed sandbox mode (__toString() method check was not enforced if called implicitly from complex statements)
@@ -301,7 +779,7 @@ Changes:
 
 * 0.9.8 (2010-06-28)
 
-Backward incompatibilities:
+Incompatibilidades hacia atrás:
  * the trans tag plural count is now attached to the plural tag:
     old: `{% trans count %}...{% plural %}...{% endtrans %}`
     new: `{% trans %}...{% plural count %}...{% endtrans %}`
@@ -316,7 +794,7 @@ Backward incompatibilities:
 
 * 0.9.7 (2010-06-12)
 
-Backward incompatibilities:
+Incompatibilidades hacia atrás:
  * changed 'as' to '=' for the set tag ({% set title as "Title" %} must now be {% set title = "Title" %})
  * removed the sandboxed attribute of the include tag (use the new sandbox tag instead)
  * refactored the Node system (if you have custom nodes, you will have to update them to use the new API)
@@ -460,9 +938,9 @@ This release is NOT backward compatible with the previous releases.
   * fixed a bug in PHP 5.2.6
   * fixed numbers with one than one decimal
   * added support for method calls with arguments ({{ foo.bar('a', 43) }})
-  * made small speed optimizations
-  * made minor tweaks to allow better extensibility and flexibility
+  * se hicieron pequeñas optimizaciones de velocidad
+  * ajustes menores para mejorar la extensibilidad y flexibilidad
 
 * 0.9.0 (2009-10-12)
 
- * Initial release
+ * Versión inicial
