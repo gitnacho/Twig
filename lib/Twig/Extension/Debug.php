@@ -1,17 +1,17 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2011 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 class Twig_Extension_Debug extends Twig_Extension
 {
     /**
-     * Returns a list of global functions to add to the existing list.
+     * Devuelve una lista de funciones globales para añadirla a la lista existente.
      *
      * @return array An array of global functions
      */
@@ -26,9 +26,9 @@ class Twig_Extension_Debug extends Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
+     * Devuelve el nombre de la extensión.
      *
-     * @return string The extension name
+     * @return string El nombre de la extensión
      */
     public function getName()
     {

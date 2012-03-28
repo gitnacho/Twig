@@ -1,19 +1,20 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 abstract class Twig_Extension implements Twig_ExtensionInterface
 {
     /**
-     * Initializes the runtime environment.
+     * Inicia el entorno en tiempo de ejecución.
      *
-     * This is where you can load some file that contains filter functions for instance.
+     * Aquí es donde puedes cargar algún archivo que contenga funciones
+         * de filtro, por ejemplo.
      *
      * @param Twig_Environment $environment The current Twig_Environment instance
      */
@@ -22,17 +23,20 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns the token parser instances to add to the existing list.
+     * Devuelve instancias del analizador de segmentos para añadirlos a
+     * la lista existente.
      *
-     * @return array An array of Twig_TokenParserInterface or Twig_TokenParserBrokerInterface instances
+     * @return array Una matriz de instancias de Twig_TokenParserInterface
+     *               o Twig_TokenParserBrokerInterface
      */
-    public function getTokenParsers()
+    public function getTokenParsers();
     {
         return array();
     }
 
     /**
-     * Returns the node visitor instances to add to the existing list.
+     * Devuelve instancias del visitante de nodos para añadirlas a la
+         * lista existente.
      *
      * @return array An array of Twig_NodeVisitorInterface instances
      */
@@ -42,9 +46,10 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns a list of filters to add to the existing list.
+     * Devuelve una lista de filtros para añadirla a la lista
+     * existente.
      *
-     * @return array An array of filters
+     * @return array Una matriz de filtros
      */
     public function getFilters()
     {
@@ -52,7 +57,8 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns a list of tests to add to the existing list.
+     * Devuelve una lista de pruebas para añadirla a la lista
+         *  existente.
      *
      * @return array An array of tests
      */
@@ -62,7 +68,8 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns a list of functions to add to the existing list.
+     * Devuelve una lista de funciones para añadirla a la lista
+         * existente.
      *
      * @return array An array of functions
      */
@@ -72,7 +79,8 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns a list of operators to add to the existing list.
+     * Devuelve una lista de operadores para añadirla a la lista
+         * existente.
      *
      * @return array An array of operators
      */
@@ -82,7 +90,8 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
     }
 
     /**
-     * Returns a list of global variables to add to the existing list.
+     * Devuelve una lista de variables globales para añadirla a la
+         * lista existente.
      *
      * @return array An array of global variables
      */

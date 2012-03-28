@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2011 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
  * Returns the value or the default value when it is undefined or empty.
  *
  * <pre>
- *  {{ var.foo|default('foo item on var is not defined') }}
+ *  {{ var.foo|default('el elemento foo en var no está definido') }}
  * </pre>
  *
  * @package twig

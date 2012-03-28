@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -18,7 +18,7 @@
 interface Twig_ParserInterface
 {
     /**
-     * Converts a token stream to a node tree.
+     * Convierte un flujo de segmentos en un árbol de nodos.
      *
      * @param  Twig_TokenStream $stream A token stream instance
      *

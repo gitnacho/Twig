@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  * (c) 2009 Armin Ronacher
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -43,15 +43,18 @@ class Twig_TokenParser_For extends Twig_TokenParser
             $ifexpr = $this->parser->getExpressionParser()->parseExpression();
         }
 
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse(array($this, 'decideForFork'));
         if ($this->parser->getStream()->next()->getValue() == 'else') {
-            $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+            $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
             $else = $this->parser->subparse(array($this, 'decideForEnd'), true);
         } else {
             $else = null;
         }
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
 
         if (count($targets) > 1) {
             $keyTarget = $targets->getNode(0);

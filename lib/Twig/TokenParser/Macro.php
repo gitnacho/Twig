@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -14,7 +14,10 @@
  *
  * <pre>
  * {% macro input(name, value, type, size) %}
- *    <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value|e }}" size="{{ size|default(20) }}" />
+ *    <input type="{{ type|default('text') }}"
+                 name="{{ name }}"
+                 value="{{ value|e }}"
+                 size="{{ size|default(20) }}" />
  * {% endmacro %}
  * </pre>
  */
@@ -30,11 +33,15 @@ class Twig_TokenParser_Macro extends Twig_TokenParser
     public function parse(Twig_Token $token)
     {
         $lineno = $token->getLine();
-        $name = $this->parser->getStream()->expect(Twig_Token::NAME_TYPE)->getValue();
+        $name = $this->parser
+                          ->getStream()
+                          ->expect(Twig_Token::NAME_TYPE)
+                          ->getValue();
 
         $arguments = $this->parser->getExpressionParser()->parseArguments();
 
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
         $this->parser->pushLocalScope();
         $body = $this->parser->subparse(array($this, 'decideBlockEnd'), true);
         if ($this->parser->getStream()->test(Twig_Token::NAME_TYPE)) {
@@ -45,7 +52,8 @@ class Twig_TokenParser_Macro extends Twig_TokenParser
             }
         }
         $this->parser->popLocalScope();
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
 
         $this->parser->setMacro($name, new Twig_Node_Macro($name, new Twig_Node_Body(array($body)), $arguments, $lineno, $this->getTag()));
 

@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
 {
@@ -148,7 +148,8 @@ class TestTokenParser extends Twig_TokenParser
             new Twig_Token(Twig_Token::EOF_TYPE, '', 0),
         )));
 
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
 
         return new Twig_Node(array());
     }

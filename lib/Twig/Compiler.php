@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  * (c) 2009 Armin Ronacher
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -46,7 +46,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Gets the current PHP code after compilation.
+     * Obtiene el código PHP actual después de la compilación.
      *
      * @return string The PHP code
      */
@@ -56,7 +56,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Compiles a node.
+     * Compila un nodo.
      *
      * @param Twig_NodeInterface $node        The node to compile
      * @param integer            $indentation The current indentation

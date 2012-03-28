@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 class Twig_Tests_Extension_SandboxTest extends PHPUnit_Framework_TestCase
@@ -168,7 +168,12 @@ EOF
     {
         $loader = new Twig_Loader_Array($templates);
         $twig = new Twig_Environment($loader, array_merge(array('debug' => true, 'cache' => false, 'autoescape' => false), $options));
-        $policy = new Twig_Sandbox_SecurityPolicy($tags, $filters, $methods, $properties, $functions);
+        $policy = new Twig_Sandbox_SecurityPolicy(  $tags,
+                                                $filters,
+                                                $methods,
+                                                $properties,
+                                                $functions
+                                              );
         $twig->addExtension(new Twig_Extension_Sandbox($policy, $sandboxed));
 
         return $twig;

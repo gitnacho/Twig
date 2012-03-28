@@ -28,7 +28,7 @@ Una extensión es una clase que implementa la siguiente interfaz::
 
         /**
          * Devuelve instancias del analizador de segmentos para añadirlos a
-         * la lista existente.
+     * la lista existente.
          *
          * @return array Un arreglo de instancias Twig_TokenParserInterface
          *               o Twig_TokenParserBrokerInterface
@@ -46,7 +46,7 @@ Una extensión es una clase que implementa la siguiente interfaz::
 
         /**
          * Devuelve una lista de filtros para añadirla a la lista
-         * existente.
+     * existente.
          *
          * @return array Un arreglo de filtros
          */

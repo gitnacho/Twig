@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  * (c) 2010 Arnaud Le Blanc
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -25,7 +25,7 @@ class Twig_Function_Method extends Twig_Function
         parent::__construct($options);
 
         $this->extension = $extension;
-        $this->method = $method;
+        $this->method = $metodo;
     }
 
     public function compile()

@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 class Twig_Extension_Sandbox extends Twig_Extension
 {
@@ -21,17 +21,20 @@ class Twig_Extension_Sandbox extends Twig_Extension
     }
 
     /**
-     * Returns the token parser instances to add to the existing list.
+     * Devuelve instancias del analizador de segmentos para añadirlos a
+     * la lista existente.
      *
-     * @return array An array of Twig_TokenParserInterface or Twig_TokenParserBrokerInterface instances
+     * @return array Una matriz de instancias de Twig_TokenParserInterface
+     *               o Twig_TokenParserBrokerInterface
      */
-    public function getTokenParsers()
+    public function getTokenParsers();
     {
         return array(new Twig_TokenParser_Sandbox());
     }
 
     /**
-     * Returns the node visitor instances to add to the existing list.
+     * Devuelve instancias del visitante de nodos para añadirlas a la
+         * lista existente.
      *
      * @return array An array of Twig_NodeVisitorInterface instances
      */
@@ -101,9 +104,9 @@ class Twig_Extension_Sandbox extends Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
+     * Devuelve el nombre de la extensión.
      *
-     * @return string The extension name
+     * @return string El nombre de la extensión
      */
     public function getName()
     {

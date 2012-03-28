@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -51,7 +51,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Gets the source code of a template, given its name.
+     * Obtiene el código fuente de una plantilla, del nombre dado.
      *
      * @param  string $name The name of the template to load
      *
@@ -68,7 +68,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Gets the cache key to use for the cache for a given template name.
+     * Obtiene la clave de la caché para usarla en un nombre de plantilla dado.
      *
      * @param  string $name The name of the template to load
      *
@@ -85,7 +85,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Returns true if the template is still fresh.
+     * Devuelve true si la plantilla aún está fresca.
      *
      * @param string    $name The template name
      * @param timestamp $time The last modification time of the cached template

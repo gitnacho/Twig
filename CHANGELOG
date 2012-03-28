@@ -163,10 +163,10 @@ Limpie tu caché después de actualizar.
  * Se corrigió la prueba definida para algunos casos
  * Se corrigió un problema de análisis, cuando una gran porción de texto se incluye en una etiqueta "raw"
  * Se añadió el soporte para la reutilización horizontal de bloques de plantilla (ve la documentación para más información)
- *añade espacio en blanco modificador de control para todas las etiquetas (ver documentación para más información)
-nula añadido como un alias para nada (la prueba nula es también un alias para la prueba no ahora)
-hecho VERDADERO, FALSO, NINGUNO equivalentes a sus contrapartes en minúsculas
-envuelve todas las excepciones de compilación y tiempo de ejecución con Twig_Error_Runtime y agregó lógica para adivinar el nombre de la plantilla y la línea
+ * añade el modificador para controlar el espacio en blanco para todas las etiquetas (ve la documentación para más información)
+ * Añadió el "null" como un alias para "none" (ahora la prueba "null" también es un alias para la prueba "none")
+ * TRUE, FALSE, NONE se hicieron equivalentes a sus contrapartes en minúsculas
+ *envuelve todas las excepciones de compilación y tiempo de ejecución con Twig_Error_Runtime y agregó lógica para adivinar el nombre de la plantilla y la línea
 pantalla se movió () para Twig_Template (plantillas generadas ahora debe usar doDisplay () en su lugar)
 salida corregida cuando se utiliza mbstring
 corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
@@ -644,10 +644,7 @@ mejorado algunos mensajes de error para facilitar la depuración
 corregida los archivos de caché vacías cuando la plantilla contiene un error
 corregido un error en PHP 5.2.6
 números corregidos con un que un decimal
-Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) added whitespace control modifier to all tags (see docs for more information)
- * added null as an alias for none (the null test is also an alias for the none test now)
- * made TRUE, FALSE, NONE equivalent to their lowercase counterparts
- * wrapped all compilation and runtime exceptions with Twig_Error_Runtime and added logic to guess the template name and line
+Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) wrapped all compilation and runtime exceptions with Twig_Error_Runtime and added logic to guess the template name and line
  * moved display() method to Twig_Template (generated templates should now use doDisplay() instead)
 
 * 1.0.0 (2011-03-27)

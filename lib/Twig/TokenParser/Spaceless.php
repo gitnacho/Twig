@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2010 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -19,7 +19,7 @@
  *      </div>
  * {% endspaceless %}
  *
- * {# output will be <div><strong>foo</strong></div> #}
+ * {# Producirá <div><strong>foo</strong></div> #}
  * </pre>
  */
 class Twig_TokenParser_Spaceless extends Twig_TokenParser
@@ -35,9 +35,11 @@ class Twig_TokenParser_Spaceless extends Twig_TokenParser
     {
         $lineno = $token->getLine();
 
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse(array($this, 'decideSpacelessEnd'), true);
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()
+                         ->expect(Twig_Token::BLOCK_END_TYPE);
 
         return new Twig_Node_Spaceless($body, $lineno, $this->getTag());
     }

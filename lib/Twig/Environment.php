@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -59,7 +59,7 @@ class Twig_Environment
      *  * base_template_class: The base template class to use for generated
      *                         templates (default to Twig_Template).
      *
-     *  * cache: An absolute path where to store the compiled templates, or
+     *  * caché: An absolute path where to store the compiled templates, or
      *           false to disable compilation cache (default)
      *
      *  * auto_reload: Whether to reload the template is the original source changed.
@@ -329,7 +329,7 @@ class Twig_Environment
     }
 
     /**
-     * Returns true if the template is still fresh.
+     * Devuelve true si la plantilla aún está fresca.
      *
      * Besides checking the loader for freshness information,
      * this method also checks if the enabled extensions have
@@ -425,7 +425,7 @@ class Twig_Environment
     }
 
     /**
-     * Tokenizes a source code.
+     * Segmenta el código fuente.
      *
      * @param string $source The template source code
      * @param string $name   The template name
@@ -570,7 +570,7 @@ class Twig_Environment
     }
 
     /**
-     * Initializes the runtime environment.
+     * Inicia el entorno en tiempo de ejecución.
      */
     public function initRuntime()
     {

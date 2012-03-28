@@ -1,12 +1,12 @@
 <?php
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 
 /**
@@ -27,11 +27,11 @@ class Twig_Autoloader
     }
 
     /**
-     * Handles autoloading of classes.
+     * Maneja la carga automática de clases.
      *
-     * @param  string  $class  A class name.
+     * @param  string  $class  Un nombre de clase.
      *
-     * @return boolean Returns true if the class has been loaded
+     * @return boolean Devuelve "true" si se ha cargado la clase
      */
     static public function autoload($class)
     {

@@ -5,12 +5,12 @@ if (!defined('ENT_SUBSTITUTE')) {
 }
 
 /*
- * This file is part of Twig.
+ * Este es parte de Twig.
  *
  * (c) 2009 Fabien Potencier
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Para información completa sobre los derechos de autor y licencia, por
+ * favor, ve el archivo LICENSE adjunto a este código fuente.
  */
 class Twig_Extension_Core extends Twig_Extension
 {
@@ -88,9 +88,10 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns the token parser instance to add to the existing list.
+     * Devuelve la instancia del analizador de segmentos para agregarla
+     * a la lista existente.
      *
-     * @return array An array of Twig_TokenParser instances
+     * @return array Una matriz de instancias de Twig_TokenParser
      */
     public function getTokenParsers()
     {
@@ -113,9 +114,10 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns a list of filters to add to the existing list.
+     * Devuelve una lista de filtros para añadirla a la lista
+     * existente.
      *
-     * @return array An array of filters
+     * @return array Una matriz de filtros
      */
     public function getFilters()
     {
@@ -170,7 +172,7 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns a list of global functions to add to the existing list.
+     * Devuelve una lista de funciones globales para añadirla a la lista existente.
      *
      * @return array An array of global functions
      */
@@ -186,7 +188,8 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns a list of tests to add to the existing list.
+     * Devuelve una lista de pruebas para añadirla a la lista
+         *  existente.
      *
      * @return array An array of tests
      */
@@ -206,7 +209,8 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns a list of operators to add to the existing list.
+     * Devuelve una lista de operadores para añadirla a la lista
+         * existente.
      *
      * @return array An array of operators
      */
@@ -277,9 +281,9 @@ class Twig_Extension_Core extends Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
+     * Devuelve el nombre de la extensión.
      *
-     * @return string The extension name
+     * @return string El nombre de la extensión
      */
     public function getName()
     {
@@ -395,7 +399,7 @@ function twig_date_format_filter(Twig_Environment $env, $date, $format = null, $
  *
  * <pre>
  *    {% if date(user.created_at) < date('+2days') %}
- *      {# do something #}
+ *      {# hace algo interesante #}
  *    {% endif %}
  * </pre>
  *
@@ -535,11 +539,14 @@ function _twig_markup2string(&$value)
  * Merges an array with another one.
  *
  * <pre>
- *  {% set items = { 'apple': 'fruit', 'orange': 'fruit' } %}
+ *  {% set items = { 'apple': 'fruit',
+                         'orange': 'fruit' } %}
  *
  *  {% set items = items|merge({ 'peugeot': 'car' }) %}
  *
- *  {# items now contains { 'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car' } #}
+ *  {# items ahora contiene { 'apple': 'fruit',
+                         'orange': 'fruit',
+                     'peugeot': 'car' } #}
  * </pre>
  *
  * @param array $arr1 An array
@@ -593,10 +600,10 @@ function twig_slice(Twig_Environment $env, $item, $start, $length = null, $prese
  *
  * <pre>
  *  {{ [1, 2, 3]|join('|') }}
- *  {# returns 1|2|3 #}
+ *  {# devuelve 1|2|3 #}
  *
  *  {{ [1, 2, 3]|join }}
- *  {# returns 123 #}
+ *  {# devuelve 123 #}
  * </pre>
  *
  * @param array  $value An array
@@ -990,7 +997,8 @@ function twig_ensure_traversable($seq)
  * Checks if a variable is empty.
  *
  * <pre>
- * {# evaluates to true if the foo variable is null, false, or the empty string #}
+ * {# evalúa a true si la variable foo es null, false o la
+       cadena vacía #}
  * {% if foo is empty %}
  *     {# ... #}
  * {% endif %}
