@@ -1,3 +1,34 @@
+* 1.8.0 (2012-XX-XX)
+
+ * se simplificó el uso de la etiqueta autoescape; el único argumento (opcional) ahora es la estrategia de escape o false (con una capa BC)
+ * se añadió una forma para cambiar dinámicamente la estrategia de autoescape de acuerdo al "nombre de archivo" de la plantilla
+ * changed the autoescape option to also accept a supported escaping strategy (for BC, true is equivalent to html)
+ * added an embed tag
+
+* 1.7.0 (2012-04-24)
+
+ * fixed a PHP warning when using CIFS
+ * fixed template line number in some exceptions
+ * added an iterable test
+ * se añadió un error cuando en la misma plantilla estás definiendo dos bloques con el mismo nombre
+ * added the preserves_safety option for filters
+ * se corrigió un aviso PHP cuando intentas acceder una clave en una variable que no es objeto/arreglo
+ * se mejoró el informe de error cuando el archivo de la plantilla es una instancia de SplFileInfo
+ * se añadió Twig_Environment::mergeGlobals()
+ * se agregaron comprobaciones de compilación para evitar el uso incorrecto de la etiqueta ``sandbox``
+ * fixed filesystem loader freshness logic for high traffic websites
+ * fixed random function when charset is null
+
+* 1.6.5 (2012-04-11)
+
+ * fixed a regression when a template only extends another one without defining any blocks
+
+* 1.6.4 (2012-04-02)
+
+ * fixed PHP notice in Twig_Error::guessTemplateLine() introduced in 1.6.3
+ * fixed performance when compiling large files
+ * optimized parent template creation when the template does not use dynamic inheritance
+
 * 1.6.3 (2012-03-22)
 
  * Se corrigió el uso de "Z_ADDREF_P" para PHP 5.2 en la extensión "C"
@@ -166,10 +197,13 @@ Limpie tu caché después de actualizar.
  * añade el modificador para controlar el espacio en blanco para todas las etiquetas (ve la documentación para más información)
  * Añadió el "null" como un alias para "none" (ahora la prueba "null" también es un alias para la prueba "none")
  * TRUE, FALSE, NONE se hicieron equivalentes a sus contrapartes en minúsculas
- *envuelve todas las excepciones de compilación y tiempo de ejecución con Twig_Error_Runtime y agregó lógica para adivinar el nombre de la plantilla y la línea
-pantalla se movió () para Twig_Template (plantillas generadas ahora debe usar doDisplay () en su lugar)
-salida corregida cuando se utiliza mbstring
-corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
+ * Envuelve todas las excepciones del tiempo de compilación con "Twig_Error_Runtime" y se agregó la lógica para adivinar el nombre y la línea de la plantilla
+ * Se movió 'display()' a Twig_Template (ahora las plantillas generadas deben usar doDisplay() en su lugar)
+
+* 1.0.0 (2011-03-27)
+
+ * se corrigió la salida cuando se usa mbstring
+ *corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
 hizo el juego de caracteres configurable para el filtro de escape
 cambiado la forma {%%} conjunto trabaja en la captura (el contenido ahora está marcado como seguro)
 Añadido soporte para nombre de la macro en la etiqueta endmacro
@@ -644,13 +678,7 @@ mejorado algunos mensajes de error para facilitar la depuración
 corregida los archivos de caché vacías cuando la plantilla contiene un error
 corregido un error en PHP 5.2.6
 números corregidos con un que un decimal
-Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) wrapped all compilation and runtime exceptions with Twig_Error_Runtime and added logic to guess the template name and line
- * moved display() method to Twig_Template (generated templates should now use doDisplay() instead)
-
-* 1.0.0 (2011-03-27)
-
- * fixed output when using mbstring
- * fixed duplicate call of methods when using the sandbox
+Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) fixed duplicate call of methods when using the sandbox
  * made the charset configurable for the escape filter
 
 * 1.0.0-RC2 (2011-02-21)
@@ -898,7 +926,7 @@ This release is NOT backward compatible with the previous releases.
 
       $loader = new Twig_Loader_Filesystem('/ruta/a/templates');
       $twig = new Twig_Environment($loader, array(
-        'cache' => '/path/to/compilation_cache',
+        'cache' => '/ruta/a/compilación_de_caché',
         'auto_reload' => true,
       ));
 
@@ -932,9 +960,9 @@ This release is NOT backward compatible with the previous releases.
 
 * 0.9.1 (2009-10-14)
 
-  * fixed a bug in PHP 5.2.6
+  * se corrigió un fallo en PHP 5.2.6
   * fixed numbers with one than one decimal
-  * added support for method calls with arguments ({{ foo.bar('a', 43) }})
+  * Se añadió la compatibilidad par llamadas a método con argumentos ({{ foo.bar('a', 43) }})
   * se hicieron pequeñas optimizaciones de velocidad
   * ajustes menores para mejorar la extensibilidad y flexibilidad
 

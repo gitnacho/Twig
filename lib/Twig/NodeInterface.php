@@ -18,7 +18,7 @@
 interface Twig_NodeInterface extends Countable, IteratorAggregate
 {
     /**
-     * Compiles the node to PHP.
+     * Compila el nodo a PHP.
      *
      * @param Twig_Compiler A Twig_Compiler instance
      */

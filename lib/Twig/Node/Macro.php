@@ -23,9 +23,9 @@ class Twig_Node_Macro extends Twig_Node
     }
 
     /**
-     * Compiles the node to PHP.
+     * Compila el nodo a PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Twig_Compiler Una instancia de Twig_Compiler
      */
     public function compile(Twig_Compiler $compiler)
     {
@@ -44,7 +44,7 @@ class Twig_Node_Macro extends Twig_Node
             $compiler->write("\$context = \$this->env->getGlobals();\n\n");
         } else {
             $compiler
-                ->write("\$context = array_merge(\$this->env->getGlobals(), array(\n")
+                ->write("\$context = \$this->env->mergeGlobals(array(\n")
                 ->indent()
             ;
 

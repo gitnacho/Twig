@@ -51,3 +51,10 @@ Puedes fijar globalmente la zona horaria predefinida llamando a ``setTimezone()`
 .. _`date`:         http://www.php.net/date
 .. _`DateTime`:     http://www.php.net/DateTime
 .. _`DateInterval`: http://www.php.net/DateInterval
+
+Si el valor pasado al filtro ``date`` es ``null``, por omisión devolverá la fecha actual.
+Si en lugar de la fecha actual quieres una cadena vacía, utiliza un operador ternario:
+
+.. code-block:: jinja
+
+    {{ post.published_at is empty ? "" : post.published_at|date("m/d/Y") }}

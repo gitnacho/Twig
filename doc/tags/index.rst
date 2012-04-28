@@ -20,3 +20,5 @@ Etiquetas
     raw
     flush
     do
+    sandbox
+    embed

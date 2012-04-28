@@ -8,8 +8,7 @@
     templates
     api
     advanced
-    extensions
-    hacking
+    internals
     recipes
     coding_standards
     tags/index

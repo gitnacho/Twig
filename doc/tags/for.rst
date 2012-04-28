@@ -66,7 +66,7 @@ Variable              Descripción
 
 .. note::
 
-    Las variables ``loop.length``, ``loop.revindex``, ``loop.revindex0`` y ``loop.last`` únicamente están disponibles para matrices *PHP*, u objetos que implementen la interfaz ``Countable``.
+    Las variables ``loop.length``, ``loop.revindex``, ``loop.revindex0`` y ``loop.last`` únicamente están disponibles para matrices *PHP*, u objetos que implementen la interfaz ``Countable``. Tampoco están disponibles cuando iteras con una condición.
 
 .. versionadded:: 1.2
     La compatibilidad con el modificador ``if`` se añadió en *Twig* 1.2.
@@ -84,11 +84,11 @@ A diferencia de *PHP*, en un bucle no es posible usar ``break`` ni ``continue``.
         {% endfor %}
     </ul>
 
-La ventaja es que la variable especial ``loop`` contará correctamente, es decir, sin contar a los usuarios inactivos en la iteración.
+La ventaja es que la variable especial ``loop`` contará correctamente, es decir, sin contar a los usuarios inactivos en la iteración. Ten en cuenta que las propiedades como ``loop.last`` no están definidas cuando usas bucles condicionales.
 
 .. note::
 
-    Usar la variable ``loop`` sin la condición no es recomendable debido a que no llevará a cabo lo que esperas de haga. Por ejemplo, añadir una condición como ``loop.index > 4`` no funcionará puesto que el índice únicamente se incrementa cuando la condición es cierta (por lo tanto, la condición nunca coincidirá).
+    Usar la variable ``loop`` sin la condición no es recomendable debido a que no llevará a cabo lo que esperas se haga. Por ejemplo, añadir una condición como ``loop.index > 4`` no funcionará puesto que el índice únicamente se incrementa cuando la condición es cierta (por lo tanto, la condición nunca coincidirá).
 
 La cláusula ``else``
 --------------------

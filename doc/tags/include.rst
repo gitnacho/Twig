@@ -38,7 +38,7 @@ Puedes desactivar el acceso al contexto añadiendo la palabra clave ``only``:
 
 .. tip::
 
-    Cuando incluyes una plantilla creada por un usuario final, debes considerar supervisarla. Más información en el capítulo :doc:`Twig para Desarrolladores <../api>`.
+    Cuando incluyes una plantilla creada por un usuario final, debes considerar supervisarla. Más información en el capítulo :doc:`Twig para desarrolladores <../api>` y en la documentación de la :doc:`etiqueta sandbox<../tags/sandbox>`.
 
 El nombre de la plantilla puede ser cualquier expresión *Twig* válida:
 

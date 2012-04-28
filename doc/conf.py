@@ -141,7 +141,7 @@ html_favicon = 'icotnp.ico'
 # directorio. Estas, más adelante, se copian junto a los archivos
 # estáticos integrados, por tanto un archivo llamado "default.css"
 # sustituirá al "default.css" integrado.
-html_static_path = ['_static']
+html_static_path = ['../../../../../../tnp/_static']
 
 # Si no es '', en la parte baja de cada página se inserta un mensaje
 # 'Actualizado por última vez el:' usando el formato strftime

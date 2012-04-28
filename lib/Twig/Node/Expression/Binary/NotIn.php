@@ -11,9 +11,9 @@
 class Twig_Node_Expression_Binary_NotIn extends Twig_Node_Expression_Binary
 {
     /**
-     * Compiles the node to PHP.
+     * Compila el nodo a PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Twig_Compiler Una instancia de Twig_Compiler
      */
     public function compile(Twig_Compiler $compiler)
     {

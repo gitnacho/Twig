@@ -13,7 +13,15 @@ Por conveniencia, el filtro ``e`` está definido como un alias:
 
     {{ user.username|e }}
 
-El filtro ``escape`` también se puede utilizar fuera del contexto *HTML*; Por ejemplo, para mostrar algo en un archivo *JavaScript*, utiliza el contexto ``js``:
+Además, puedes usar el filtro ``escape`` fuera del contexto *HTML* gracias al argumento opcional que define la estrategia de escape a usar:
+
+.. code-block:: jinja
+
+    {{ user.username|e }}
+    {# es equivalente a #}
+    {{ user.username|e('html') }}
+
+Y aquí tienes cómo escapar variables incluidas en código *JavaScript*:
 
 .. code-block:: jinja
 

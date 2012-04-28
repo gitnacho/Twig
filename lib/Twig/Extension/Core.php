@@ -110,12 +110,13 @@ class Twig_Extension_Core extends Twig_Extension
             new Twig_TokenParser_Spaceless(),
             new Twig_TokenParser_Flush(),
             new Twig_TokenParser_Do(),
+            new Twig_TokenParser_Embed(),
         );
     }
 
     /**
      * Devuelve una lista de filtros para añadirla a la lista
-     * existente.
+         * existente.
      *
      * @return array Una matriz de filtros
      */
@@ -205,6 +206,7 @@ class Twig_Extension_Core extends Twig_Extension
             'divisibleby' => new Twig_Test_Node('Twig_Node_Expression_Test_Divisibleby'),
             'constant'    => new Twig_Test_Node('Twig_Node_Expression_Test_Constant'),
             'empty'       => new Twig_Test_Function('twig_test_empty'),
+            'iterable'    => new Twig_Test_Function('twig_test_iterable'),
         );
     }
 
@@ -317,6 +319,8 @@ function twig_cycle($values, $i)
  * @param Twig_Environment             $env    A Twig_Environment instance
  * @param Traversable|array|int|string $values The values to pick a random item from
  *
+ * @throws Twig_Error_Runtime When $values is an empty array (does not apply to an empty string which is returned as is).
+ *
  * @return mixed A random value from the given sequence
  */
 function twig_random(Twig_Environment $env, $values = null)
@@ -332,6 +336,9 @@ function twig_random(Twig_Environment $env, $values = null)
     if ($values instanceof Traversable) {
         $values = iterator_to_array($values);
     } elseif (is_string($values)) {
+        if ('' === $values) {
+            return '';
+        }
         if (null !== $charset = $env->getCharset()) {
             if ('UTF-8' != $charset) {
                 $values = twig_convert_encoding($values, 'UTF-8', $charset);
@@ -735,11 +742,11 @@ function twig_in_filter($value, $compare)
  *
  * @param Twig_Environment $env        A Twig_Environment instance
  * @param string           $string     The value to be escaped
- * @param string           $type       The escaping strategy
+ * @param string           $strategy   The escaping strategy
  * @param string           $charset    The charset
  * @param Boolean          $autoescape Whether the function is called by the auto-escaping feature (true) or by the developer (false)
  */
-function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $charset = null, $autoescape = false)
+function twig_escape_filter(Twig_Environment $env, $string, $strategy = 'html', $charset = null, $autoescape = false)
 {
     if ($autoescape && is_object($string) && $string instanceof Twig_Markup) {
         return $string;
@@ -755,7 +762,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $cha
 
     $string = (string) $string;
 
-    switch ($type) {
+    switch ($strategy) {
         case 'js':
             // escape all non-alphanumeric characters
             // into their \xHH or \uHHHH representations
@@ -778,7 +785,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $cha
 
             // Using a static variable to avoid initializing the array
             // each time the function is called. Moving the declaration on the
-            // top of the function slow downs other escaping types.
+            // top of the function slow downs other escaping strategies.
             static $htmlspecialcharsCharsets = array(
                 'iso-8859-1' => true, 'iso8859-1' => true,
                 'iso-8859-15' => true, 'iso8859-15' => true,
@@ -806,7 +813,7 @@ function twig_escape_filter(Twig_Environment $env, $string, $type = 'html', $cha
             return twig_convert_encoding($string, $charset, 'UTF-8');
 
         default:
-            throw new Twig_Error_Runtime(sprintf('Invalid escape type "%s".', $type));
+            throw new Twig_Error_Runtime(sprintf('Invalid escaping strategy "%s" (valid ones: html, js).', $strategy));
     }
 }
 
@@ -986,11 +993,11 @@ else
 /* used internally */
 function twig_ensure_traversable($seq)
 {
-    if (is_array($seq) || (is_object($seq) && $seq instanceof Traversable)) {
+    if ($seq instanceof Traversable || is_array($seq)) {
         return $seq;
-    } else {
-        return array();
     }
+
+    return array();
 }
 
 /**
@@ -1015,4 +1022,23 @@ function twig_test_empty($value)
     }
 
     return false === $value || (empty($value) && '0' != $value);
+}
+
+/**
+ * Checks if a variable is traversable.
+ *
+ * <pre>
+ * {# evaluates to true if the foo variable is an array or a traversable object #}
+ * {% if foo is traversable %}
+ *     {# ... #}
+ * {% endif %}
+ * </pre>
+ *
+ * @param mixed $value A variable
+ *
+ * @return Boolean true if the value is traversable
+ */
+function twig_test_iterable($value)
+{
+    return $value instanceof Traversable || is_array($value);
 }

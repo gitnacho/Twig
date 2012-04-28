@@ -29,7 +29,7 @@ interface Twig_ExtensionInterface
 
     /**
      * Devuelve instancias del analizador de segmentos para añadirlos a
-     * la lista existente.
+         * la lista existente.
      *
      * @return array An array of Twig_TokenParserInterface or Twig_TokenParserBrokerInterface instances
      */
@@ -45,7 +45,7 @@ interface Twig_ExtensionInterface
 
     /**
      * Devuelve una lista de filtros para añadirla a la lista
-     * existente.
+         * existente.
      *
      * @return array An array of filters
      */

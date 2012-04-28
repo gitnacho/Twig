@@ -10,7 +10,7 @@
  */
 
 /**
- * Autoloads Twig classes.
+ * Carga automáticamente las clases Twig.
  *
  * @package twig
  * @author  Fabien Potencier <fabien@symfony.com>
@@ -18,7 +18,7 @@
 class Twig_Autoloader
 {
     /**
-     * Registers Twig_Autoloader as an SPL autoloader.
+     * Registra el Twig_Autoloader como un cargador automático SPL.
      */
     static public function register()
     {

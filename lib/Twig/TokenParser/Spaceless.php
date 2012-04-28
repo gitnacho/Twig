@@ -25,11 +25,11 @@
 class Twig_TokenParser_Spaceless extends Twig_TokenParser
 {
     /**
-     * Parses a token and returns a node.
+     * Analiza un fragmento y devuelve un nodo.
      *
-     * @param Twig_Token $token A Twig_Token instance
+     * @param Twig_Token $token Una instancia de Twig_Token
      *
-     * @return Twig_NodeInterface A Twig_NodeInterface instance
+     * @return Twig_NodeInterface Una instancia de Twig_NodeInterface
      */
     public function parse(Twig_Token $token)
     {
@@ -50,7 +50,8 @@ class Twig_TokenParser_Spaceless extends Twig_TokenParser
     }
 
     /**
-     * Gets the tag name associated with this token parser.
+     * Recupera el nombre de la etiqueta asociada con el analizador
+     * de este fragmento.
      *
      * @return string The tag name
      */

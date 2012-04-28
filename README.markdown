@@ -1,6 +1,8 @@
 Twig, el flexible, rápido y seguro lenguaje de plantillas para PHP
 ==================================================================
 
+[![Estado de desarrollo](https://secure.travis-ci.org/fabpot/Twig.png?branch=master)](http://travis-ci.org/fabpot/Twig)
+
 Twig es un lenguaje de plantillas para PHP, liberado bajo la nueva licencia
 BSD (código y documentación).
 

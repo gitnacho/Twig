@@ -2,12 +2,12 @@
 
 if (!isset($argv[1]))
 {
-    die('You must provide the version (1.0.0)');
+    die('Debes proporcionar la versión(1.0.0)');
 }
 
 if (!isset($argv[2]))
 {
-    die('You must provide the stability (alpha, beta, or stable)');
+    die('Debes proporcionar la estabilidad (alfa, beta o estable)');
 }
 
 $context = array(

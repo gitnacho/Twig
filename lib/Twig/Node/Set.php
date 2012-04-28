@@ -38,9 +38,9 @@ class Twig_Node_Set extends Twig_Node
     }
 
     /**
-     * Compiles the node to PHP.
+     * Compila el nodo a PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Twig_Compiler Una instancia de Twig_Compiler
      */
     public function compile(Twig_Compiler $compiler)
     {

@@ -11,7 +11,7 @@
  */
 
 /**
- * Compiles a node to PHP code.
+ * Compila un nodo a código PHP.
  *
  * @package    twig
  * @author     Fabien Potencier <fabien@symfony.com>
@@ -23,11 +23,13 @@ class Twig_Compiler implements Twig_CompilerInterface
     protected $indentation;
     protected $env;
     protected $debugInfo;
+    protected $sourceOffset;
+    protected $sourceLine;
 
     /**
      * Constructor.
      *
-     * @param Twig_Environment $env The twig environment instance
+     * @param Twig_Environment $env La instancia del environment twig
      */
     public function __construct(Twig_Environment $env)
     {
@@ -36,9 +38,9 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Returns the environment instance related to this compiler.
+     * Devuelve la instancia del environment relacionada a este compilador.
      *
-     * @return Twig_Environment The environment instance
+     * @return Twig_Environment La instancia de environment
      */
     public function getEnvironment()
     {
@@ -48,7 +50,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     /**
      * Obtiene el código PHP actual después de la compilación.
      *
-     * @return string The PHP code
+     * @return string El código PHP
      */
     public function getSource()
     {
@@ -58,15 +60,17 @@ class Twig_Compiler implements Twig_CompilerInterface
     /**
      * Compila un nodo.
      *
-     * @param Twig_NodeInterface $node        The node to compile
-     * @param integer            $indentation The current indentation
+     * @param Twig_NodeInterface $node        El nodo a compilar
+     * @param integer            $indentation La sangría actual
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function compile(Twig_NodeInterface $node, $indentation = 0)
     {
         $this->lastLine = null;
         $this->source = '';
+        $this->sourceOffset = 0;
+        $this->sourceLine = 0;
         $this->indentation = $indentation;
 
         $node->compile($this);
@@ -86,11 +90,11 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Adds a raw string to the compiled code.
+     * Añade una cadena cruda al código compilado.
      *
-     * @param  string $string The string
+     * @param  string $string La cadena
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia actual del compilador
      */
     public function raw($string)
     {
@@ -100,9 +104,9 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Writes a string to the compiled code by adding indentation.
+     * Escribe una cadena al código compilado añadiéndole sangría.
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function write()
     {
@@ -123,11 +127,11 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Adds a quoted string to the compiled code.
+     * Añade un cadena entrecomillada al código compilado.
      *
-     * @param  string $value The string
+     * @param  string $value La cadena
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function string($value)
     {
@@ -137,11 +141,11 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Returns a PHP representation of a given value.
+     * Devuelve una representación PHP de un determinado valor.
      *
-     * @param  mixed $value The value to convert
+     * @param  mixed $value El valor a convertir
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function repr($value)
     {
@@ -179,16 +183,18 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Adds debugging information.
+     * Añade información para depuración.
      *
-     * @param Twig_NodeInterface $node The related twig node
+     * @param Twig_NodeInterface $node El nodo twig relacionado
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function addDebugInfo(Twig_NodeInterface $node)
     {
         if ($node->getLine() != $this->lastLine) {
-            $this->debugInfo[substr_count($this->source, "\n")] = $node->getLine();
+            $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
+            $this->sourceOffset = strlen($this->source);
+            $this->debugInfo[$this->sourceLine] = $node->getLine();
 
             $this->lastLine = $node->getLine();
             $this->write("// line {$node->getLine()}\n");
@@ -203,11 +209,11 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Indents the generated code.
+     * Sangra el código generado.
      *
-     * @param integer $step The number of indentation to add
+     * @param integer $step La cantidad de espacios por añadir a la sangría
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function indent($step = 1)
     {
@@ -217,18 +223,18 @@ class Twig_Compiler implements Twig_CompilerInterface
     }
 
     /**
-     * Outdents the generated code.
+     * Aplica formato al código generado.
      *
-     * @param integer $step The number of indentation to remove
+     * @param integer $step La cantidad de espacios a quitar de la sangría
      *
-     * @return Twig_Compiler The current compiler instance
+     * @return Twig_Compiler La instancia del compilador actual
      */
     public function outdent($step = 1)
     {
         $this->indentation -= $step;
 
         if ($this->indentation < 0) {
-            throw new Twig_Error('Unable to call outdent() as the indentation would become negative');
+            throw new Twig_Error('Imposible invocar a outdent() ya que la sangría sería negativa');
         }
 
         return $this;

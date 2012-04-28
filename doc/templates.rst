@@ -63,7 +63,7 @@ Puedes utilizar un punto (``.``) para acceder a los atributos de una variable (m
 
     Es importante saber que las llaves no son parte de la variable, sino de la declaración de impresión. Si accedes a variables dentro de las etiquetas no las envuelvas con llaves.
 
-Si una variable o atributo no existe, recibirás un valor ``nulo``.
+Si no existe una variable o atributo, recibirás un valor ``nulo`` cuando la opción ``strict_variables`` está ajustada a ``false``, de lo contrario *Twig* lanzará un error (consulta las :ref:`opciones de entorno <environment_options>`).
 
 .. sidebar:: Implementación
 
@@ -603,7 +603,7 @@ Puedes extender *Twig* fácilmente.
 
 Si estás buscando nuevas etiquetas, filtros, o funciones, echa un vistazo al `repositorio de extensiones oficial de Twig`_.
 
-Si deseas crear una propia, lee :doc:`extensiones <extensions>`.
+Si deseas crear una propia, lee el capítulo :doc:`Creando una extensión <creating_extensions>`.
 
 .. _`paquete Twig`:              https://github.com/Anomareh/PHP-Twig.tmbundle
 .. _`complemento de sintaxis Jinja`:      http://jinja.pocoo.org/2/documentation/integration

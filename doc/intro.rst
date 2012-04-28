@@ -100,7 +100,7 @@ Por último, activa la extensión en tu archivo de configuración :file:`php.ini
 
         extension=twig.so
 
-Y a partir de ahora, *Twig* compilará automáticamente tus plantillas para tomar ventaja de la extensión *C*.
+Y a partir de ahora, *Twig* compilará automáticamente tus plantillas para tomar ventaja de la extensión *C*. Ten en cuenta que esta extensión no sustituye el código *PHP*, solamente proporciona una versión optimizada del método ``Twig_Template::getAttribute()``.
 
 .. tip::
 
@@ -139,7 +139,7 @@ Debido a que las plantillas generalmente se guardan en el sistema de archivos, *
 
     $loader = new Twig_Loader_Filesystem('/ruta/a/templates');
     $twig = new Twig_Environment($loader, array(
-      'cache' => '/ruta/a/compilation_cache',
+        'cache' => '/ruta/a/compilation_cache',
     ));
 
     echo $twig->render('index.html', array('name' => 'Fabien'));

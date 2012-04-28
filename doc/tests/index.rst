@@ -12,3 +12,4 @@ Probando
     constant
     defined
     empty
+    iterable

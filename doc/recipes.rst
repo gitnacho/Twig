@@ -123,8 +123,7 @@ También funciona si la propiedad no existe, pero más bien está definida de fo
     {
         public function __get($name)
         {
-            if ('title' == $name)
-            {
+            if ('title' == $name) {
                 return 'The title';
             }
 
@@ -133,8 +132,7 @@ También funciona si la propiedad no existe, pero más bien está definida de fo
 
         public function __isset($name)
         {
-            if ('title' == $name)
-            {
+            if ('title' == $name) {
                 return true;
             }
 
@@ -217,6 +215,22 @@ Cuando el código de plantilla lo proporciona un tercero (a través de una inter
         // $template contiene uno o más errores de sintaxis
     }
 
+Si iteras sobre una serie de archivos, puedes suministrar el nombre de archivo al método ``tokenize()`` para tener el nombre de archivo en el mensaje de la excepción::
+
+    foreach ($files as $file) {
+        try {
+            $twig->parse($twig->tokenize($template, $file));
+
+            // la $template  es válida
+        } catch (Twig_Error_Syntax $e) {
+            // la $template contiene uno o más errores de sintaxis
+        }
+    }
+
+.. note::
+
+    Este método no atrapa ninguna violación de las políticas del recinto de seguridad porque la política se aplica durante la reproducción de la plantilla (debido a que *Twig* necesita el contexto para comprobar los métodos permitidos en los objetos).
+
 Actualizando plantillas modificadas cuando *APC* está habilitado y ``apc.stat=0``
 ---------------------------------------------------------------------------------
 
@@ -254,5 +268,41 @@ Lo puedes lograr fácilmente con el siguiente código::
 
         return $node;
     }
+
+Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada
+---------------------------------------------------------------------------------------
+
+.. versionadded:: 1.8
+    Esta receta requiere *Twig 1.8* o posterior.
+
+El opción ``autoescape`` determina la estrategia de escapar predefinida a utilizar cuando no se aplica escape a una variable. Cuando utilizas *Twig* para generar en su mayoría archivos *HTML*, la puedes establecer a ``html`` y cambiarla explícitamente a ``js`` cuando tengas algunos archivos *JavaScript* dinámicos gracias a la etiqueta ``autoescape``:
+
+.. code-block:: jinja
+
+    {% autoescape js %}
+        ... algún JS ...
+    {% endautoescape %}
+
+Pero si tienes muchos archivos *HTML* y *JS*, y si tus nombres de plantilla siguen algunas convenciones, en su lugar puedes determinar la estrategia de escapar a usar en función del nombre de la plantilla. Digamos que tus nombres de plantilla siempre terminan con ``.html`` para archivos *HTML* y ``.js`` para los de *JavaScript*, aquí tienes cómo puedes configurar a *Twig*::
+
+    function twig_escaping_guesser($filename)
+    {
+        // obtiene el formato
+        $format = substr($filename, strrpos($filename, '.') + 1);
+
+        switch ($format) {
+            'js':
+                return 'js';
+            default:
+                return 'html';
+        }
+    }
+
+    $loader = new Twig_Loader_Filesystem('/ruta/a/templates');
+    $twig = new Twig_Environment($loader, array(
+        'autoescape' => 'twig_escaping_guesser',
+    ));
+
+Esta estrategia dinámica no incurre en ningún tipo de sobrecarga en tiempo de ejecución como lo hace el autoescape en tiempo de compilación.
 
 .. _`retrollamada`: http://www.php.net/manual/es/function.is-callable.php

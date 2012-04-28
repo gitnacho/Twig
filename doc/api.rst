@@ -46,6 +46,8 @@ También puedes exponer los métodos de extensión como funciones en tus plantil
                                 'go' => 'here'
                       ));
 
+.. _environment_options:
+
 Opciones del entorno
 --------------------
 
@@ -67,7 +69,7 @@ Las siguientes opciones están disponibles:
 
 * ``strict_variables``: Si se establece en ``false``, *Twig* ignorará silenciosamente las variables no válidas (variables y/o atributos/métodos que no existen) y los reemplazará con un valor ``null``. Cuando se establece en ``true``, *Twig* produce una excepción en su lugar (el predeterminado es ``false``).
 
-* ``autoescape``: Si se establece en ``true``, el escape automático será habilitado de manera predeterminada para todas las plantillas (por omisión a ``true``).
+* ``autoescape``: Si se establece en ``true``, el escape automático será habilitado de manera predeterminada para todas las plantillas (por omisión a ``true``). A partir de *Twig 1.8*, puedes implantar la estrategia de escape para usar (``html``, ``js``, ``false`` para desactivarla, o una retrollamada PHP que tome el :file:`"nombre de archivo"` de la plantilla y devuelva la estrategia de escape a utilizar).
 
 * ``optimizations``: Una marca que indica cuales optimizaciones aplicar (por omisión a ``-1`` -- todas las optimizaciones están habilitadas; para desactivarla ponla a ``0``).
 
@@ -262,27 +264,27 @@ La extensión ``core`` define todas las características principales de *Twig*:
 Extensión ``escaper``
 ~~~~~~~~~~~~~~~~~~~~~
 
-La extensión ``escaper`` añade a *Twig* el escape automático de la salida. Esta define una nueva etiqueta, ``autoescape``, y un nuevo filtro, ``raw``.
+La extensión ``escaper`` añade a *Twig* el escape automático de la salida. Esta define una nueva etiqueta, ``autoescape``, y un filtro ``raw``.
 
 Al crear la extensión ``escaper``, puedes activar o desactivar la estrategia de escape global de la salida::
 
     $escaper = new Twig_Extension_Escaper(true);
     $twig->addExtension($escaper);
 
-Si se establece en ``true``, se escapan todas las variables en las plantillas, excepto las que utilizan el filtro ``raw``:
+Si la estableces a ``true``, se escapan todas las variables en las plantillas, excepto las que utilizan el filtro ``raw``:
 
 .. code-block:: jinja
 
     {{ article.to_html|raw }}
 
-También puedes cambiar el modo de escape a nivel local usando la etiqueta ``autoescape``:
+También puedes cambiar el modo de escape a nivel local usando la etiqueta ``autoescape`` (consulta la documentación para la sintaxis usada por el :doc:`autoescape <tags/autoescape>` antes de la versión *1.8* de *Twig*):
 
 .. code-block:: jinja
 
-    {% autoescape true %}
-      {{ var }}
-      {{ var|raw }}      {# var no se escapa #}
-      {{ var|escape }}   {# var no se escapa doblemente #}
+    {% autoescape 'html' %}
+        {{ var }}
+        {{ var|raw }}      {# var no se escapa #}
+        {{ var|escape }}   {# var no se escapa doblemente #}
     {% endautoescape %}
 
 .. warning::

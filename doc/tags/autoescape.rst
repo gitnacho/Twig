@@ -5,24 +5,52 @@ Ya sea que el escape automático esté habilitado o no, puedes marcar una secci�
 
 .. code-block:: jinja
 
-    {% autoescape true %}
-        Todo en este bloque se va a escapar automáticamente
+    {# La siguiente sintaxis trabaja desde Twig 1.8 -- ve abajo las notas para las versiones anteriores #}
+
+    {% autoescape %}
+        En este bloque, todo se escapará automáticamente
+        usando la estrategia HTML
     {% endautoescape %}
 
-    {% autoescape false %}
-        Todo en este bloque se reproducirá tal cual
+    {% autoescape 'html' %}
+        En este bloque, todo se escapará automáticamente
+        usando la estrategia HTML
     {% endautoescape %}
 
-    {% autoescape true js %}
+    {% autoescape 'js' %}
         Todo en este bloque se escapará automáticamente con la estrategia
         de escape js
     {% endautoescape %}
 
-Cuando se activa el escape automático, de manera predeterminada todo será escapado, salvo los valores marcados explícitamente como seguros. Estos se pueden marcar en la plantilla usando el filtro :doc:`raw<../filters/raw>`:
+    {% autoescape false %}
+        En este bloque, todo se emitirá tal cual
+    {% endautoescape %}
+
+.. note::
+
+    Antes de *Twig 1.8*, la sintaxis era distinta:
+
+    .. code-block:: jinja
+
+        {% autoescape true %}
+            En este bloque, todo se escapará automáticamente
+            usando la estrategia HTML
+        {% endautoescape %}
+
+        {% autoescape false %}
+            En este bloque, todo se emitirá tal cual
+        {% endautoescape %}
+
+        {% autoescape true js %}
+            Todo en este bloque se escapará automáticamente usando
+            la estrategia de escape js
+        {% endautoescape %}
+
+Cuando se activa el escape automático, de manera predeterminada todo será escapado, salvo los valores marcados explícitamente como seguros. Estos se pueden marcar en la plantilla usando el filtro :doc:`raw <../filters/raw>`:
 
 .. code-block:: jinja
 
-    {% autoescape true %}
+    {% autoescape %}
         {{ safe_value|raw }}
     {% endautoescape %}
 

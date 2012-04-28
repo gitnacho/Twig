@@ -11,9 +11,25 @@
 
 class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
 {
+    public function testErrorWithObjectFilename()
+    {
+        $error = new Twig_Error('foo');
+        $error->setTemplateFile(new SplFileInfo(__FILE__));
+
+        $this->assertContains('test'.DIRECTORY_SEPARATOR.'Twig'.DIRECTORY_SEPARATOR.'Tests'.DIRECTORY_SEPARATOR.'ErrorTest.php', $error->getMessage());
+    }
+
+    public function testErrorWithArrayFilename()
+    {
+        $error = new Twig_Error('foo');
+        $error->setTemplateFile(array('foo' => 'bar'));
+
+        $this->assertEquals('foo in {"foo":"bar"}', $error->getMessage());
+    }
+
     public function testTwigExceptionAddsFileAndLineWhenMissing()
     {
-        $loader = new Twig_Loader_Array(array('index' => "\n\n{{ foo.bar }}"));
+        $loader = new Twig_Loader_Array(array('index' => "\n\n{{ foo.bar }}\n\n\n{{ 'foo' }}"));
         $twig = new Twig_Environment($loader, array('strict_variables' => true, 'debug' => true, 'cache' => false));
 
         $template = $twig->loadTemplate('index');
@@ -31,7 +47,7 @@ class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
 
     public function testRenderWrapsExceptions()
     {
-        $loader = new Twig_Loader_Array(array('index' => "\n\n\n{{ foo.bar }}"));
+        $loader = new Twig_Loader_Array(array('index' => "\n\n\n{{ foo.bar }}\n\n\n\n{{ 'foo' }}"));
         $twig = new Twig_Environment($loader, array('strict_variables' => true, 'debug' => true, 'cache' => false));
 
         $template = $twig->loadTemplate('index');
@@ -52,6 +68,9 @@ class Twig_Tests_ErrorTest extends PHPUnit_Framework_TestCase
         $loader = new Twig_Loader_Array(array(
             'index' => "{% extends 'base' %}
             {% block content %}
+                {{ foo.bar }}
+            {% endblock %}
+            {% block foo %}
                 {{ foo.bar }}
             {% endblock %}",
             'base' => '{% block content %}{% endblock %}'
