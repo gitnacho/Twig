@@ -1,0 +1,308 @@
+Recetas
+=======
+
+Haciendo un diseño condicional
+------------------------------
+
+Trabajar con *Ajax* significa que el mismo contenido a veces se muestra tal cual, y, a veces se decora con un diseño. Dado que el nombre del diseño de las plantillas *Twig* puede ser cualquier expresión válida, puedes pasar una variable que evalúe a ``true`` cuando se hace la petición a través de *Ajax* y elegir el diseño en consecuencia:
+
+.. code-block:: jinja
+
+    {% extends request.ajax ? "base_ajax.html" : "base.html" %}
+
+    {% block content %}
+        Este es el contenido a mostrar.
+    {% endblock %}
+
+Haciendo una inclusión dinámica
+-------------------------------
+
+Cuando incluyes una plantilla, su nombre no tiene por qué ser una cadena. Por ejemplo, el nombre puede depender del valor de una variable:
+
+.. code-block:: jinja
+
+    {% include var ~ '_foo.html' %}
+
+Si ``var`` evalúa como ``index``, se reproducirá la plantilla :file:`index_foo.html`.
+
+De hecho, el nombre de la plantilla puede ser cualquier expresión válida, como la siguiente:
+
+.. code-block:: jinja
+
+    {% include var|default('index') ~ '_foo.html' %}
+
+Sustituyendo una plantilla que además se extiende a sí misma
+------------------------------------------------------------
+
+Puedes personalizar una plantilla de dos formas diferentes:
+
+* *Herencia*: Una plantilla *extiende* a una plantilla padre y sustituye algunos bloques;
+
+* *Sustitución*: Si utilizas el cargador del sistema de archivos, *Twig* carga la primera plantilla que encuentre en una lista de directorios configurados; una plantilla que se encuentra en un directorio *sustituye* a otra de un directorio más en la lista.
+
+Pero, ¿cómo se combinan las dos cosas?: *sustituir* una plantilla que también se extiende a sí misma (también conocida como una plantilla en un directorio más en la lista)
+
+Digamos que tus plantillas se cargan tanto desde ``.../templates/mysite`` como de ``.../templates/default``, en este orden. La plantilla :file:`page.twig` almacenada en :file:`../templates/default` es la siguiente:
+
+.. code-block:: jinja
+
+    {# page.twig #}
+    {% extends "base.twig" %}
+
+    {% block content %}
+    {% endblock %}
+
+Puedes sustituir esta plantilla poniendo un archivo con el mismo nombre en ``.../templates/mysite``. Y si deseas ampliar la plantilla original, podrías tener la tentación de escribir lo siguiente:
+
+.. code-block:: jinja
+
+    {# page.twig in .../templates/mysite #}
+    {% extends "page.twig" %} {# from .../templates/default #}
+
+Por supuesto, esto no funcionará debido a que *Twig* siempre carga la plantilla desde ``.../templates/mysite``.
+
+Resulta que es posible conseguir que esto funcione, añadiendo el directorio adecuado al final de tus directorios de plantilla, el cual es el padre de todos los otros directorios: ``.../templates`` en nuestro caso. Esto tiene el efecto de hacer que cada archivo de plantilla dentro de nuestro sistema sea direccionable unívocamente. La mayoría de las veces utilizarás rutas "normales", pero en el caso especial de querer extender una plantilla con una versión que se redefine a sí misma podemos referirnos a la ruta completa del padre, sin ambigüedades, en la etiqueta ``extends`` de la plantilla:
+
+.. code-block:: jinja
+
+    {# page.twig in .../templates/mysite #}
+    {% extends "default/page.twig" %} {# from .../templates #}
+
+.. note::
+
+    Esta receta está inspirada en la página "Extendiendo plantillas" del *wiki* de *Django*:
+    La puedes ver `aquí <http://code.djangoproject.com/wiki/ExtendingTemplates>`_
+
+Personalizando la sintaxis
+--------------------------
+
+*Twig* te permite personalizar alguna sintaxis de los delimitadores de bloque. No se recomienda usar esta característica puesto que las plantillas serán vinculadas con tu sintaxis personalizada. Sin embargo, para proyectos específicos, puede tener sentido cambiar los valores predeterminados.
+
+Para cambiar los delimitadores de bloque, necesitas crear tu propio objeto analizador sintáctico (o *lexer*)::
+
+    $twig = new Twig_Environment();
+
+    $lexer = new Twig_Lexer($twig, array(
+        'tag_comment'  => array('{#', '#}'),
+        'tag_block'    => array('{%', '%}'),
+        'tag_variable' => array('{{', '}}'),
+    ));
+    $twig->setLexer($lexer);
+
+Éstos son algunos ejemplos de configuración que simulan la sintaxis de algunos otros motores de plantilla::
+
+    // sintaxis erb de Ruby
+    $lexer = new Twig_Lexer($twig, array(
+        'tag_comment'  => array('<%#', '%>'),
+        'tag_block'    => array('<%', '%>'),
+        'tag_variable' => array('<%=', '%>'),
+    ));
+
+    // sintaxis de comentarios SGML
+    $lexer = new Twig_Lexer($twig, array(
+        'tag_comment'  => array('<!--#', '-->'),
+        'tag_block'    => array('<!--', '-->'),
+        'tag_variable' => array('${', '}'),
+    ));
+
+    // como Smarty
+    $lexer = new Twig_Lexer($twig, array(
+        'tag_comment'  => array('{*', '*}'),
+        'tag_block'    => array('{', '}'),
+        'tag_variable' => array('{$', '}'),
+    ));
+
+Usando propiedades dinámicas de objetos
+---------------------------------------
+
+Cuando *Twig* encuentra una variable como ``articulo.titulo``, trata de encontrar una propiedad pública ``titulo`` en el objeto ``articulo``.
+
+También funciona si la propiedad no existe, pero más bien está definida de forma dinámica gracias a la magia del método ``__get()``; sólo tienes que implementar también el método mágico ``__isset()``, como muestra el siguiente fragmento de código::
+
+    class Article
+    {
+        public function __get($name)
+        {
+            if ('title' == $name) {
+                return 'The title';
+            }
+
+            // lanza algún tipo de error
+        }
+
+        public function __isset($name)
+        {
+            if ('title' == $name) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+Accediendo al contexto del padre en bucles anidados
+---------------------------------------------------
+
+A veces, cuando utilizas bucles anidados, necesitas acceder al contexto del padre. El contexto del padre siempre es accesible a través de la variable ``loop.parent``. Por ejemplo, si tienes los siguientes datos de plantilla::
+
+    $datos = array(
+        'temas' => array(
+            'tema1' => array('Mensaje 1 del tema 1', 'Mensaje 2 del tema 1'),
+            'tema2' => array('Mensaje 1 del tema 2', 'Mensaje 2 del tema 2'),
+        ),
+    );
+
+Y la siguiente plantilla para mostrar todos los mensajes en todos los temas:
+
+.. code-block:: jinja
+
+    {% for topic, messages in topics %}
+        * {{ loop.index }}: {{ topic }}
+      {% for message in messages %}
+          - {{ loop.parent.loop.index }}.{{ loop.index }}: {{ message }}
+      {% endfor %}
+    {% endfor %}
+
+Reproducirá algo similar a:
+
+.. code-block:: text
+
+    * 1: topic1
+      - 1.1: The message 1 of topic 1
+      - 1.2: The message 2 of topic 1
+    * 2: topic2
+      - 2.1: The message 1 of topic 2
+      - 2.2: The message 2 of topic 2
+
+En el bucle interno, utilizamos la variable ``loop.parent`` para acceder al contexto externo. Así, el índice del ``tema`` actual definido en el exterior del bucle es accesible a través de la variable ``loop.parent.loop.index``.
+
+Definiendo al vuelo funciones indefinidas y filtros
+---------------------------------------------------
+
+Cuando una función (o un filtro) no está definido, de manera predeterminada *Twig* lanza una excepción ``Twig_Error_Syntax``. Sin embargo, también puede invocar una `retrollamada`_ (cualquier *PHP* válido que se pueda ejecutar) la cual debe devolver una función (o un filtro).
+
+Para filtros, registra las retrollamadas con ``registerUndefinedFilterCallback()``.
+Para funciones, usa ``registerUndefinedFunctionCallback()``::
+
+    // Autoregistra todas las funciones nativas de PHP como funciones Twig
+    // no intentes esto en casa, ¡ya que no es seguro en absoluto!
+    $twig->registerUndefinedFunctionCallback(function ($name) {
+        if (function_exists($name)) {
+            return new Twig_Function_Function($name);
+        }
+
+        return false;
+    });
+
+Si el ejecutable no es capaz de devolver una función válida (o filtro), deberá devolver ``false``.
+
+Si registras más de una retrollamada, *Twig* la llamará a su vez hasta que una no devuelva ``false``.
+
+.. tip::
+
+    Debido a que la resolución de funciones y filtros se realiza durante la compilación, no hay ninguna sobrecarga cuando registras estas retrollamadas.
+
+Validando la sintaxis de la plantilla
+-------------------------------------
+
+Cuando el código de plantilla lo proporciona un tercero (a través de una interfaz web, por ejemplo), podría ser interesante validar la sintaxis de la plantilla antes de guardarla. Si el código de la plantilla se almacena en una variable ``$template``, así es cómo lo puedes hacer::
+
+    try {
+        $twig->parse($twig->tokenize($template));
+
+        // $template  es válida
+    } catch (Twig_Error_Syntax $e) {
+        // $template contiene uno o más errores de sintaxis
+    }
+
+Si iteras sobre una serie de archivos, puedes suministrar el nombre de archivo al método ``tokenize()`` para tener el nombre de archivo en el mensaje de la excepción::
+
+    foreach ($files as $file) {
+        try {
+            $twig->parse($twig->tokenize($template, $file));
+
+            // la $template  es válida
+        } catch (Twig_Error_Syntax $e) {
+            // la $template contiene uno o más errores de sintaxis
+        }
+    }
+
+.. note::
+
+    Este método no atrapa ninguna violación de las políticas del recinto de seguridad porque la política se aplica durante la reproducción de la plantilla (debido a que *Twig* necesita el contexto para comprobar los métodos permitidos en los objetos).
+
+Actualizando plantillas modificadas cuando *APC* está habilitado y ``apc.stat=0``
+---------------------------------------------------------------------------------
+
+Cuando utilizas *APC* con ``apc.stat`` establecido en ``0`` y está habilitada la memorización en caché de *Twig*, borra la caché de la plantilla que no va a actualizar la memoria caché *APC*. Para evitar esto, puedes extender ``Twig_Environment`` y forzar la actualización de la caché *APC* cuando *Twig* reescriba la memoria caché::
+
+    class Twig_Environment_APC extends Twig_Environment
+    {
+        protected function writeCacheFile($file, $content)
+        {
+            parent::writeCacheFile($file, $content);
+
+            // Archivo memorizado y compilado a bytecode
+            apc_compile_file($file);
+        }
+    }
+
+Reutilizando el estado de un visitante de nodo
+----------------------------------------------
+
+Al asociar un visitante a una instancia de ``Twig_Environment``, *Twig* lo utilizará para visitar *todas* las plantillas que compile. Si necesitas mantener cierta información de estado, probablemente desees restablecerla cuando visites una nueva plantilla.
+
+Lo puedes lograr fácilmente con el siguiente código::
+
+    protected $someTemplateState = array();
+
+    public function enterNode(Twig_NodeInterface $node, Twig_Environment $env)
+    {
+        if ($node instanceof Twig_Node_Module) {
+            Restablece el estado puesto que estamos entrando en una
+            // nueva plantilla
+            $this->someTemplateState = array();
+        }
+
+        // ...
+
+        return $node;
+    }
+
+Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada
+---------------------------------------------------------------------------------------
+
+.. versionadded:: 1.8
+    Esta receta requiere *Twig 1.8* o posterior.
+
+El opción ``autoescape`` determina la estrategia de escapar predefinida a utilizar cuando no se aplica escape a una variable. Cuando utilizas *Twig* para generar en su mayoría archivos *HTML*, la puedes establecer a ``html`` y cambiarla explícitamente a ``js`` cuando tengas algunos archivos *JavaScript* dinámicos gracias a la etiqueta ``autoescape``:
+
+.. code-block:: jinja
+
+    {% autoescape js %}
+        ... algún JS ...
+    {% endautoescape %}
+
+Pero si tienes muchos archivos *HTML* y *JS*, y si tus nombres de plantilla siguen algunas convenciones, en su lugar puedes determinar la estrategia de escapar a usar en función del nombre de la plantilla. Digamos que tus nombres de plantilla siempre terminan con ``.html`` para archivos *HTML* y ``.js`` para los de *JavaScript*, aquí tienes cómo puedes configurar a *Twig*::
+
+    function twig_escaping_guesser($filename)
+    {
+        // obtiene el formato
+        $format = substr($filename, strrpos($filename, '.') + 1);
+
+        switch ($format) {
+            'js':
+                return 'js';
+            default:
+                return 'html';
+        }
+    }
+
+    $loader = new Twig_Loader_Filesystem('/ruta/a/templates');
+    $twig = new Twig_Environment($loader, array(
+        'autoescape' => 'twig_escaping_guesser',
+    ));
+
+Esta estrategia dinámica no incurre en ningún tipo de sobrecarga en tiempo de ejecución como lo hace el autoescape en tiempo de compilación.
+
+.. _`retrollamada`: http://www.php.net/manual/es/function.is-callable.php

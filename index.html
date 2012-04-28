@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.7.0',
+        VERSION:     '1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,9 +31,9 @@
   <body>
   <div class="imalogo">
     
-  <a href="#"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  <a href="#"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
   
-    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <a href="http://gitnacho.github.com/tnp/"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
     <div class="social">
       <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -112,22 +112,14 @@
 <li class="toctree-l2"><a class="reference internal" href="advanced.html#filtros">Filtros</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced.html#funciones">Funciones</a></li>
 <li class="toctree-l2"><a class="reference internal" href="advanced.html#etiquetas">Etiquetas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#creando-una-extension">Creando una extensión</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="extensions.html">Creando una extensión <em>Twig</em></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#globales">Globales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#funciones">Funciones</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#filtros">Filtros</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#etiquetas">Etiquetas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#operadores">Operadores</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions.html#pruebas">Pruebas</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="hacking.html">Mejorando <em>Twig</em></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="hacking.html#como-funciona-twig">¿Cómo funciona <em>Twig</em>?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hacking.html#el-analizador-lexico">El analizador léxico</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hacking.html#el-analizador-sintactico">El analizador sintáctico</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hacking.html#el-compilador">El compilador</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals.html"><em>Twig</em> por dentro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="internals.html#como-funciona-twig">¿Cómo funciona <em>Twig</em>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals.html#el-analizador-lexico">El analizador léxico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals.html#el-analizador-sintactico">El analizador sintáctico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals.html#el-compilador">El compilador</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recetas</a><ul>
@@ -141,6 +133,7 @@
 <li class="toctree-l2"><a class="reference internal" href="recipes.html#validando-la-sintaxis-de-la-plantilla">Validando la sintaxis de la plantilla</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recipes.html#actualizando-plantillas-modificadas-cuando-apc-esta-habilitado-y-apc-stat-0">Actualizando plantillas modificadas cuando <em>APC</em> está habilitado y <tt class="docutils literal"><span class="pre">apc.stat=0</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="recipes.html#reutilizando-el-estado-de-un-visitante-de-nodo">Reutilizando el estado de un visitante de nodo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes.html#usando-el-nombre-de-la-plantilla-para-determinar-la-estrategia-de-escape-predeterminada">Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="coding_standards.html">Estándares de codificación</a></li>
@@ -161,6 +154,8 @@
 <li class="toctree-l2"><a class="reference internal" href="tags/raw.html"><tt class="docutils literal"><span class="pre">raw</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tags/flush.html"><tt class="docutils literal"><span class="pre">flush</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tags/do.html"><tt class="docutils literal"><span class="pre">do</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tags/sandbox.html"><tt class="docutils literal"><span class="pre">sandbox</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tags/embed.html"><tt class="docutils literal"><span class="pre">embed</span></tt></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filters/index.html">Filtros</a><ul>
@@ -211,6 +206,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tests/constant.html"><tt class="docutils literal"><span class="pre">constant</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests/defined.html"><tt class="docutils literal"><span class="pre">defined</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests/empty.html"><tt class="docutils literal"><span class="pre">empty</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests/iterable.html"><tt class="docutils literal"><span class="pre">iterable</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -223,7 +219,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
   
   <div style="width:740px;margin:10px auto;">
     
@@ -243,23 +239,23 @@
 
 
    <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Mar 28, 2012.
+      Actualizado por última vez en Apr 28, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
-     <div id="disqus_thread"></div>
    </div>
-   <script type="text/javascript"> 
+   <script type="text/javascript">
     var disqus_shortname = 'documentos-mx';
-    
+    var disqus_developer = 1;
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-   </script> 
+   </script>
    <noscript>
      Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
    </noscript>

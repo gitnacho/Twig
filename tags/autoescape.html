@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.7.0',
+        VERSION:     '1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,9 +33,9 @@
   <body>
   <div class="imalogo">
     
-  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
   
-    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <a href="http://gitnacho.github.com/tnp/"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
     <div class="social">
       <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -79,22 +79,49 @@
   <div class="section" id="autoescape">
 <h1><tt class="docutils literal"><span class="pre">autoescape</span></tt><a class="headerlink" href="#autoescape" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Ya sea que el escape automático esté habilitado o no, puedes marcar una sección de una plantilla para que sea escapada o no utilizando la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    Todo en este bloque se va a escapar automáticamente</span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# La siguiente sintaxis trabaja desde Twig 1.8 -- ve abajo las notas para las versiones anteriores #}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
 <span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
 
-<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    Todo en este bloque se reproducirá tal cual</span>
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
 <span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
 
-<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="nv">js</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;js&#39;</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    Todo en este bloque se escapará automáticamente con la estrategia</span>
 <span class="x">    de escape js</span>
 <span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se emitirá tal cual</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Antes de <em>Twig 1.8</em>, la sintaxis era distinta:</p>
+<div class="last highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se emitirá tal cual</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="nv">js</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Todo en este bloque se escapará automáticamente usando</span>
+<span class="x">    la estrategia de escape js</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
 <p>Cuando se activa el escape automático, de manera predeterminada todo será escapado, salvo los valores marcados explícitamente como seguros. Estos se pueden marcar en la plantilla usando el filtro <a class="reference internal" href="../filters/raw.html"><em>raw</em></a>:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="cp">%}</span><span class="x"></span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    </span><span class="cp">{{</span> <span class="nv">safe_value</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"></span>
 <span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
@@ -116,7 +143,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
   
   <div style="width:740px;margin:10px auto;">
     
@@ -140,23 +167,23 @@
 
 
    <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Mar 28, 2012.
+      Actualizado por última vez en Apr 28, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
-     <div id="disqus_thread"></div>
    </div>
-   <script type="text/javascript"> 
+   <script type="text/javascript">
     var disqus_shortname = 'documentos-mx';
-    
+    var disqus_developer = 1;
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-   </script> 
+   </script>
    <noscript>
      Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
    </noscript>

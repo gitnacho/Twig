@@ -1,0 +1,148 @@
+Introducción
+============
+
+Esta es la documentación de *Twig*, el flexible, rápido y seguro motor de plantillas para *PHP*.
+
+Si has estado expuesto a otros lenguajes de plantilla basados en texto, tal como *Smarty, Django* o *Jinja*, debes sentirte como en casa con *Twig*. Es a la vez, un amigable ambiente para el diseñador y desarrollador apegado a los principios de *PHP*, añadiendo útil funcionalidad a los entornos de plantillas.
+
+Las características clave son...
+
+* *Rápido*: *Twig* compila las plantillas hasta código *PHP* regular optimizado. El costo general en comparación con código *PHP* regular se ha reducido al mínimo.
+
+* *Seguro*: *Twig* tiene un modo de recinto de seguridad para evaluar el código de plantilla que no es confiable. Esto te permite utilizar *Twig* como un lenguaje de plantillas para aplicaciones donde los usuarios pueden modificar el diseño de la plantilla.
+
+* *Flexible*: *Twig* es alimentado por flexibles analizadores léxico y sintáctico. Esto permite al desarrollador definir sus propias etiquetas y filtros personalizados, y crear su propio *DSL*.
+
+Requisitos previos
+------------------
+
+*Twig* necesita por lo menos **PHP 5.2.4** para funcionar.
+
+Instalando
+----------
+
+Tienes varias formas de instalar *Twig*. Si no estás seguro qué hacer, descarga el archivo comprimido (``tarball``).
+
+Instalando la versión comprimida
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Descarga el archivo comprimido más reciente desde la `página de descarga`_
+2. Descomprime el archivo
+3. Mueve los archivos a algún lugar en tu proyecto
+
+Instalando la versión de desarrollo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Instala desde *Subversión* o *Git*
+2. Para *Git*:
+
+    .. code-block:: bash
+
+      git clone git://github.com/fabpot/Twig.git
+
+3. Para *Subversión*:
+
+    .. code-block:: bash
+
+      svn co http://svn.twig-project.org/trunk/ twig
+
+Instalando el paquete *PEAR*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Instala *PEAR*
+2. ``pear channel-discover pear.twig-project.org``
+3. ``pear install twig/Twig`` (o ``pear install twig/Twig-beta``)
+
+Instalando vía ``Composer``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Instala ``composer`` en tu proyecto:
+
+.. code-block:: bash
+
+    curl -s http://getcomposer.org/installer | php
+
+2. Crea un archivo :file:`composer.json` en el directorio raíz de tu proyecto:
+
+.. code-block:: javascript
+
+    {
+        "require": {
+            "twig/twig": "1.6.0"
+        }
+    }
+
+3. Instala vía ``composer``
+
+.. code-block:: bash
+
+    php composer.phar install
+
+Instalando la extensión *C*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.4
+    La extensión *C* se añadió en Twig 1.4.
+
+*Twig* viene con una extensión *C* que mejora el rendimiento del motor *Twig* en tiempo de ejecución. La puedes instalar como cualquier otra extensión de *PHP*:
+
+.. code-block:: bash
+
+    $ cd ext/twig
+    $ phpize
+    $ ./configure
+    $ make
+    $ make install
+
+Por último, activa la extensión en tu archivo de configuración :file:`php.ini`:
+
+.. code-block:: ini
+
+        extension=twig.so
+
+Y a partir de ahora, *Twig* compilará automáticamente tus plantillas para tomar ventaja de la extensión *C*. Ten en cuenta que esta extensión no sustituye el código *PHP*, solamente proporciona una versión optimizada del método ``Twig_Template::getAttribute()``.
+
+.. tip::
+
+    En *Windows* también, puedes simplemente descargar e instalar una extensión `DLL preconstruida`_.
+
+Uso básico de la *API*
+----------------------
+
+Esta sección te ofrece una breve introducción a la *API PHP* de *Twig*.
+
+El primer paso para utilizar *Twig* es registrar su cargador automático:
+
+.. code-block:: php
+
+    require_once '/ruta/a/lib/Twig/Autoloader.php';
+    Twig_Autoloader::register();
+
+Sustituye ``/ruta/a/lib/`` con la ruta que utilizaste en la instalación de *Twig*.
+
+.. note::
+
+    *Twig* sigue la convención de nombres de *PEAR* para sus clases, lo cual significa que puedes integrar fácilmente las clases de *Twig* cargándolo en tu propio cargador automático.
+
+.. code-block:: php
+
+    $loader = new Twig_Loader_String();
+    $twig = new Twig_Environment($loader);
+
+    echo $twig->render('Hello {{ name }}!', array('name' => 'Fabien'));
+
+*Twig* utiliza un cargador (``Twig_Loader_String``) para buscar las plantillas, y un entorno (``Twig_Environment``) para almacenar la configuración.
+
+El método ``render()`` carga la plantilla pasada como primer argumento y la reproduce con las variables pasadas como segundo argumento.
+
+Debido a que las plantillas generalmente se guardan en el sistema de archivos, *Twig* también viene con un cargador del sistema de archivos::
+
+    $loader = new Twig_Loader_Filesystem('/ruta/a/templates');
+    $twig = new Twig_Environment($loader, array(
+        'cache' => '/ruta/a/compilation_cache',
+    ));
+
+    echo $twig->render('index.html', array('name' => 'Fabien'));
+
+.. _`página de descarga`: https://github.com/fabpot/Twig/tags
+.. _`DLL preconstruida`: https://github.com/stealth35/stealth35.github.com/downloads

@@ -1,0 +1,16 @@
+``join``
+========
+
+El filtro ``join`` devuelve una cadena que es la concatenación de las cadenas de una secuencia:
+
+.. code-block:: jinja
+
+    {{ [1, 2, 3]|join }}
+    {# devuelve 123 #}
+
+El separador predeterminado entre los elementos es una cadena vacía, lo puedes definir con el primer parámetro opcional:
+
+.. code-block:: jinja
+
+    {{ [1, 2, 3]|join('|') }}
+    {# devuelve 1|2|3 #}

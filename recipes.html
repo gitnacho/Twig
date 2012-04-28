@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.7.0',
+        VERSION:     '1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,14 +27,14 @@
     <link rel="shortcut icon" href="_static/icotnp.ico"/>
     <link rel="top" title="Manual de Twig en Español" href="index.html" />
     <link rel="next" title="Estándares de codificación" href="coding_standards.html" />
-    <link rel="prev" title="Mejorando Twig" href="hacking.html" /> 
+    <link rel="prev" title="Twig por dentro" href="internals.html" /> 
   </head>
   <body>
   <div class="imalogo">
     
-  <a href="index.html"><img src="./_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  <a href="index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
   
-    <a href="http://gitnacho.github.com/tnp/"><img src="./_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <a href="http://gitnacho.github.com/tnp/"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
     <div class="social">
       <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -61,7 +61,7 @@
           <a href="coding_standards.html" title="Estándares de codificación"
              accesskey="N">siguiente</a> |</li>
         <li class="right" >
-          <a href="hacking.html" title="Mejorando Twig"
+          <a href="internals.html" title="Twig por dentro"
              accesskey="P">anterior</a> |</li>
         <li><a href="index.html">Twig en Español</a> &raquo;</li> 
       </ul>
@@ -178,8 +178,7 @@ La puedes ver <a class="reference external" href="http://code.djangoproject.com/
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span>
-        <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="s1">&#39;The title&#39;</span><span class="p">;</span>
         <span class="p">}</span>
 
@@ -188,8 +187,7 @@ La puedes ver <a class="reference external" href="http://code.djangoproject.com/
 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__isset</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span>
-        <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">==</span> <span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
         <span class="p">}</span>
 
@@ -265,6 +263,22 @@ Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndef
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Si iteras sobre una serie de archivos, puedes suministrar el nombre de archivo al método <tt class="docutils literal"><span class="pre">tokenize()</span></tt> para tener el nombre de archivo en el mensaje de la excepción:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">foreach</span> <span class="p">(</span><span class="nv">$files</span> <span class="k">as</span> <span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">parse</span><span class="p">(</span><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">tokenize</span><span class="p">(</span><span class="nv">$template</span><span class="p">,</span> <span class="nv">$file</span><span class="p">));</span>
+
+        <span class="c1">// la $template  es válida</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Twig_Error_Syntax</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// la $template contiene uno o más errores de sintaxis</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Este método no atrapa ninguna violación de las políticas del recinto de seguridad porque la política se aplica durante la reproducción de la plantilla (debido a que <em>Twig</em> necesita el contexto para comprobar los métodos permitidos en los objetos).</p>
+</div>
 </div>
 <div class="section" id="actualizando-plantillas-modificadas-cuando-apc-esta-habilitado-y-apc-stat-0">
 <h2>Actualizando plantillas modificadas cuando <em>APC</em> está habilitado y <tt class="docutils literal"><span class="pre">apc.stat=0</span></tt><a class="headerlink" href="#actualizando-plantillas-modificadas-cuando-apc-esta-habilitado-y-apc-stat-0" title="Enlazar permanentemente con este título">¶</a></h2>
@@ -303,6 +317,38 @@ Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndef
 </pre></div>
 </div>
 </div>
+<div class="section" id="usando-el-nombre-de-la-plantilla-para-determinar-la-estrategia-de-escape-predeterminada">
+<h2>Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada<a class="headerlink" href="#usando-el-nombre-de-la-plantilla-para-determinar-la-estrategia-de-escape-predeterminada" title="Enlazar permanentemente con este título">¶</a></h2>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.8: </span>Esta receta requiere <em>Twig 1.8</em> o posterior.</p>
+<p>El opción <tt class="docutils literal"><span class="pre">autoescape</span></tt> determina la estrategia de escapar predefinida a utilizar cuando no se aplica escape a una variable. Cuando utilizas <em>Twig</em> para generar en su mayoría archivos <em>HTML</em>, la puedes establecer a <tt class="docutils literal"><span class="pre">html</span></tt> y cambiarla explícitamente a <tt class="docutils literal"><span class="pre">js</span></tt> cuando tengas algunos archivos <em>JavaScript</em> dinámicos gracias a la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="nv">js</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    ... algún JS ...</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Pero si tienes muchos archivos <em>HTML</em> y <em>JS</em>, y si tus nombres de plantilla siguen algunas convenciones, en su lugar puedes determinar la estrategia de escapar a usar en función del nombre de la plantilla. Digamos que tus nombres de plantilla siempre terminan con <tt class="docutils literal"><span class="pre">.html</span></tt> para archivos <em>HTML</em> y <tt class="docutils literal"><span class="pre">.js</span></tt> para los de <em>JavaScript</em>, aquí tienes cómo puedes configurar a <em>Twig</em>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">function</span> <span class="nf">twig_escaping_guesser</span><span class="p">(</span><span class="nv">$filename</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// obtiene el formato</span>
+    <span class="nv">$format</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="nb">strrpos</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="nv">$format</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s1">&#39;js&#39;</span><span class="o">:</span>
+            <span class="k">return</span> <span class="s1">&#39;js&#39;</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="k">return</span> <span class="s1">&#39;html&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Filesystem</span><span class="p">(</span><span class="s1">&#39;/ruta/a/templates&#39;</span><span class="p">);</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;autoescape&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;twig_escaping_guesser&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Esta estrategia dinámica no incurre en ningún tipo de sobrecarga en tiempo de ejecución como lo hace el autoescape en tiempo de compilación.</p>
+</div>
 </div>
 
 
@@ -311,7 +357,7 @@ Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndef
       </div>
       <div class="clearer"></div>
     </div>
-  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="./_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
   
   <div style="width:740px;margin:10px auto;">
     
@@ -325,7 +371,7 @@ Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndef
           <a href="coding_standards.html" title="Estándares de codificación"
              >siguiente</a> |</li>
         <li class="right" >
-          <a href="hacking.html" title="Mejorando Twig"
+          <a href="internals.html" title="Twig por dentro"
              >anterior</a> |</li>
         <li><a href="index.html">Twig en Español</a> &raquo;</li> 
       </ul>
@@ -334,23 +380,23 @@ Para funciones, usa <tt class="docutils literal"><span class="pre">registerUndef
 
 
    <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Mar 28, 2012.
+      Actualizado por última vez en Apr 28, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
-     <div id="disqus_thread"></div>
    </div>
-   <script type="text/javascript"> 
+   <script type="text/javascript">
     var disqus_shortname = 'documentos-mx';
-    
+    var disqus_developer = 1;
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-   </script> 
+   </script>
    <noscript>
      Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
    </noscript>

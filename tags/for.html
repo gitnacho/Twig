@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.7.0',
+        VERSION:     '1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -33,9 +33,9 @@
   <body>
   <div class="imalogo">
     
-  <a href="../index.html"><img src=".././_static/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
   
-    <a href="http://gitnacho.github.com/tnp/"><img src=".././_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <a href="http://gitnacho.github.com/tnp/"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
     <div class="social">
       <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -152,7 +152,7 @@
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">Las variables <tt class="docutils literal"><span class="pre">loop.length</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex0</span></tt> y <tt class="docutils literal"><span class="pre">loop.last</span></tt> únicamente están disponibles para matrices <em>PHP</em>, u objetos que implementen la interfaz <tt class="docutils literal"><span class="pre">Countable</span></tt>.</p>
+<p class="last">Las variables <tt class="docutils literal"><span class="pre">loop.length</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex0</span></tt> y <tt class="docutils literal"><span class="pre">loop.last</span></tt> únicamente están disponibles para matrices <em>PHP</em>, u objetos que implementen la interfaz <tt class="docutils literal"><span class="pre">Countable</span></tt>. Tampoco están disponibles cuando iteras con una condición.</p>
 </div>
 <p class="versionadded">
 <span class="versionmodified">Nuevo en la versión 1.2: </span>La compatibilidad con el modificador <tt class="docutils literal"><span class="pre">if</span></tt> se añadió en <em>Twig</em> 1.2.</p>
@@ -167,10 +167,10 @@
 <span class="x">&lt;/ul&gt;</span>
 </pre></div>
 </div>
-<p>La ventaja es que la variable especial <tt class="docutils literal"><span class="pre">loop</span></tt> contará correctamente, es decir, sin contar a los usuarios inactivos en la iteración.</p>
+<p>La ventaja es que la variable especial <tt class="docutils literal"><span class="pre">loop</span></tt> contará correctamente, es decir, sin contar a los usuarios inactivos en la iteración. Ten en cuenta que las propiedades como <tt class="docutils literal"><span class="pre">loop.last</span></tt> no están definidas cuando usas bucles condicionales.</p>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">Usar la variable <tt class="docutils literal"><span class="pre">loop</span></tt> sin la condición no es recomendable debido a que no llevará a cabo lo que esperas de haga. Por ejemplo, añadir una condición como <tt class="docutils literal"><span class="pre">loop.index</span> <span class="pre">&gt;</span> <span class="pre">4</span></tt> no funcionará puesto que el índice únicamente se incrementa cuando la condición es cierta (por lo tanto, la condición nunca coincidirá).</p>
+<p class="last">Usar la variable <tt class="docutils literal"><span class="pre">loop</span></tt> sin la condición no es recomendable debido a que no llevará a cabo lo que esperas se haga. Por ejemplo, añadir una condición como <tt class="docutils literal"><span class="pre">loop.index</span> <span class="pre">&gt;</span> <span class="pre">4</span></tt> no funcionará puesto que el índice únicamente se incrementa cuando la condición es cierta (por lo tanto, la condición nunca coincidirá).</p>
 </div>
 </div>
 <div class="section" id="la-clausula-else">
@@ -218,7 +218,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src=".././_static/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
   
   <div style="width:740px;margin:10px auto;">
     
@@ -242,23 +242,23 @@
 
 
    <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Mar 28, 2012.
+      Actualizado por última vez en Apr 28, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
-     <div id="disqus_thread"></div>
    </div>
-   <script type="text/javascript"> 
+   <script type="text/javascript">
     var disqus_shortname = 'documentos-mx';
-    
+    var disqus_developer = 1;
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-   </script> 
+   </script>
    <noscript>
      Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
    </noscript>
