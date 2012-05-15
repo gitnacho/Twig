@@ -4,118 +4,132 @@
 .. versionadded:: 1.8
     La etiqueta ``embed`` se añadió en *Twig 1.8*.
 
-La declaración ``embed`` te permite intercalar una plantilla en lugar de incluirla desde un archivo externo (como con la declaración ``include``):
+La etiqueta ``embed`` combina el comportamiento de :doc:`include <include>` y
+:doc:`extends <extends>`.
+Esta te permite incluir contenido de otras plantillas, tal cómo lo hace ``include``. Pero también te permite reemplazar cualquier bloque definido en la
+plantilla incluida, como cuando extiendes una plantilla.
+
+Piensa en una plantilla integrada como un esqueleto del "microdiseño".
 
 .. code-block:: jinja
 
-    {% embed "sidebar.twig" %}
-        {% block content %}
-            Algún contenido para la barra lateral
+    {% embed "esqueleto_tentativo.twig" %}
+        {# Estos bloques están definidos en "esqueleto_tentativo.twig" #}
+        {# Y los sustituimos aquí:                    #}
+        {% block left_teaser %}
+            Algún contenido para la caja de prueba izquierda
+        {% endblock %}
+        {% block right_teaser %}
+            Algún contenido para la caja de prueba derecha
         {% endblock %}
     {% endembed %}
 
-Como no es fácil de entender en qué circunstancias puede ser útil, vamos a poner un ejemplo; imagina una plantilla base compartida por muchas páginas con un solo bloque:
+La etiqueta ``embed`` lleva la idea de la herencia de plantillas a nivel de
+fragmentos de contenido. Si bien la herencia de plantillas posibilita los "esqueletos de documento",
+que están llenos de vida por las plantillas hijas, la etiqueta ``embed`` te permite crear "esqueletos" para las más pequeñas unidades de contenido y reutilizarlas y llenarlas en cualquier lugar que quieras.
+
+Debido al caso de uso puede no ser tan obvio, veamos un ejemplo simplificado.
+Imagina una plantilla base compartida por varias páginas *HTML*, la cual define un solo bloque llamado "contenido":
 
 .. code-block:: text
 
-    ┌─── Página n ────────────────────────────┐
-    │                                         │
-    │           ┌─────────────────────────┐   │
-    │           │                         │   │
-    │           │                         │   │
-    │           │                         │   │
-    │           │                         │   │
-    │           │                         │   │
-    │           │                         │   │
-    │           └─────────────────────────┘   │
-    │                                         │
-    └─────────────────────────────────────────┘
+    ┌─── diseño de página ────────────────┐
+    │                                     │
+    │        ┌── bloque "contenido" ──┐   │
+    │        │                        │   │
+    │        │                        │   │
+    │        │ (plantilla hija aquí   │   │
+    │        │  lleva el contenido)   │   │
+    │        │                        │   │
+    │        │                        │   │
+    │        └────────────────────────┘   │
+    │                                     │
+    └─────────────────────────────────────┘
 
-Algunas páginas (página 1, 2, ...) comparten la misma estructura para el bloque:
-
-.. code-block:: text
-
-    ┌─── Páginas 1 y 2 ───────────────────────┐
-    │                                         │
-    │           ┌── Base A ───────────────┐   │
-    │           │ ┌── contenido1 ───────┐ │   │
-    │           │ │ contenido para p1   │ │   │
-    │           │ └─────────────────────┘ │   │
-    │           │ ┌── contenido2 ───────┐ │   │
-    │           │ │ contenido para p1   │ │   │
-    │           │ └─────────────────────┘ │   │
-    │           └─────────────────────────┘   │
-    │                                         │
-    └─────────────────────────────────────────┘
-
-Mientras que otras páginas (página a, b, ...) comparten una estructura diferente para el bloque:
+Algunas páginas ("foo" y "bar") comparten la misma estructura del contenido ---
+dos cajas apiladas verticalmente:
 
 .. code-block:: text
 
-    ┌─── Pagina a, b ─────────────────────────┐
-    │                                         │
-    │           ┌── Base B ───────────────┐   │
-    │           │ ┌─────────┐ ┌─────────┐ │   │
-    │           │ │         │ │         │ │   │
-    │           │ │contenido│ │contenido│ │   │
-    │           │ │a, ...   │ │b, ...   │ │   │
-    │           │ │         │ │         │ │   │
-    │           │ └─────────┘ └─────────┘ │   │
-    │           └─────────────────────────┘   │
-    │                                         │
-    └─────────────────────────────────────────┘
+    ┌─── diseño de página ────────────────┐
+    │                                     │
+    │        ┌── bloque "contenido" ──┐   │
+    │        │ ┌─ bloque "sup" ─────┐ │   │
+    │        │ │                    │ │   │
+    │        │ └────────────────────┘ │   │
+    │        │ ┌─ bloque "inf" ─────┐ │   │
+    │        │ │                    │ │   │
+    │        │ └────────────────────┘ │   │
+    │        └────────────────────────┘   │
+    │                                     │
+    └─────────────────────────────────────┘
+
+mientras otras páginas ("boom" y "baz") comparten una estructura de contenido diferente --- dos cajas lado a lado:
+
+.. code-block:: text
+
+    ┌─── diseño de página ────────────────┐
+    │                                     │
+    │        ┌── bloque "contenido" ──┐   │
+    │        │                        │   │    
+    │        │ ┌ bloque ┐ ┌ bloque ┐  │   │
+    │        │ │ "izq"  │ │ "der"  │  │   │
+    │        │ │        │ │        │  │   │
+    │        │ │        │ │        │  │   │
+    │        │ └────────┘ └────────┘  │   │
+    │        └────────────────────────┘   │
+    │                                     │
+    └─────────────────────────────────────┘
 
 Sin la etiqueta ``embed``, tienes dos maneras de diseñar tus plantillas:
 
- * Crear dos plantillas base (una para los bloques 1, 2, ... y otra para los bloques a, b, ...) con el fin de eliminar el código de plantilla común, entonces una plantilla para cada página que hereda de una de las plantilla base;
+ * Crear dos plantillas base "intermedias" que extiendan a la plantilla del diseño principal: una con cajas apiladas verticalmente usada por las páginas "foo" y "bar" y otra con cajas lado a lado para las páginas "boom" y "baz".
 
- * Insertar el contenido personalizado de cada página directamente en cada página sin usar ningún tipo de plantillas externas (necesitarías repetir el código común de todas las plantillas).
+ * Integrar el marcado para las cajas sup/inf e izq/der en cada plantilla de página directamente.
 
 Estas dos soluciones no se adaptan bien porque cada una tiene un gran inconveniente:
 
- * La primera solución te hace crear muchos archivos externos (que no vas a volver a utilizar en ningún otro lugar) y por lo tanto no puedes mantener tu plantilla legible (mucho del código y contenido están fuera de contexto);
+ * La primer solución en verdad puede trabajar para este ejemplo simplificado. Pero imagina que añadimos una barra lateral, la cual a su vez contiene diferentes, estructuras de contenido recurrente. Ahora tendríamos que crear plantillas base intermedias para todas las combinaciones que produzcan estructuras de contenido y estructura de la barra lateral... y así sucesivamente.
 
- * La segunda te solución permite duplicar algún código común desde una plantilla a otra (por lo que no obedece el principio de "No repitas").
+ * La segunda solución consiste en duplicar código común con todos sus efectos y consecuencias negativas: cualquier cambio implica encontrar y editar todas las copias afectadas por la estructura, la corrección se tiene que verificar en cada copia, las copias pueden estar fuera de sincronía por modificaciones descuidadas, etc.
 
-En tal situación, la etiqueta de `embed`` soluciona todos estos problemas. El código común se puede crear fuera de las plantillas base (como en la solución 1), y el contenido personalizado se mantiene en cada página (como en la solución 2):
+En tal situación, la etiqueta ``embed`` viene muy bien. El código del diseño común puede vivir en una sola plantilla base, y las dos estructuras de contenido diferentes, vamos a llamarlas "microdiseños" tendremos plantillas separadas, que serán integradas conforme sea necesario:
+
+Plantilla de la página ``foo.twig``:
 
 .. code-block:: jinja
 
-    {# plantilla para las páginas 1, 2, ... #}
+    {% extends "layout_skeleton.twig" %}
 
-    {% extends page %}
-
-    {% block base %}
-        {% embed "base_A.twig" %}
-            {% block contenido1 %}
-                Contenido 1 de la página 2
+    {% block content %}
+        {% embed "vertical_boxes_skeleton.twig" %}
+            {% block top %}
+                Algún contenido para la caja de prueba superior
             {% endblock %}
 
-            {% block contenido2 %}
-                Contenido 2 de la página 2
+            {% block bottom %}
+                Algún contenido para la caja de prueba inferior
             {% endblock %}
         {% endembed %}
     {% endblock %}
 
-Y aquí está el código para ``base_A.twig``:
+Y aquí está el código para ``vertical_boxes_skeleton.twig``:
 
-.. code-block:: jinja
+.. code-block:: html+jinja
 
-    Algún código
+    <div class="top_box">
+        {% block top %}
+            Contenido predefinido para la caja superior
+        {% endblock %}
+    </div>
 
-    {% block contenido1 %}
-        Algún contenido predefinido
-    {% endblock %}
+    <div class="bottom_box">
+        {% block bottom %}
+            Contenido predefinido para la caja inferior
+        {% endblock %}
+    </div>
 
-    Algún otro código
-
-    {% block contenido2 %}
-        Algún contenido predefinido
-    {% endblock %}
-
-    Todavía, algún otro código
-
-El objetivo de la plantilla base ``base_a.twig`` es eliminar las partes ``Algún código``, ``Algún otro código``, y ``Todavía, algún otro código``.
+El objetivo de la plantilla ``vertical_boxes_skeleton.twig`` es el de eliminar el marcado *HTML* para las cajas.
 
 La etiqueta ``embed`` toma exactamente los mismos argumentos que la etiqueta ``include``:
 
@@ -135,6 +149,6 @@ La etiqueta ``embed`` toma exactamente los mismos argumentos que la etiqueta ``i
 
 .. warning::
 
-    Debido a que las plantillas incrustadas no tienen "nombres", las estrategias de autoescape basadas en el ::file:`"nombre de archivo"` de la plantilla no funcionan como se espera si cambias el contexto (por ejemplo, si incrustas una plantilla *CSS*/*JavaScript* en un archivo *HTML*). En ese caso, establece explícitamente el valor predeterminado para la estrategia de autoescape con la etiqueta ``autoescape``.
+    Debido a que las plantillas integradas no tienen "nombres", las estrategias de autoescape basadas en el :file:`"nombre de archivo"` de la plantilla no funcionan como se espera si cambias el contexto (por ejemplo, si integras una plantilla *CSS*/*JavaScript* en un archivo *HTML*). En ese caso, establece explícitamente el valor predefinido para la estrategia de escape automático con la etiqueta ``autoescape``.
 
 .. seealso:: :doc:`include <../tags/include>`

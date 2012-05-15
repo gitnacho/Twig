@@ -58,9 +58,9 @@ copyright = u'2011-2012, Traducido por Nacho Pacheco'
 # otras partes mientras se construyen los documentos.
 #
 # La versión X.Y corta.
-version = '1.8.0'
+version = '1.9'
 # La versión completa, incluyendo etiquetas alpha/beta/rc.
-release = '1.8.0'
+release = '1.9.0'
 
 # El idioma para el contenido autogenerado por Sphinx. Consulta la
 # documentación para una lista de idiomas apoyados.

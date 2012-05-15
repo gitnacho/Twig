@@ -384,9 +384,9 @@ Expresiones
 
 .. note::
 
-    La precedencia de los operadores es la siguiente, mostrando los operadores de menor precedencia en primer lugar: ``&``, ``^``, ``|``, ``or``, ``and``, ``==``,
-    ``!=``, ``<``, ``>``, ``>=``, ``<=``, ``in``, ``..``, ``+``, ``-``, ``~``,
-    ``*``, ``/``, ``//``, ``%``, ``is``, y ``**``.
+    La precedencia de los operadores es la siguiente, mostrando los operadores de menor precedencia en primer lugar: ``b-and``, ``b-xor``, ``b-or``, ``or``, ``and``,
+    ``==``, ``!=``, ``<``, ``>``, ``>=``, ``<=``, ``in``, ``..``, ``+``,
+    ``-``, ``~``, ``*``, ``/``, ``//``, ``%``, ``is``, and ``**``.
 
 Literales
 ~~~~~~~~~
@@ -463,6 +463,10 @@ Puedes combinar varias expresiones con los siguientes operadores:
 * ``not``: Niega una declaración.
 
 * ``(expr)``: Agrupa una expresión.
+
+.. note::
+
+    *Twig* además es compatible con operadores a nivel de bits (``b-and``, ``b-xor``, and ``b-or``).
 
 Comparaciones
 ~~~~~~~~~~~~~
