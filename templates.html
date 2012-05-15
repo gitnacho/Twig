@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.8.0',
+        VERSION:     '1.9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -389,9 +389,9 @@
 <p><em>Twig</em> acepta expresiones en cualquier parte. Estas funcionan de manera muy similar a <em>PHP</em> regular e incluso si no estás trabajando con <em>PHP</em> te debes sentir cómodo con estas.</p>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">La precedencia de los operadores es la siguiente, mostrando los operadores de menor precedencia en primer lugar: <tt class="docutils literal"><span class="pre">&amp;</span></tt>, <tt class="docutils literal"><span class="pre">^</span></tt>, <tt class="docutils literal"><span class="pre">|</span></tt>, <tt class="docutils literal"><span class="pre">or</span></tt>, <tt class="docutils literal"><span class="pre">and</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>,
-<tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">in</span></tt>, <tt class="docutils literal"><span class="pre">..</span></tt>, <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">~</span></tt>,
-<tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt>, <tt class="docutils literal"><span class="pre">//</span></tt>, <tt class="docutils literal"><span class="pre">%</span></tt>, <tt class="docutils literal"><span class="pre">is</span></tt>, y <tt class="docutils literal"><span class="pre">**</span></tt>.</p>
+<p class="last">La precedencia de los operadores es la siguiente, mostrando los operadores de menor precedencia en primer lugar: <tt class="docutils literal"><span class="pre">b-and</span></tt>, <tt class="docutils literal"><span class="pre">b-xor</span></tt>, <tt class="docutils literal"><span class="pre">b-or</span></tt>, <tt class="docutils literal"><span class="pre">or</span></tt>, <tt class="docutils literal"><span class="pre">and</span></tt>,
+<tt class="docutils literal"><span class="pre">==</span></tt>, <tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">in</span></tt>, <tt class="docutils literal"><span class="pre">..</span></tt>, <tt class="docutils literal"><span class="pre">+</span></tt>,
+<tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">~</span></tt>, <tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt>, <tt class="docutils literal"><span class="pre">//</span></tt>, <tt class="docutils literal"><span class="pre">%</span></tt>, <tt class="docutils literal"><span class="pre">is</span></tt>, and <tt class="docutils literal"><span class="pre">**</span></tt>.</p>
 </div>
 <div class="section" id="literales">
 <h3>Literales<a class="headerlink" href="#literales" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -456,6 +456,10 @@
 <li><tt class="docutils literal"><span class="pre">not</span></tt>: Niega una declaración.</li>
 <li><tt class="docutils literal"><span class="pre">(expr)</span></tt>: Agrupa una expresión.</li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><em>Twig</em> además es compatible con operadores a nivel de bits (<tt class="docutils literal"><span class="pre">b-and</span></tt>, <tt class="docutils literal"><span class="pre">b-xor</span></tt>, and <tt class="docutils literal"><span class="pre">b-or</span></tt>).</p>
+</div>
 </div>
 <div class="section" id="comparaciones">
 <h3>Comparaciones<a class="headerlink" href="#comparaciones" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -603,7 +607,7 @@ dentro de una cadena. El resultado de la evaluación esa expresión se inserta e
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Apr 28, 2012.
+      Actualizado por última vez en May 15, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
    </div>

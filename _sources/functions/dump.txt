@@ -12,12 +12,15 @@ La función ``dump`` vierte información sobre una variable de plantilla. Esta e
 
 .. note::
 
-    La función ``debug`` no está activa de manera predeterminada. La debes cargar explícitamente::
+    La función ``dump`` de manera predefinida no esta disponible. la debes añadir explícitamente a la extensión ``Twig_Extension_Debug`` al crear tu entorno *Twig*::
 
-        $twig = new Twig_Environment($loader, $config);
+        $twig = new Twig_Environment($loader, array(
+            'debug' => true,
+            // ...
+        ));
         $twig->addExtension(new Twig_Extension_Debug());
 
-    Incluso aunque la cargues explícitamente, no hace nada si no activas la opción ``debug``.
+    Incluso al activarla, la función ``dump`` no muestra nada si la opción ``debug`` en el entorno no está activada (para evitar fugas de información al depurar en un servidor en producción).
 
 En un contexto *HTML*, envuelve su resultado en una etiqueta ``pre`` para facilitar su lectura:
 
@@ -47,5 +50,5 @@ Si no pasas ningún valor, se vierten todas las variables del contexto actual:
 
     Internamente, *Twig* usa la función `var_dump`_ de *PHP*.
 
-.. _`XDebug`: http://xdebug.org/docs/display
+.. _`XDebug`:   http://xdebug.org/docs/display
 .. _`var_dump`: http://php.net/var_dump
