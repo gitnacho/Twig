@@ -355,8 +355,8 @@
 </div>
 <div class="section" id="macros">
 <h2>Macros<a class="headerlink" href="#macros" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para poner modismos <em>HTML</em> utilizados frecuentemente en elementos reutilizables para no repetirlos.</p>
-<p>Una macro se define a través de la etiqueta <a class="reference internal" href="tags/macro.html"><em>macro</em></a>. He aquí un pequeño ejemplo de una macro que reproduce un elemento de formulario:</p>
+<p>Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para reutilizar <em>HTML</em> usado frecuentemente para no repetirlos tú mismo.</p>
+<p>Una macro se define a través de la etiqueta <a class="reference internal" href="tags/macro.html"><em>macro</em></a>. Aquí está un pequeño ejemplo (más tarde llamada <tt class="docutils literal"><span class="pre">forms.html</span></tt>) de una macro que pinta un elemento de formulario:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;text&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
 <span class="x">             name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot;</span>
@@ -365,22 +365,21 @@
 <span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>Las macros se pueden definir en cualquier plantilla, y es necesario &#8220;importarlas&#8221;, antes de utilizarlas usando la etiqueta <a class="reference internal" href="tags/import.html"><em>import</em></a>:</p>
+<p>Puedes definir macros en cualquier plantilla, y necesitas &#8220;importarlas&#8221; con la etiqueta <a class="reference internal" href="tags/import.html"><em>import</em></a> antes de poder usarlas:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">import</span> <span class="s2">&quot;formularios.html&quot;</span> <span class="k">as</span> <span class="nv">forms</span> <span class="cp">%}</span><span class="x"></span>
 
 <span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">forms.input</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
 </pre></div>
 </div>
-<p>Alternativamente, puedes importar nombres desde la plantilla al espacio de nombres actual vía la etiqueta <a class="reference internal" href="tags/from.html"><em>from</em></a>:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">from</span> <span class="s1">&#39;formularios.html&#39;</span> <span class="k">import</span> <span class="nv">input</span> <span class="k">as</span> <span class="nv">campo_input</span><span class="o">,</span> <span class="nv">textarea</span> <span class="cp">%}</span><span class="x"></span>
+<p>Alternativamente, puedes importar nombres de macros individuales desde una plantilla al espacio de nombres actual vía la etiqueta <a class="reference internal" href="tags/from.html"><em>from</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">importa</span> <span class="nv">el</span> <span class="nv">input</span> <span class="nv">de</span> <span class="s1">&#39;forms.html&#39;</span> <span class="nv">como</span> <span class="nv">input_field</span> <span class="cp">%}</span><span class="x"></span>
 
 <span class="x">&lt;dl&gt;</span>
 <span class="x">    &lt;dt&gt;Username&lt;/dt&gt;</span>
 <span class="x">    &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">input_field</span><span class="o">(</span><span class="s1">&#39;username&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
 <span class="x">    &lt;dt&gt;Password&lt;/dt&gt;</span>
-<span class="x">    &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">input_field</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
+<span class="x">    &lt;dd&gt;</span><span class="cp">{{</span> <span class="nv">input_field</span><span class="o">(</span><span class="s1">&#39;password&#39;</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="s1">&#39;password&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/dd&gt;</span>
 <span class="x">&lt;/dl&gt;</span>
-<span class="x">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">textarea</span><span class="o">(</span><span class="s1">&#39;comment&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -607,7 +606,7 @@ dentro de una cadena. El resultado de la evaluación esa expresión se inserta e
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en May 15, 2012.
+      Actualizado por última vez en May 29, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
    </div>

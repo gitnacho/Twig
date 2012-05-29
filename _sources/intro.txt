@@ -68,7 +68,7 @@ Instalando vía ``Composer``
 
     {
         "require": {
-            "twig/twig": "1.6.0"
+            "twig/twig": "1.*"
         }
     }
 
@@ -77,6 +77,9 @@ Instalando vía ``Composer``
 .. code-block:: bash
 
     php composer.phar install
+
+.. note::
+    Si  quieres aprender más sobre ``Composer``, la sintaxis del :file:`compositor.json` y su uso,  puedes leer la `documentación en línea`_.
 
 Instalando la extensión *C*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,4 +148,5 @@ Debido a que las plantillas generalmente se guardan en el sistema de archivos, *
     echo $twig->render('index.html', array('name' => 'Fabien'));
 
 .. _`página de descarga`: https://github.com/fabpot/Twig/tags
+.. _`documentación en línea`: http://getcomposer.org/doc
 .. _`DLL preconstruida`: https://github.com/stealth35/stealth35.github.com/downloads

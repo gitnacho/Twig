@@ -150,6 +150,11 @@
 </tr>
 </tbody>
 </table>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="cp">}}</span><span class="x"> - </span><span class="cp">{{</span> <span class="nv">user.username</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
 <p class="last">Las variables <tt class="docutils literal"><span class="pre">loop.length</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex0</span></tt> y <tt class="docutils literal"><span class="pre">loop.last</span></tt> únicamente están disponibles para matrices <em>PHP</em>, u objetos que implementen la interfaz <tt class="docutils literal"><span class="pre">Countable</span></tt>. Tampoco están disponibles cuando iteras con una condición.</p>
@@ -246,7 +251,7 @@
      
     <div class="footer">
         &copy; Copyright 2011-2012, Traducido por Nacho Pacheco.
-      Actualizado por última vez en May 15, 2012.
+      Actualizado por última vez en May 29, 2012.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
    </div>

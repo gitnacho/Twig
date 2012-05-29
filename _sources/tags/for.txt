@@ -64,6 +64,12 @@ Variable              Descripción
 ``loop.parent``       El contexto del padre
 ===================== ========================================================================
 
+.. code-block:: jinja
+
+    {% for user in users %}
+        {{ loop.index }} - {{ user.username }}
+    {% endfor %}
+
 .. note::
 
     Las variables ``loop.length``, ``loop.revindex``, ``loop.revindex0`` y ``loop.last`` únicamente están disponibles para matrices *PHP*, u objetos que implementen la interfaz ``Countable``. Tampoco están disponibles cuando iteras con una condición.

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>constant &mdash; Manual de Twig en Español</title>
+    <title>abs &mdash; Manual de Twig en Español</title>
     
     <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -25,10 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="shortcut icon" href="../_static/icotnp.ico"/>
-    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
-    <link rel="up" title="Probando" href="index.html" />
-    <link rel="next" title="defined" href="defined.html" />
-    <link rel="prev" title="sameas" href="sameas.html" /> 
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" /> 
   </head>
   <body>
   <div class="imalogo">
@@ -58,14 +55,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="Índice General"
              accesskey="I">índice</a></li>
-        <li class="right" >
-          <a href="defined.html" title="defined"
-             accesskey="N">siguiente</a> |</li>
-        <li class="right" >
-          <a href="sameas.html" title="sameas"
-             accesskey="P">anterior</a> |</li>
-        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Probando</a> &raquo;</li> 
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li> 
       </ul>
     </div>
   </div>
@@ -76,13 +66,19 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="constant">
-<h1><tt class="docutils literal"><span class="pre">constant</span></tt><a class="headerlink" href="#constant" title="Enlazar permanentemente con este título">¶</a></h1>
-<p><tt class="docutils literal"><span class="pre">constant</span></tt> comprueba si una variable tiene el mismo valor exacto que una constante. Puedes utilizar cualquiera de las constantes globales o constantes de clase:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">post.status</span> <span class="k">is</span> <span class="nf">constant</span><span class="o">(</span><span class="s1">&#39;Post::PUBLISHED&#39;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    el atributo estatus es exactamente el mismo que Post::PUBLISHED</span>
-<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+  <div class="section" id="abs">
+<h1><tt class="docutils literal"><span class="pre">abs</span></tt><a class="headerlink" href="#abs" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El filtro <tt class="docutils literal"><span class="pre">abs</span></tt> devuelve el valor absoluto.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# numero = -5 #}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">numero</span><span class="o">|</span><span class="nf">abs</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# produce 5 #}</span><span class="x"></span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Internamente, <em>Twig</em> usa la función <a class="reference external" href="http://www.php.net/manual/es/function.abs.php">abs</a> de <em>PHP</em>.</p>
 </div>
 </div>
 
@@ -102,14 +98,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="Índice General"
              >índice</a></li>
-        <li class="right" >
-          <a href="defined.html" title="defined"
-             >siguiente</a> |</li>
-        <li class="right" >
-          <a href="sameas.html" title="sameas"
-             >anterior</a> |</li>
-        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
-          <li><a href="index.html" >Probando</a> &raquo;</li> 
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li> 
       </ul>
     </div>
   </div>
