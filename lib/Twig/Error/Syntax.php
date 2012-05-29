@@ -11,7 +11,7 @@
  */
 
 /**
- * Exception thrown when a syntax error occurs during lexing or parsing of a template.
+ * Lanza una excepción cuando ocurre un error de sintaxis durante el análisis léxico o sintáctico de una plantilla.
  *
  * @package    twig
  * @author     Fabien Potencier <fabien@symfony.com>

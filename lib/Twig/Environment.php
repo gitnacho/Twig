@@ -17,7 +17,7 @@
  */
 class Twig_Environment
 {
-    const VERSION = '1.8.0-DEV';
+    const VERSION = '1.8.2-DEV';
 
     protected $charset;
     protected $loader;
@@ -50,9 +50,8 @@ class Twig_Environment
      *
      * Opciones disponibles:
      *
-     *  * debug: Cuando se fija a `true`, las plantillas generadas tienen un método
-     *           __toString() que puedes usar para mostrar los nodos generados (por
-     *           omisión es `false`);
+     *  * debug: When set to true, it automatically set "auto_reload" to true as
+     *           well (default to false).
      *
      *  * charset: El juego de caracteres usado por las plantillas (por omisión es
      *             ``utf-8``).
@@ -75,16 +74,17 @@ class Twig_Environment
      *
      *  * autoescape: si activar el autoescape (por omisión es html);
      *                  * false: desactiva el autoescape
-     *                  * true: equivalent to html
-     *                  * html, js: set the autoescaping to one of the supported strategies
-     *                  * PHP callback: a PHP callback that returns an escaping strategy based on the template "filename"
+     *                  * true: equivalente a html
+     *                  * html, js: Fija el autoescape a una de las estrategias compatibles
+     *                  * PHP callback: una retrollamada PHP que devuelve una estrategia de
+     * escape basándose en el "nombre de archivo" de la plantilla
      *
      *  * optimizations: Un indicador que determina cual optimización aplicar
      *                   (por omisión es -1 que significa activar todas las
-     *                   set it to 0 to disable).
+     *                   para desactivarla ponla a ``0``).
      *
-     * @param Twig_LoaderInterface   $loader  Una instancia de Twig_LoaderInterface
-     * @param array                  $options Un arreglo de opciones
+     * @param Twig_LoaderInterface $loader  A Twig_LoaderInterface instance
+     * @param array                $options An array of options
      */
     public function __construct(Twig_LoaderInterface $loader = null, $options = array())
     {
@@ -117,6 +117,14 @@ class Twig_Environment
         $this->setCache($options['cache']);
         $this->functionCallbacks = array();
         $this->filterCallbacks = array();
+        $this->staging = array(
+            'functions'     => array(),
+            'filters'       => array(),
+            'tests'         => array(),
+            'token_parsers' => array(),
+            'visitors'      => array(),
+            'globals'       => array(),
+        );
     }
 
     /**
@@ -201,7 +209,7 @@ class Twig_Environment
     }
 
     /**
-     * Disables the strict_variables option.
+     * Desactiva la opción strict_variables.
      */
     public function disableStrictVariables()
     {
@@ -209,9 +217,9 @@ class Twig_Environment
     }
 
     /**
-     * Checks if the strict_variables option is enabled.
+     * Comprueba si está activada la opción strict_variables.
      *
-     * @return Boolean true if strict_variables is enabled, false otherwise
+     * @return Boolean true se strict_variables está habilitada, false en otro caso
      */
     public function isStrictVariables()
     {
@@ -219,7 +227,7 @@ class Twig_Environment
     }
 
     /**
-     * Gets the cache directory or false if cache is disabled.
+     * Obtiene el directorio de caché o false si está desactivada la caché.
      *
      * @return string|false
      */
@@ -229,10 +237,10 @@ class Twig_Environment
     }
 
      /**
-      * Sets the cache directory or false if cache is disabled.
+      * Establece el directorio de caché o false si la caché está desactivada.
       *
-      * @param string|false $cache The absolute path to the compiled templates,
-      *                            or false to disable cache
+      * @param string|false $cache La ruta absoluta a las plantillas compiladas,
+      *                            o false para desactivar la caché
       */
     public function setCache($cache)
     {
@@ -240,11 +248,11 @@ class Twig_Environment
     }
 
     /**
-     * Gets the cache filename for a given template.
+     * Obtiene el nombre del archivo de caché de una plantilla dada.
      *
-     * @param string $name The template name
+     * @param string $name El nombre de la plantilla
      *
-     * @return string The cache file name
+     * @return string El nombre del archivo de caché
      */
     public function getCacheFilename($name)
     {
@@ -258,12 +266,13 @@ class Twig_Environment
     }
 
     /**
-     * Gets the template class associated with the given string.
+     * Obtiene la clase de la plantilla asociada con la cadena dada.
      *
-     * @param string  $name  The name for which to calculate the template class name
-     * @param integer $index The index if it is an embedded template
+     * @param string  $name  El nombre para el cual calcular el nombre
+     *                       de clase de la plantilla
+     * @param integer $index El índice si es una plantilla 'embed'
      *
-     * @return string The template class name
+     * @return string El nombre de clase de la plantilla
      */
     public function getTemplateClass($name, $index = null)
     {
@@ -271,9 +280,9 @@ class Twig_Environment
     }
 
     /**
-     * Gets the template class prefix.
+     * Obtiene el prefijo de clase de la plantilla.
      *
-     * @return string The template class prefix
+     * @return string El prefijo para la clase de la plantilla
      */
     public function getTemplateClassPrefix()
     {
@@ -281,12 +290,12 @@ class Twig_Environment
     }
 
     /**
-     * Renders a template.
+     * Reproduce una plantilla.
      *
-     * @param string $name    The template name
-     * @param array  $context An array of parameters to pass to the template
+     * @param string $name    El nombre de la plantilla
+     * @param array  $context Una matriz de parámetros por pasar a la plantilla
      *
-     * @return string The rendered template
+     * @return string La plantilla pintada
      */
     public function render($name, array $context = array())
     {
@@ -296,8 +305,8 @@ class Twig_Environment
     /**
      * Muestra una plantilla.
      *
-     * @param string $name    The template name
-     * @param array  $context An array of parameters to pass to the template
+     * @param string $name    El nombre de la plantilla
+     * @param array  $context Una matriz de parámetros por pasar a la plantilla
      */
     public function display($name, array $context = array())
     {
@@ -307,8 +316,8 @@ class Twig_Environment
     /**
      * Carga una plantilla por nombre.
      *
-     * @param string  $name  The template name
-     * @param integer $index The index if it is an embedded template
+     * @param string $name   El nombre de la plantilla
+     * @param integer $index El índice si es una plantilla 'embed'
      *
      * @return Twig_TemplateInterface A template instance representing the given template name
      */
@@ -346,7 +355,7 @@ class Twig_Environment
      * this method also checks if the enabled extensions have
      * not changed.
      *
-     * @param string    $name The template name
+     * @param string    $name El nombre de la plantilla
      * @param timestamp $time The last modification time of the cached template
      *
      * @return Boolean true if the template is fresh, false otherwise
@@ -509,7 +518,7 @@ class Twig_Environment
     }
 
     /**
-     * Compiles a Node.
+     * Compila un nodo.
      *
      * @param Twig_NodeInterface $node A Twig_NodeInterface instance
      *
@@ -621,7 +630,7 @@ class Twig_Environment
     }
 
     /**
-     * Registers an extension.
+     * Registra una extensión.
      *
      * @param Twig_ExtensionInterface $extension A Twig_ExtensionInterface instance
      */
@@ -653,7 +662,7 @@ class Twig_Environment
     }
 
     /**
-     * Registers an array of extensions.
+     * Registra una matriz de extensiones.
      *
      * @param array $extensions Una matriz de extensiones
      */
@@ -719,7 +728,7 @@ class Twig_Environment
     }
 
     /**
-     * Gets registered tags.
+     * Obtiene las etiquetas registradas.
      *
      * Be warned that this method cannot return tags defined by Twig_TokenParserBrokerInterface classes.
      *
@@ -738,7 +747,7 @@ class Twig_Environment
     }
 
     /**
-     * Registers a Node Visitor.
+     * Registra un visitante de nodo.
      *
      * @param Twig_NodeVisitorInterface $visitor A Twig_NodeVisitorInterface instance
      */
@@ -756,10 +765,13 @@ class Twig_Environment
     public function getNodeVisitors()
     {
         if (null === $this->visitors) {
-            $this->visitors = isset($this->staging['visitors']) ? $this->staging['visitors'] : array();
             foreach ($this->getExtensions() as $extension) {
-                $this->visitors = array_merge($this->visitors, $extension->getNodeVisitors());
+                foreach ($extension->getNodeVisitors() as $visitor) {
+                    $this->addNodeVisitor($visitor);
+                }
             }
+
+            $this->visitors = $this->staging['visitors'];
         }
 
         return $this->visitors;
@@ -836,10 +848,13 @@ class Twig_Environment
     public function getFilters()
     {
         if (null === $this->filters) {
-            $this->filters = isset($this->staging['filters']) ? $this->staging['filters'] : array();
             foreach ($this->getExtensions() as $extension) {
-                $this->filters = array_merge($this->filters, $extension->getFilters());
+                foreach ($extension->getFilters() as $name => $filter) {
+                    $this->addFilter($name, $filter);
+                }
             }
+
+            $this->filters = $this->staging['filters'];
         }
 
         return $this->filters;
@@ -865,10 +880,13 @@ class Twig_Environment
     public function getTests()
     {
         if (null === $this->tests) {
-            $this->tests = isset($this->staging['tests']) ? $this->staging['tests'] : array();
             foreach ($this->getExtensions() as $extension) {
-                $this->tests = array_merge($this->tests, $extension->getTests());
+                foreach ($extension->getTests() as $name => $test) {
+                    $this->addTest($name, $test);
+                }
             }
+
+            $this->tests = $this->staging['tests'];
         }
 
         return $this->tests;
@@ -945,19 +963,22 @@ class Twig_Environment
     public function getFunctions()
     {
         if (null === $this->functions) {
-            $this->functions = isset($this->staging['functions']) ? $this->staging['functions'] : array();
             foreach ($this->getExtensions() as $extension) {
-                $this->functions = array_merge($this->functions, $extension->getFunctions());
+                foreach ($extension->getFunctions() as $name => $function) {
+                    $this->addFunction($name, $function);
+                }
             }
+
+            $this->functions = $this->staging['functions'];
         }
 
         return $this->functions;
     }
 
     /**
-     * Registers a Global.
+     * Registra una global.
      *
-     * @param string $name  The global name
+     * @param string $name  El nombre global
      * @param mixed  $value The global value
      */
     public function addGlobal($name, $value)

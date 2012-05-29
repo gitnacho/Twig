@@ -1,33 +1,47 @@
-* 1.8.0 (2012-XX-XX)
+* 1.8.2 (2012-XX-XX)
 
- * se simplificó el uso de la etiqueta autoescape; el único argumento (opcional) ahora es la estrategia de escape o false (con una capa BC)
+ * se añadió el filtro abs
+ * se corrigió una regresión al usar un número en los atributos de plantilla
+ * corregido el compilador al establecer mbstring.func_overload a 2
+
+* 1.8.1 (2012-05-17)
+
+ * se corrigió una regresión al lidiar con instancias SimpleXMLElement en plantillas
+ * se corrigió el valor "is_safe" de la función "dump" cuando "html_errors" no está definido en php.ini
+ * cambió para utilizar mbstring siempre que sea posible en lugar de iconv
+
+* 1.8.0 (2012-05-08)
+
+ * interfaz para cumplir cuando se agregan pruebas, filtros, funciones, y visitantes de nodo desde las extensiones
+ * corrige un efecto secundario del filtro ``date`` en que se podría cambiar la zona horaria se simplificó el uso de la etiqueta autoescape; el único argumento (opcional) ahora es la estrategia de escape o false (con una capa BC)
  * se añadió una forma para cambiar dinámicamente la estrategia de autoescape de acuerdo al "nombre de archivo" de la plantilla
- * changed the autoescape option to also accept a supported escaping strategy (for BC, true is equivalent to html)
- * added an embed tag
+ * cambió la opción autoescape para aceptar también una estrategia de escape compatible (para BC, true es equivalente a html)
+ * se agregó la etiquete embed
 
 * 1.7.0 (2012-04-24)
 
- * fixed a PHP warning when using CIFS
- * fixed template line number in some exceptions
- * added an iterable test
+ * corregida la advertencia de PHP al usar CIFS
+ * se corrigió el número de línea en algunas excepciones de plantilla
+ * añadida un prueba iterable
  * se añadió un error cuando en la misma plantilla estás definiendo dos bloques con el mismo nombre
- * added the preserves_safety option for filters
+ * se añadió la opció preserves_safety para filtros
  * se corrigió un aviso PHP cuando intentas acceder una clave en una variable que no es objeto/arreglo
  * se mejoró el informe de error cuando el archivo de la plantilla es una instancia de SplFileInfo
  * se añadió Twig_Environment::mergeGlobals()
  * se agregaron comprobaciones de compilación para evitar el uso incorrecto de la etiqueta ``sandbox``
- * fixed filesystem loader freshness logic for high traffic websites
- * fixed random function when charset is null
+ * corregida la lógica de refresco del cargador del sistema de archivos en sitios web de alto tráfico
+ * corregida la función aleatoria cuando el juego de caracteres es nulo
 
 * 1.6.5 (2012-04-11)
 
- * fixed a regression when a template only extends another one without defining any blocks
+ * se arregló una regresión cuando una plantilla sólo extiende a otra sin definir bloques
 
 * 1.6.4 (2012-04-02)
 
- * fixed PHP notice in Twig_Error::guessTemplateLine() introduced in 1.6.3
- * fixed performance when compiling large files
- * optimized parent template creation when the template does not use dynamic inheritance
+ * se fijó el aviso de PHP en Twig_Error::guessTemplateLine() introducido en 1.6.3
+ * se mejoró el rendimiento al compilar archivos de gran tamaño
+ * se optimizó la creación de plantillas padre cuando la plantilla no usa herencia dinámica
+
 
 * 1.6.3 (2012-03-22)
 
@@ -203,35 +217,45 @@ Limpie tu caché después de actualizar.
 * 1.0.0 (2011-03-27)
 
  * se corrigió la salida cuando se usa mbstring
- *corregida llamada duplicado de los métodos cuando se utiliza la caja de arena
-hizo el juego de caracteres configurable para el filtro de escape
-cambiado la forma {%%} conjunto trabaja en la captura (el contenido ahora está marcado como seguro)
-Añadido soporte para nombre de la macro en la etiqueta endmacro
-que Twig_Error compatible con PHP 5.3.0>
-corregidado en un bucle infinito en algunas configuraciones de Windows
-corregida la "longitud" de filtro para los números
-fijo de plantilla :: getAttribute () como propiedades en PHP entre mayúsculas y minúsculas
-acoplamiento entre el retirado y Twig_Node Twig_Template
-fijó la regla de prioridad de los operadores ternarios
-la "elementos" del filtro, que ha quedado en desuso desde hace mucho tiempo, se ha eliminado
-el "rango" filtro se ha convertido en una función: 0 | Gama (10) -> Rango (0, 10)
-la "constante" filtro se ha convertido en una función: {{some_date | fecha ('DATE_W3C' | constante)}} -> {{some_date | fecha (constante ('DATE_W3C'))}}
-el "ciclo" del filtro se ha convertido en una función: {{['extraña', 'incluso'] | ciclo (i)}} -> {{ciclo (['extraña', 'incluso'], i)}}
-el "de" etiqueta no es compatible con "acompañado por" más
-el "Autoescape" el primer argumento es ahora "verdadero" / "falso" (en lugar de "en" / "off")
-el "padre" etiqueta ha sido sustituido por un "padre" de función ({{parent ()}} {% en lugar de los padres%})
-la "pantalla" etiqueta ha sido sustituido por un "bloque" de función ({{bloque ('titulo')}} {display en lugar de% title%})
-eliminó la gramática y el analizador sencilla razón (movido al repositorio de extensiones Twig)
-agregó: "needs_context" opción por los filtros y funciones (el contexto se pasa como primer argumento)
-soporte adicional variables globales
-hecho macros devolver su valor en lugar de eco directamente (correcciones de llamadas de una macro en el modo de recinto de seguridad)
-añadió el "de" etiqueta para importar macros como funciones
-Añadido soporte para las funciones (una función es simplemente una ayuda sintáctica para una getAttribute () de llamada)
-hecho que se puede llamar las macros cuando el modo de recinto de seguridad está activado
-añade una excepción cuando una macro utiliza un nombre reservado
-el "incumplimiento" de filtro ahora usa el "vacío" prueba en lugar de sólo la comprobación de null
-agregó el "vacío" de pruebas
+ * corregida la llamada duplicada a métodos cuando se utiliza la caja de arena
+ * se hizo configurable el juego de caracteres para el filtro escape
 
+* 1.0.0-RC2 (2011-02-21)
+
+ * cambió la forma en que trabaja {% set %} al capturar (el contenido ahora está marcado como seguro)
+ * Se añadió el soporte necesario para nombre de macro en la etiqueta endmacro
+ * se hizo compatible Twig_Error con PHP 5.3.0 >
+ * se corrigió un bucle infinito en algunas configuraciones de Windows
+ * corregido el filtro "lengith" para números
+ * corregido el ``Template::getAttribute()`` puesto que las propiedades en PHP distinguen entre mayúsculas y minúsculas
+ * se quitó el acoplamiento entre el Twig_Node y Twig_Template
+ * se fijó la regla de precedencia de los operadores ternarios
+
+* 1.0.0-RC1 (2011-01-09)
+
+Incompatibilidades hacia atrás:
+
+ * el filtro "items", el cual quedó en desuso desde hace mucho tiempo, se ha eliminado
+ * el filtro "range" se ha convertido en función: 0|range(10) -> range(0, 10)
+ * el filtro "constant" se ha convertido en una función: {{ alguna_fecha|date('DATE_W3C'|constant) }} -> {{ alguna_fecha|date(constant('DATE_W3C')) }}
+ * el filtro "cycle" se ha convertido en función: {{ ['odd', 'even']|cycle(i) }} -> {{ cycle(['odd', 'even'], i) }}
+ * la etiqueta "for" ya no es compatible con "joined by"
+ * el "autoescape" del primer argumento ahora es "true"/"false" (en lugar de "on"/"off")
+ * la etiqueta "parent" se ha sustituido por una función "parent" ({{ parent() }} en lugar de  {% parent %})
+ * la etiqueta "display" se ha sustituido por una función "block" ({{ block('titulo') }} en lugar de {% display titulo %})
+ * se eliminaron la gramática y el sencillo analizador sintáctico (se movieron al repositorio de extensiones Twig)
+
+Cambios:
+
+ * se agregó la opción "needs_context" para filtros y funciones (el contexto se pasa como primer argumento)
+ * se añadió compatibilidad para variables globales
+ * se hizo que las macros devuelvan su valor en lugar de hacer eco directamente (se corrigieron las llamadas de macro en el modo de recinto de seguridad)
+ * se añadió la etiqueta "from" para importar macros como funciones
+ * se añadió compatibilidad para funciones (una función es simplemente azúcar sintáctica para una llamada a getAttribute())
+ * se hizo que se pueda llamar a las macros cuando el modo de recinto de seguridad está activado
+ * añadió una excepción cuando una macro usa un nombre reservado
+ * el filtro "default" ahora usa la prueba "empty" en lugar de sólo comprobar por 'null'
+ * se agregó la prueba "empty"
 
 La extensión Escaper está activado por defecto, lo que significa que toda la muestra
    Las variables son automáticamente escapó. Puede volver a la anterior
@@ -677,46 +701,6 @@ añade $ escapar cuando la salida cuerdas primas
 mejorado algunos mensajes de error para facilitar la depuración
 corregida los archivos de caché vacías cuando la plantilla contiene un error
 corregido un error en PHP 5.2.6
-números corregidos con un que un decimal
-Añadido soporte para llamadas de método con argumentos ({{foo.bar ('a', 43)}}) fixed duplicate call of methods when using the sandbox
- * made the charset configurable for the escape filter
-
-* 1.0.0-RC2 (2011-02-21)
-
- * changed the way {% set %} works when capturing (the content is now marked as safe)
- * added support for macro name in the endmacro tag
- * make Twig_Error compatible with PHP 5.3.0 >
- * fixed an infinite loop on some Windows configurations
- * fixed the "length" filter for numbers
- * fixed Template::getAttribute() as properties in PHP are case sensitive
- * removed coupling between Twig_Node and Twig_Template
- * fixed the ternary operator precedence rule
-
-* 1.0.0-RC1 (2011-01-09)
-
-Incompatibilidades hacia atrás:
-
- * the "items" filter, which has been deprecated for quite a long time now, has been removed
- * the "range" filter has been converted to a function: 0|range(10) -> range(0, 10)
- * the "constant" filter has been converted to a function: {{ some_date|date('DATE_W3C'|constant) }} -> {{ some_date|date(constant('DATE_W3C')) }}
- * the "cycle" filter has been converted to a function: {{ ['odd', 'even']|cycle(i) }} -> {{ cycle(['odd', 'even'], i) }}
- * the "for" tag does not support "joined by" anymore
- * the "autoescape" first argument is now "true"/"false" (instead of "on"/"off")
- * the "parent" tag has been replaced by a "parent" function ({{ parent() }} instead of {% parent %})
- * the "display" tag has been replaced by a "block" function ({{ block('title') }} instead of {% display title %})
- * removed the grammar and simple token parser (moved to the Twig Extensions repository)
-
-Cambios:
-
- * added "needs_context" option for filters and functions (the context is then passed as a first argument)
- * added global variables support
- * made macros return their value instead of echoing directly (fixes calling a macro in sandbox mode)
- * added the "from" tag to import macros as functions
- * added support for functions (a function is just syntactic sugar for a getAttribute() call)
- * made macros callable when sandbox mode is enabled
- * added an exception when a macro uses a reserved name
- * the "default" filter now uses the "empty" test instead of just checking for null
- * added the "empty" test
 
 * 0.9.10 (2010-12-16)
 
@@ -961,7 +945,7 @@ This release is NOT backward compatible with the previous releases.
 * 0.9.1 (2009-10-14)
 
   * se corrigió un fallo en PHP 5.2.6
-  * fixed numbers with one than one decimal
+  * se corrigieron los números con un único decimal
   * Se añadió la compatibilidad par llamadas a método con argumentos ({{ foo.bar('a', 43) }})
   * se hicieron pequeñas optimizaciones de velocidad
   * ajustes menores para mejorar la extensibilidad y flexibilidad

@@ -48,7 +48,7 @@ class Twig_Extension_Core extends Twig_Extension
     /**
      * Sets the default timezone to be used by the date filter.
      *
-     * @param DateTimeZone|string $timezone  The default timezone string or a DateTimeZone object
+     * @param DateTimeZone|string $timezone The default timezone string or a DateTimeZone object
      */
     public function setTimezone($timezone)
     {
@@ -68,9 +68,9 @@ class Twig_Extension_Core extends Twig_Extension
     /**
      * Sets the default format to be used by the number_format filter.
      *
-     * @param integer $decimal The number of decimal places to use.
-     * @param string $decimalPoint The character(s) to use for the decimal point.
-     * @param string $thousandSep The character(s) to use for the thousands separator.
+     * @param integer $decimal      The number of decimal places to use.
+     * @param string  $decimalPoint The character(s) to use for the decimal point.
+     * @param string  $thousandSep  The character(s) to use for the thousands separator.
      */
     public function setNumberFormat($decimal, $decimalPoint, $thousandSep)
     {
@@ -128,6 +128,7 @@ class Twig_Extension_Core extends Twig_Extension
             'format'        => new Twig_Filter_Function('sprintf'),
             'replace'       => new Twig_Filter_Function('strtr'),
             'number_format' => new Twig_Filter_Function('twig_number_format_filter', array('needs_environment' => true)),
+            'abs'           => new Twig_Filter_Function('abs'),
 
             // encoding
             'url_encode'       => new Twig_Filter_Function('twig_urlencode_filter'),
@@ -392,6 +393,7 @@ function twig_date_format_filter(Twig_Environment $env, $date, $format = null, $
 
     if ($date instanceof DateInterval || $date instanceof DateTime) {
         if (null !== $timezone) {
+            $date = clone $date;
             $date->setTimezone($timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone));
         }
 
@@ -831,15 +833,15 @@ function twig_escape_filter_is_safe(Twig_Node $filterArgs)
     return array('html');
 }
 
-if (function_exists('iconv')) {
-    function twig_convert_encoding($string, $to, $from)
-    {
-        return iconv($from, $to, $string);
-    }
-} elseif (function_exists('mb_convert_encoding')) {
+if (function_exists('mb_convert_encoding')) {
     function twig_convert_encoding($string, $to, $from)
     {
         return mb_convert_encoding($string, $to, $from);
+    }
+} elseif (function_exists('iconv')) {
+    function twig_convert_encoding($string, $to, $from)
+    {
+        return iconv($from, $to, $string);
     }
 } else {
     function twig_convert_encoding($string, $to, $from)

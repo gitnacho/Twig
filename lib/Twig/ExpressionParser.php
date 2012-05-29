@@ -11,9 +11,9 @@
  */
 
 /**
- * Parses expressions.
+ * Analiza expresiones.
  *
- * This parser implements a "Precedence climbing" algorithm.
+ * Este analizador implementa un algoritmo de "Precedencia ascendente".
  *
  * @see http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
  * @see http://en.wikipedia.org/wiki/Operator-precedence_parser
@@ -170,7 +170,7 @@ class Twig_ExpressionParser
         $stream = $this->parser->getStream();
 
         $nodes = array();
-        // a string cannot be followed by another string in a single expression
+        // una cadena no puede ir seguida por otra cadena en una sola expresión
         $nextCanBeString = true;
         while (true) {
             if ($stream->test(Twig_Token::STRING_TYPE) && $nextCanBeString) {
@@ -204,9 +204,9 @@ class Twig_ExpressionParser
         $first = true;
         while (!$stream->test(Twig_Token::PUNCTUATION_TYPE, ']')) {
             if (!$first) {
-                $stream->expect(Twig_Token::PUNCTUATION_TYPE, ',', 'An array element must be followed by a comma');
+                $stream->expect(Twig_Token::PUNCTUATION_TYPE, ',', 'Un elemento del arreglo debe estar seguir por una coma');
 
-                // trailing ,?
+                // final ,?
                 if ($stream->test(Twig_Token::PUNCTUATION_TYPE, ']')) {
                     break;
                 }
@@ -215,7 +215,7 @@ class Twig_ExpressionParser
 
             $node->addElement($this->parseExpression());
         }
-        $stream->expect(Twig_Token::PUNCTUATION_TYPE, ']', 'An opened array is not properly closed');
+        $stream->expect(Twig_Token::PUNCTUATION_TYPE, ']', 'Un arreglo abierto no cerrado adecuadamente');
 
         return $node;
     }
@@ -231,7 +231,7 @@ class Twig_ExpressionParser
             if (!$first) {
                 $stream->expect(Twig_Token::PUNCTUATION_TYPE, ',', 'A hash value must be followed by a comma');
 
-                // trailing ,?
+                // final ,?
                 if ($stream->test(Twig_Token::PUNCTUATION_TYPE, '}')) {
                     break;
                 }
@@ -240,8 +240,8 @@ class Twig_ExpressionParser
 
             // a hash key can be:
             //
-            //  * a number -- 12
-            //  * a string -- 'a'
+            //  * un número -- 12
+            //  * una cadena -- 'a'
             //  * a name, which is equivalent to a string -- a
             //  * an expression, which must be enclosed in parentheses -- (1 + 2)
             if ($stream->test(Twig_Token::STRING_TYPE) || $stream->test(Twig_Token::NAME_TYPE) || $stream->test(Twig_Token::NUMBER_TYPE)) {
@@ -291,11 +291,11 @@ class Twig_ExpressionParser
         switch ($name) {
             case 'parent':
                 if (!count($this->parser->getBlockStack())) {
-                    throw new Twig_Error_Syntax('Calling "parent" outside a block is forbidden', $line);
+                    throw new Twig_Error_Syntax('Está prohibido llamar a "parent" fuera de un bloque', $line);
                 }
 
                 if (!$this->parser->getParent() && !$this->parser->hasTraits()) {
-                    throw new Twig_Error_Syntax('Calling "parent" on a template that does not extend nor "use" another template is forbidden', $line);
+                    throw new Twig_Error_Syntax('Está prohibido llamar a "parent" en una plantilla que no "use" otra plantilla', $line);
                 }
 
                 return new Twig_Node_Expression_Parent($this->parser->peekBlockStack(), $line);
@@ -303,7 +303,7 @@ class Twig_ExpressionParser
                 return new Twig_Node_Expression_BlockReference($args->getNode(0), false, $line);
             case 'attribute':
                 if (count($args) < 2) {
-                    throw new Twig_Error_Syntax('The "attribute" function takes at least two arguments (the variable and the attributes)', $line);
+                    throw new Twig_Error_Syntax('La función "attribute" por lo menos toma dos argumentos (la variable y los atributos)', $line);
                 }
 
                 return new Twig_Node_Expression_GetAttr($args->getNode(0), $args->getNode(1), count($args) > 2 ? $args->getNode(2) : new Twig_Node_Expression_Array(array(), $line), Twig_TemplateInterface::ANY_CALL, $line);
@@ -351,14 +351,14 @@ class Twig_ExpressionParser
                     }
                 }
             } else {
-                throw new Twig_Error_Syntax('Expected name or number', $lineno);
+                throw new Twig_Error_Syntax('Esperaba un nombre o número', $lineno);
             }
         } else {
             $type = Twig_TemplateInterface::ARRAY_CALL;
 
             $arg = $this->parseExpression();
 
-            // slice?
+            // ¿porción?
             if ($stream->test(Twig_Token::PUNCTUATION_TYPE, ':')) {
                 $stream->next();
 

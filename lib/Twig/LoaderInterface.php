@@ -20,7 +20,7 @@ interface Twig_LoaderInterface
     /**
      * Obtiene el código fuente de una plantilla, del nombre dado.
      *
-     * @param  string $name The name of the template to load
+     * @param string $name The name of the template to load
      *
      * @return string The template source code
      *
@@ -31,7 +31,7 @@ interface Twig_LoaderInterface
     /**
      * Obtiene la clave de la caché para usarla en un nombre de plantilla dado.
      *
-     * @param  string $name The name of the template to load
+     * @param string $name The name of the template to load
      *
      * @return string The cache key
      *
@@ -42,7 +42,7 @@ interface Twig_LoaderInterface
     /**
      * Devuelve true si la plantilla aún está fresca.
      *
-     * @param string    $name The template name
+     * @param string    $name El nombre de la plantilla
      * @param timestamp $time The last modification time of the cached template
      *
      * @return Boolean true if the template is fresh, false otherwise

@@ -20,7 +20,7 @@ interface Twig_ParserInterface
     /**
      * Convierte un flujo de segmentos en un árbol de nodos.
      *
-     * @param  Twig_TokenStream $stream A token stream instance
+     * @param Twig_TokenStream $stream A token stream instance
      *
      * @return Twig_Node_Module A node tree
      */

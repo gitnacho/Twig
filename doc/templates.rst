@@ -342,9 +342,9 @@ Para secciones mayores tiene sentido marcar un bloque como :doc:`raw <tags/raw>`
 Macros
 ------
 
-Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para poner modismos *HTML* utilizados frecuentemente en elementos reutilizables para no repetirlos.
+Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para reutilizar *HTML* usado frecuentemente para no repetirlos tú mismo.
 
-Una macro se define a través de la etiqueta :doc:`macro <tags/macro>`. He aquí un pequeño ejemplo de una macro que reproduce un elemento de formulario:
+Una macro se define a través de la etiqueta :doc:`macro <tags/macro>`. Aquí está un pequeño ejemplo (más tarde llamada ``forms.html``) de una macro que pinta un elemento de formulario:
 
 .. code-block:: jinja
 
@@ -355,7 +355,7 @@ Una macro se define a través de la etiqueta :doc:`macro <tags/macro>`. He aquí
                  size="{{ size|default(20) }}" />
     {% endmacro %}
 
-Las macros se pueden definir en cualquier plantilla, y es necesario "importarlas", antes de utilizarlas usando la etiqueta :doc:`import <../tags/import>`:
+Puedes definir macros en cualquier plantilla, y necesitas "importarlas" con la etiqueta :doc:`import <tags/import>` antes de poder usarlas:
 
 .. code-block:: jinja
 
@@ -363,19 +363,18 @@ Las macros se pueden definir en cualquier plantilla, y es necesario "importarlas
 
     <p>{{ forms.input('username') }}</p>
 
-Alternativamente, puedes importar nombres desde la plantilla al espacio de nombres actual vía la etiqueta :doc:`from <tags/from>`:
+Alternativamente, puedes importar nombres de macros individuales desde una plantilla al espacio de nombres actual vía la etiqueta :doc:`from <tags/from>`:
 
 .. code-block:: jinja
 
-    {% from 'formularios.html' import input as campo_input, textarea %}
+    {% importa el input de 'forms.html' como input_field %}
 
     <dl>
         <dt>Username</dt>
         <dd>{{ input_field('username') }}</dd>
         <dt>Password</dt>
-        <dd>{{ input_field('password', type='password') }}</dd>
+        <dd>{{ input_field('password', '', 'password') }}</dd>
     </dl>
-    <p>{{ textarea('comment') }}</p>
 
 Expresiones
 -----------

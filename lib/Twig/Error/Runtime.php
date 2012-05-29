@@ -11,7 +11,7 @@
  */
 
 /**
- * Exception thrown when an error occurs at runtime.
+ * Lanza una excepción al ocurrir un error en tiempo de ejecución.
  *
  * @package    twig
  * @author     Fabien Potencier <fabien@symfony.com>

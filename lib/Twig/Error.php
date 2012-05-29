@@ -26,7 +26,7 @@ class Twig_Error extends Exception
      * Constructor.
      *
      * @param string    $message  El mensaje de error
-     * @param integer   $lineno   The template line where the error occurred
+     * @param integer   $lineno   La línea de la plantilla dónde ocurrió el error
      * @param string    $filename The template file name where the error occurred
      * @param Exception $previous The previous exception
      */
@@ -108,8 +108,8 @@ class Twig_Error extends Exception
     /**
      * For PHP < 5.3.0, provides access to the getPrevious() method.
      *
-     * @param  string $method    The method name
-     * @param  array  $arguments The parameters to be passed to the method
+     * @param string $method    The method name
+     * @param array  $arguments The parameters to be passed to the method
      *
      * @return Exception La excepción anterior o null
      */

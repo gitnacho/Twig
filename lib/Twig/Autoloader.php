@@ -29,7 +29,7 @@ class Twig_Autoloader
     /**
      * Maneja la carga automática de clases.
      *
-     * @param  string  $class  Un nombre de clase.
+     * @param string $class Un nombre de clase.
      *
      * @return boolean Devuelve "true" si se ha cargado la clase
      */

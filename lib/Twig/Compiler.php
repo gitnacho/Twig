@@ -92,7 +92,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     /**
      * Añade una cadena cruda al código compilado.
      *
-     * @param  string $string La cadena
+     * @param string $string La cadena
      *
      * @return Twig_Compiler La instancia actual del compilador
      */
@@ -129,7 +129,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     /**
      * Añade un cadena entrecomillada al código compilado.
      *
-     * @param  string $value La cadena
+     * @param string $value La cadena
      *
      * @return Twig_Compiler La instancia del compilador actual
      */
@@ -143,7 +143,7 @@ class Twig_Compiler implements Twig_CompilerInterface
     /**
      * Devuelve una representación PHP de un determinado valor.
      *
-     * @param  mixed $value El valor a convertir
+     * @param mixed $value El valor a convertir
      *
      * @return Twig_Compiler La instancia del compilador actual
      */
@@ -192,7 +192,15 @@ class Twig_Compiler implements Twig_CompilerInterface
     public function addDebugInfo(Twig_NodeInterface $node)
     {
         if ($node->getLine() != $this->lastLine) {
-            $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
+            // cuando mbstring.func_overload se fija a 2
+            // mb_substr_count() sustituye a substr_count()
+            // ¡pero estas tienen diferentes firmas!
+            if (((int) ini_get('mbstring.func_overload')) & 2) {
+                // esto es mucho más lento que la versión "directa"
+                $this->sourceLine += mb_substr_count(mb_substr($this->source, $this->sourceOffset), "\n");
+            } else {
+                $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
+            }
             $this->sourceOffset = strlen($this->source);
             $this->debugInfo[$this->sourceLine] = $node->getLine();
 

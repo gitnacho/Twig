@@ -20,7 +20,7 @@ interface Twig_CompilerInterface
     /**
      * Compila un nodo.
      *
-     * @param  Twig_NodeInterface $node El nodo a compilar
+     * @param Twig_NodeInterface $node El nodo a compilar
      * @return Twig_CompilerInterface La instancia del compilador actual
      */
     function compile(Twig_NodeInterface $node);
