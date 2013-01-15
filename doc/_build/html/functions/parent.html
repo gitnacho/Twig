@@ -1,0 +1,147 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>parent &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Funciones" href="index.html" />
+    <link rel="next" title="dump" href="dump.html" />
+    <link rel="prev" title="block" href="block.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="../index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="dump.html" title="dump"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="block.html" title="block"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Funciones</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="parent">
+<h1><tt class="docutils literal"><span class="pre">parent</span></tt><a class="headerlink" href="#parent" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Cuando una plantilla utiliza herencia, es posible reproducir el contenido del
+bloque padre cuando reemplaces un bloque usando la función <tt class="docutils literal"><span class="pre">parent</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h3&gt;Table Of Contents&lt;/h3&gt;</span>
+<span class="x">    ...</span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La llamada a <tt class="docutils literal"><span class="pre">parent()</span></tt> devolverá el contenido del bloque <tt class="docutils literal"><span class="pre">sidebar</span></tt> como lo definimos en la plantilla <tt class="file docutils literal"><span class="pre">base.html</span></tt>.</p>
+<div class="admonition-ver-tambien admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<p class="last"><a class="reference internal" href="../tags/extends.html"><em>extends</em></a>, <a class="reference internal" href="block.html"><em>block</em></a>, <a class="reference internal" href="../tags/block.html"><em>block</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="dump.html" title="dump"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="block.html" title="block"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Funciones</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

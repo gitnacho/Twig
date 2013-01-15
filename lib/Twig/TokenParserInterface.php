@@ -22,7 +22,7 @@ interface Twig_TokenParserInterface
      *
      * @param $parser A Twig_Parser instance
      */
-    function setParser(Twig_Parser $parser);
+    public function setParser(Twig_Parser $parser);
 
     /**
      * Analiza un fragmento y devuelve un nodo.
@@ -31,7 +31,7 @@ interface Twig_TokenParserInterface
      *
      * @return Twig_NodeInterface A Twig_NodeInterface instance
      */
-    function parse(Twig_Token $token);
+    public function parse(Twig_Token $token);
 
     /**
      * Recupera el nombre de la etiqueta asociada con el analizador
@@ -39,5 +39,5 @@ interface Twig_TokenParserInterface
      *
      * @return string The tag name
      */
-    function getTag();
+    public function getTag();
 }

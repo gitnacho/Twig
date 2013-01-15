@@ -1,14 +1,100 @@
-* 1.8.2 (2012-XX-XX)
+* 1.12.1 (2013-XX-XX)
+
+ * Se añadió el soporte para {{ some_string[:2] }}
+
+* 1.12.0 (2013-01-08)
+
+ * Se añadió verbatim como un alias para la etiqueta raw para evitar confusión con el filtro raw
+ * Corrige el registro de pruebas y funciones como funciones anónimas
+ * Coregida la gestión global
+
+* 1.12.0-RC1 (2012-12-29)
+
+ * Añade una función nclude (hace lo mismo que la etiqueta include pero de una manera más flexible)
+ * se añadió la habilidad de utilizar ejecutables PHP para definir filtros, funciones y pruebas
+ * se añadió un error de sintaxis cuándo utilizas una variable de bucle que no está definida
+ * se añadió la habilidad de poner valores predefinidos en los argumentos de macros
+ * se añadió soporte para argumentos nombrados para filtros, pruebas y funciones
+ * Movido filtra/las funciones/prueba errores de sintaxis al *parser
+ * Se añadió el apoyo para la sintaxis de los operador ternario extendido
+
+* 1.11.1 (2012-11-11)
+
+ * Se corrigió la información de depuración en la numeración de línea (estaba desfazada por 2)
+ * Se corrigió es escape al llamar a una macro dentrol de otra (la regresión introducida en 1.9.1)
+ * Se optimizó el acceso a las variables en PHP 5.4
+ * Se fijó una colisión de la extensión C cuándo una excepción lanzada desde un macro llamada sin ser importada (usando _self.XXX)
+
+* 1.11.0 (2012-11-07)
+
+ * Se corrigió la recompilación de macros cuándo un nombre de variable es una palabra clave reservada por PHP
+ * cambió el comportamiento del filtro de fecha para aplicar siempre la zona horaria predeterminada, excepto si se pasa false como la timezone
+ * Se corrigieron las precedencias de operador a nivel de bits
+ * se añadió la función template_from_string
+ * fixed default timezone usage for the date function
+ * optimized the way Twig exceptions are managed (to make them faster)
+ * added Twig_ExistsLoaderInterface (implementing this interface in your loader make the chain loader much faster)
+
+* 1.10.3 (2012-10-19)
+
+ * fixed wrong template location in some error messages
+ * reverted a BC break introduced in 1.10.2
+ * added a split filter
+
+* 1.10.2 (2012-10-15)
+
+ * fixed macro calls on PHP 5.4
+
+* 1.10.1 (2012-10-15)
+
+ * made a speed optimization to macro calls when imported via the "import" tag
+ * fixed C extension compilation on Windows
+ * fixed a segfault in the C extension when using DateTime objects
+
+* 1.10.0 (2012-09-28)
+
+ * extracted functional tests framework to make it reusable for third-party extensions
+ * added namespaced templates support in Twig_Loader_Filesystem
+ * added Twig_Loader_Filesystem::prependPath()
+ * fixed an error when a token parser pass a closure as a test to the subparse() method
+
+* 1.9.2 (2012-08-25)
+
+ * Se corrigió el operador para objetos que contienen referencias circulares
+ * Se corrigió la extensión C cuándo accede a una propiedad pública de un objeto que implementa la interfaz \ArrayAccess
+
+* 1.9.1 (2012-07-22)
+
+ * Se optimizaron las llamadas a macro cuando el escape automático está activo
+ * se corrigió una clase padre mal determinada Twig_Function_Node
+ * se hizo que Twig_Loader_Chain explique mejor los problemas
+
+* 1.9.0 (2012-07-13)
+
+ * Se realizó el análisis independiente de los cargadores de plantillas
+ * Se corrigió el trazo de la excepción cuando se produce un error al procesar una plantilla secundaria
+ * Se añadieron estrategias de escape para los atributos CSS, URL y HTML
+ * Se corrigió la llamada a etiquetas integradas ('embed')
+ * Se añadió el filtro date_modify
+
+* 1.8.3 (2012-06-17)
+
+ * corregidas las rutas en el cargador del sistema de archivo cuando pasas una ruta que termina con una barra inversa
+ * Se corrigió el escape cuando un proyecto define una función llamada html o js
+ * Se corrigió el modo 'chmod' para aplicar la 'umask' correctamente
+
+* 1.8.2 (2012-05-30)
 
  * se añadió el filtro abs
  * se corrigió una regresión al usar un número en los atributos de plantilla
- * corregido el compilador al establecer mbstring.func_overload a 2
+ * Se corrigió el compilador cuando mbstring.func_overload se establece en 2
+ * Se añadió compatibilidad para DateTimeZone en el filtro 'date'
 
 * 1.8.1 (2012-05-17)
 
  * se corrigió una regresión al lidiar con instancias SimpleXMLElement en plantillas
  * se corrigió el valor "is_safe" de la función "dump" cuando "html_errors" no está definido en php.ini
- * cambió para utilizar mbstring siempre que sea posible en lugar de iconv
+ * Se eligió usar mbstring siempre que sea posible en lugar de iconv (posiblemente necesites actualizar tu codificación puesto que los nombres de codificación de mbstring e iconv a veces difieren)
 
 * 1.8.0 (2012-05-08)
 
@@ -159,7 +245,7 @@ sin cambios
  * Corregido el algoritmo que determina si una plantilla que utiliza la herencia es válida (sin salida entre los bloques de definición)
  * Se añadió un mejor soporte para los problemas de codificación al escapar una cadena (disponible a partir de PHP 5.4)
  * Se añadió una forma de ignorar una plantilla faltante cuando se utiliza la etiqueta ``include`` ({% include "foo" ignore missing %})
- * Se añadió el soporte para una matriz de plantillas de etiquetas "include" y "extends" ({% include ['foo', 'bar'] }%)
+ * Se añadió el soporte para un arreglo de plantillas para las etiquetas «include» y «extends» (``{% include ['foo', 'bar'] %}``)
  * Se añadió el soporte para los operadores de bit a bit en expresiones
  * Se agregó el "atributo" función que permite obtener los atributos dinámicos de las variables
  * Se añadió ``Twig_Loader_Chain``
@@ -257,31 +343,35 @@ Cambios:
  * el filtro "default" ahora usa la prueba "empty" en lugar de sólo comprobar por 'null'
  * se agregó la prueba "empty"
 
-La extensión Escaper está activado por defecto, lo que significa que toda la muestra
-   Las variables son automáticamente escapó. Puede volver a la anterior
-   el comportamiento mediante la eliminación de la extensión a través de $ env-> removeExtension ('Escaper')
-   o simplemente poner la 'Autoescape' para 'false'.
-quitado el "sin bucle" atributo de la "para" tag (no se necesita más
-   como el Optimizador de cuidar de que para la mayoría de los casos)
-arrays y hashes tienen ahora una sintaxis diferente
-    matrices de mantener la misma sintaxis con corchetes: [1, 2]
-    hashes ahora utilizan llaves (["a": "B"] ahora se debe escribir como {"a": "b"})
-    el apoyo a "las matrices con las teclas" y "hash sin teclas" no es soportado ([1, "foo": "bar"] o {"foo": "bar", 1})
-la extensión de i18n es ahora parte del repositorio de extensiones de la Twig
-añadió el filtro de combinación
-eliminado "is_escaper" opción por los filtros (un remanente de la versión anterior) - debe utilizar 'is_safe' ahora, en lugar
-el uso de los operadores corregidos como los nombres de método (como es, en, y no)
-cambiado el orden de ejecución para los visitantes de nodo
-corregida por defecto () el comportamiento del filtro cuando se utiliza con strict_variables establecidos en el
-sistema de archivos corregida la compatibilidad con el gestor de archivos PHAR
-Mensajes de error mejorados cuando un elemento inesperado es analizada en una expresión
-Nombre de archivo fijo no se agregan a los mensajes de error de sintaxis
-añadido la opción Autoescape para activar / desactivar autoescaping
-eliminar el salto de línea después de un comentario (imita el comportamiento de PHP)
-añade una excepción de error de sintaxis cuando el bloque principal se utiliza en una plantilla que no se extiende otra
-hizo la extensión Escaper activado por defecto
-extensión de recinto de seguridad fijo cuando se utiliza con la producción de automóviles escapar
-Escaper corregida al envolver un Twig_Node_Print (la clase original debe ser preservado)
+* 0.9.10 (2010-12-16)
+
+Incompatibilidades hacia atrás:
+
+ * La extensión ``Escaper`` está activada de manera predefinida, lo cual significa que todas las variables mostradas automáticamente son escapadas. Puede volver al comportamiento anterior eliminando la extensión a través de
+$env->removeExtension('Escaper') o simplemente poniendo la opción 'autoescape' a 'false'.
+ * se quitó el atributo "sin bucle" de la etiqueta "for" (no necesita que el Optimizador se preocupe más de la mayoría de los casos)
+ * los arreglos y codificaciones ahora tienen una sintaxis diferente
+     * los arreglos mantienen la misma sintaxis con corchetes: [1, 2]
+     * ahora las codificaciones utilizan llaves (["a": "b"] ahora se deben escribir como {"a": "b"})
+     * el apoyo para "arreglos con claves" y "codificaciones sin claves" no es compatible ([1, "foo": "bar"] o {"foo": "bar", 1})
+ * la extensión i18n ahora es parte del repositorio de extensiones de Twig
+
+Cambios:
+
+ * se añadió el filtro ``merge``
+ * se eliminó la opción "is_escaper" para los filtros (un remanente de la versión anterior) ---  en su lugar, ahora debes utilizar 'is_safe'
+ * se corrigio el uso de los operadores como nombres de método (como ``is``, ``in``, y ``not``)
+ * se cambió el orden de ejecución para los visitantes de nodo
+ * se corrigió el comportamiento del filtro default() cuando se utiliza con strict_variables establecidas a on
+ * se corrigió la compatibilidad del cargador del sistema de archivos con archivos PHAR
+ * Mensajes de error mejorados cuando se analiza un elemento inesperado en una expresión
+ * se corrigió el nombre de archivo no agregado a los mensajes de error de sintaxis
+ * se añadió la opción autoescape para activar/desactivar el escape automático
+ * se eliminó el salto de línea después de un comentario (imitando el comportamiento de PHP)
+ * añadió una excepción de error de sintaxis cuando se utiliza el bloque principal en una plantilla que no extiende a otra
+ * de manera predterminada se activa la extensión Escaper
+ * se corrigió la extensión del recinto de seguridad cuando se utiliza con el escape automático de salida
+ * Escaper corregida al envolver un Twig_Node_Print (la clase original debe ser preservado)
 añadido una extensión Optimizer (activado por defecto, optimiza "para" bucles y filtros "en bruto")
 añadió prioridad para los visitantes de nodo
 
@@ -700,41 +790,7 @@ evitar la escritura de archivo de plantilla, si se produce un error
 añade $ escapar cuando la salida cuerdas primas
 mejorado algunos mensajes de error para facilitar la depuración
 corregida los archivos de caché vacías cuando la plantilla contiene un error
-corregido un error en PHP 5.2.6
-
-* 0.9.10 (2010-12-16)
-
-Incompatibilidades hacia atrás:
-
- * The Escaper extension is enabled by default, which means that all displayed
-   variables are now automatically escaped. You can revert to the previous
-   behavior by removing the extension via $env->removeExtension('escaper')
-   or just set the 'autoescape' option to 'false'.
- * removed the "without loop" attribute for the "for" tag (not needed anymore
-   as the Optimizer take care of that for most cases)
- * arrays and hashes have now a different syntax
-     * arrays keep the same syntax with square brackets: [1, 2]
-     * hashes now use curly braces (["a": "b"] should now be written as {"a": "b"})
-     * support for "arrays with keys" and "hashes without keys" is not supported anymore ([1, "foo": "bar"] or {"foo": "bar", 1})
- * the i18n extension is now part of the Twig Extensions repository
-
-Cambios:
-
- * added the merge filter
- * removed 'is_escaper' option for filters (a left over from the previous version) -- you must use 'is_safe' now instead
- * fixed usage of operators as method names (like is, in, and not)
- * changed the order of execution for node visitors
- * fixed default() filter behavior when used with strict_variables set to on
- * fixed filesystem loader compatibility with PHAR files
- * enhanced error messages when an unexpected token is parsed in an expression
- * fixed filename not being added to syntax error messages
- * added the autoescape option to enable/disable autoescaping
- * removed the newline after a comment (mimicks PHP behavior)
- * added a syntax error exception when parent block is used on a template that does not extend another one
- * made the Escaper extension enabled by default
- * fixed sandbox extension when used with auto output escaping
- * fixed escaper when wrapping a Twig_Node_Print (the original class must be preserved)
- * added an Optimizer extension (enabled by default; optimizes "for" loops and "raw" filters)
+corregido un error en PHP 5.2.6 added an Optimizer extension (enabled by default; optimizes "for" loops and "raw" filters)
  * added priority to node visitors
 
 * 0.9.9 (2010-11-28)

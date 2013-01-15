@@ -51,16 +51,16 @@ master_doc = 'index'
 
 # Información general sobre el proyecto.
 project = u'Twig'
-copyright = u'2011-2012, Traducido por Nacho Pacheco'
+copyright = u'2011-2013, Traducido por Nacho Pacheco'
 
 # Información de la versión del proyecto que estás documentando, actúa
 # como reemplazo para |version| y |release|, además se utiliza en varias
 # otras partes mientras se construyen los documentos.
 #
 # La versión X.Y corta.
-version = '1.9'
+version = 'v1.12.0'
 # La versión completa, incluyendo etiquetas alpha/beta/rc.
-release = '1.9.0'
+release = 'v1.12.0-RC1'
 
 # El idioma para el contenido autogenerado por Sphinx. Consulta la
 # documentación para una lista de idiomas apoyados.

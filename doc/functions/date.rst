@@ -42,4 +42,10 @@ Si no suministras ningún argumento, la función devuelve la fecha actual:
         $twig = new Twig_Environment($loader);
         $twig->getExtension('core')->setTimezone('Europe/Paris');
 
+Argumentos
+----------
+
+ * ``date``:     La fecha
+ * ``timezone``: El zona horaria
+
 .. _`date`: http://www.php.net/date

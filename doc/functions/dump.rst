@@ -50,5 +50,10 @@ Si no pasas ningún valor, se vierten todas las variables del contexto actual:
 
     Internamente, *Twig* usa la función `var_dump`_ de *PHP*.
 
+Argumentos
+----------
+
+ * ``context``: El contexto a verter
+
 .. _`XDebug`:   http://xdebug.org/docs/display
 .. _`var_dump`: http://php.net/var_dump

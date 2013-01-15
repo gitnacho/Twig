@@ -24,7 +24,7 @@ class Twig_Extension_Sandbox extends Twig_Extension
      * Devuelve instancias del analizador de segmentos para añadirlos a
          * la lista existente.
      *
-     * @return array Una matriz de instancias de Twig_TokenParserInterface
+     * @return array Un arreglo de instancias de Twig_TokenParserInterface
      *               o Twig_TokenParserBrokerInterface
      */
     public function getTokenParsers();

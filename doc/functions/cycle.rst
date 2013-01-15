@@ -9,7 +9,7 @@ Puedes utilizar la función ``cycle`` para recorrer un arreglo de valores:
         {{ cycle(['odd', 'even'], i) }}
     {% endfor %}
 
-La matriz puede contener cualquier cantidad de valores:
+El arreglo puede contener cualquier cantidad de valores:
 
 .. code-block:: jinja
 
@@ -18,3 +18,8 @@ La matriz puede contener cualquier cantidad de valores:
     {% for i in 0..10 %}
         {{ cycle(frutas, i) }}
     {% endfor %}
+
+Argumentos
+----------
+
+ * ``position``: La posición del ciclo

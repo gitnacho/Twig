@@ -1,3 +1,2 @@
-doc/_build/
-doc/make.bat
-doc/Makefile
+/ext/twig/autom4te.cache/
+

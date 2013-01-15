@@ -26,7 +26,7 @@ interface Twig_LoaderInterface
      *
      * @throws Twig_Error_Loader When $name is not found
      */
-    function getSource($name);
+    public function getSource($name);
 
     /**
      * Obtiene la clave de la caché para usarla en un nombre de plantilla dado.
@@ -37,7 +37,7 @@ interface Twig_LoaderInterface
      *
      * @throws Twig_Error_Loader When $name is not found
      */
-    function getCacheKey($name);
+    public function getCacheKey($name);
 
     /**
      * Devuelve true si la plantilla aún está fresca.
@@ -49,5 +49,5 @@ interface Twig_LoaderInterface
      *
      * @throws Twig_Error_Loader When $name is not found
      */
-    function isFresh($name, $time);
+    public function isFresh($name, $time);
 }

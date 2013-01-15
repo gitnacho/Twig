@@ -33,6 +33,8 @@ class Twig_TokenParser_Import extends Twig_TokenParser
         $this->parser->getStream()
                          ->expect(Twig_Token::BLOCK_END_TYPE);
 
+        $this->parser->addImportedSymbol('template', $var->getAttribute('name'));
+
         return new Twig_Node_Import($macro, $var, $token->getLine(), $this->getTag());
     }
 

@@ -1,0 +1,51 @@
+``date``
+========
+
+.. versionadded:: 1.6
+    La función ``date`` se añadió en *Twig* 1.6.
+
+.. versionadded:: 1.6.1
+    El soporte para la zona horaria predeterminada se añadió en *Twig* 1.6.1
+
+Convierte un argumento a una fecha para permitir comparación de fechas:
+
+.. code-block:: jinja
+
+    {% if date(user.created_at) < date('+2days') %}
+        {# hace algo interesante #}
+    {% endif %}
+
+El argumento debe estar en un formato compatible con la función `date`_.
+
+Puedes pasar una zona horaria como segundo argumento:
+
+.. code-block:: jinja
+
+    {% if date(user.created_at) < date('+2days', 'Europe/Paris') %}
+        {# hace algo interesante #}
+    {% endif %}
+
+Si no suministras ningún argumento, la función devuelve la fecha actual:
+
+.. code-block:: jinja
+
+    {% if date(user.created_at) < date() %}
+        {# ¡siempre! #}
+    {% endif %}
+
+.. note::
+
+    Puedes configurar la zona horaria globalmente llamando a ``setTimezone()`` en la instancia de la extensión ``core``:
+
+    .. code-block:: php
+
+        $twig = new Twig_Environment($loader);
+        $twig->getExtension('core')->setTimezone('Europe/Paris');
+
+Argumentos
+----------
+
+ * ``date``:     The date
+ * ``timezone``: The timezone
+
+.. _`date`: http://www.php.net/date

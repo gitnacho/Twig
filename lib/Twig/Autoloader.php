@@ -20,7 +20,7 @@ class Twig_Autoloader
     /**
      * Registra el Twig_Autoloader como un cargador automático SPL.
      */
-    static public function register()
+    public static function register()
     {
         ini_set('unserialize_callback_func', 'spl_autoload_call');
         spl_autoload_register(array(new self, 'autoload'));
@@ -30,10 +30,8 @@ class Twig_Autoloader
      * Maneja la carga automática de clases.
      *
      * @param string $class Un nombre de clase.
-     *
-     * @return boolean Devuelve "true" si se ha cargado la clase
      */
-    static public function autoload($class)
+    public static function autoload($class)
     {
         if (0 !== strpos($class, 'Twig')) {
             return;

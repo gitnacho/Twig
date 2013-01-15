@@ -1,0 +1,85 @@
+``escape``
+==========
+
+.. versionadded:: 1.9.0
+    Las estrategias ``css``, ``url`` y ``html_attr`` se añadieron en *Twig* 1.9.0.
+
+El filtro ``escape`` escapa una cadena para una inserción segura en la salida final. Es compatible con diferentes estrategias de escape en función del contexto de la plantilla.
+
+De manera predeterminada, se utiliza la estrategia de escape ``HTML``:
+
+.. code-block:: jinja
+
+    {{ user.username|escape }}
+
+Por conveniencia, el filtro ``e`` está definido como un alias:
+
+.. code-block:: jinja
+
+    {{ user.username|e }}
+
+Además, puedes usar el filtro ``escape`` fuera del contexto *HTML* gracias al argumento opcional que define la estrategia de escape a usar:
+
+.. code-block:: jinja
+
+    {{ user.username|e }}
+    {# es equivalente a #}
+    {{ user.username|e('html') }}
+
+Y aquí tienes cómo escapar variables incluidas en código *JavaScript*:
+
+.. code-block:: jinja
+
+    {{ user.username|escape('js') }}
+    {{ user.username|e('js') }}
+
+El filtro ``escape`` admite las siguientes estrategias de escape:
+
+* ``html``: Escapa una cadena para el contexto **HTML body**.
+
+* ``js``: Escapa una cadena para el **contexto JavaScript**.
+
+* ``css``: Escapa una cadena para el **contexto CSS**. El escape *CSS* se puede aplicar a cualquier cadena insertada en *CSS* y escapa todo excepto caracteres alfanuméricos.
+
+* ``url``: Escapa una cadena para los **contextos URI o parameter**. Este no se debe usar para escapar una *URI* completa; sólo un subcomponente insertado.
+
+* ``html_attr``: Escapa una cadena para el contexto **atributo HTML**.
+
+.. note::
+
+    Internamente, ``escape`` utiliza la función `htmlspecialchars`_ nativa de *PHP*.
+
+.. caution::
+
+    When using automatic escaping, Twig tries to not double-escape a variable
+    when the automatic escaping strategy is the same as the one applied by the
+    escape filter; but that does not work when using a variable as the
+    escaping strategy:
+
+    .. code-block:: jinja
+
+        {% set strategy = 'html' %}
+
+        {% autoescape 'html' %}
+            {{ var|escape('html') }}   {# won't be double-escaped #}
+            {{ var|escape(strategy) }} {# will be double-escaped #}
+        {% endautoescape %}
+
+    When using a variable as the escaping strategy, you should disable
+    automatic escaping:
+
+    .. code-block:: jinja
+
+        {% set strategy = 'html' %}
+
+        {% autoescape 'html' %}
+            {{ var|escape(strategy)|raw }} {# won't be double-escaped #}
+        {% endautoescape %}
+
+Argumentos
+----------
+
+ * ``strategy``: The escaping strategy
+ * ``charset``:  The string charset
+
+.. _`htmlspecialchars`: http://php.net/htmlspecialchars

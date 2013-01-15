@@ -1,0 +1,268 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>embed &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="Filtros" href="../filters/index.html" />
+    <link rel="prev" title="sandbox" href="sandbox.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="../index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../filters/index.html" title="Filtros"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="sandbox.html" title="sandbox"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="embed">
+<h1><tt class="docutils literal"><span class="pre">embed</span></tt><a class="headerlink" href="#embed" title="Enlazar permanentemente con este título">¶</a></h1>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.8: </span>La etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> se añadió en <em>Twig 1.8</em>.</p>
+<p>La etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> combina el comportamiento de <a class="reference internal" href="include.html"><em>include</em></a> y
+<a class="reference internal" href="extends.html"><em>extends</em></a>.
+Esta te permite incluir contenido de otras plantillas, tal cómo lo hace <tt class="docutils literal"><span class="pre">include</span></tt>. Pero también te permite reemplazar cualquier bloque definido en la
+plantilla incluida, como cuando extiendes una plantilla.</p>
+<p>Piensa en una plantilla integrada como un esqueleto del &#8220;microdiseño&#8221;.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;esqueleto_tentativo.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="c">{# Estos bloques están definidos en &quot;esqueleto_tentativo.twig&quot; #}</span><span class="x"></span>
+<span class="x">    </span><span class="c">{# Y los sustituimos aquí:                    #}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">left_teaser</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        Algún contenido para la caja de prueba izquierda</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">right_teaser</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        Algún contenido para la caja de prueba derecha</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endembed</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>La etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> lleva la idea de la herencia de plantillas a nivel de
+fragmentos de contenido. Si bien la herencia de plantillas posibilita los &#8220;esqueletos de documento&#8221;,
+que están llenos de vida por las plantillas hijas, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> te permite crear &#8220;esqueletos&#8221; para las más pequeñas unidades de contenido y reutilizarlas y llenarlas en cualquier lugar que quieras.</p>
+<p>Debido al caso de uso puede no ser tan obvio, veamos un ejemplo simplificado.
+Imagina una plantilla base compartida por varias páginas <em>HTML</em>, la cual define un solo bloque llamado &#8220;contenido&#8221;:</p>
+<div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
+│                                     │
+│        ┌── bloque &quot;contenido&quot; ──┐   │
+│        │                        │   │
+│        │                        │   │
+│        │ (plantilla hija aquí   │   │
+│        │  lleva el contenido)   │   │
+│        │                        │   │
+│        │                        │   │
+│        └────────────────────────┘   │
+│                                     │
+└─────────────────────────────────────┘
+</pre></div>
+</div>
+<p>Algunas páginas (&#8220;foo&#8221; y &#8220;bar&#8221;) comparten la misma estructura del contenido &#8212;
+dos cajas apiladas verticalmente:</p>
+<div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
+│                                     │
+│        ┌── bloque &quot;contenido&quot; ──┐   │
+│        │ ┌─ bloque &quot;sup&quot; ─────┐ │   │
+│        │ │                    │ │   │
+│        │ └────────────────────┘ │   │
+│        │ ┌─ bloque &quot;inf&quot; ─────┐ │   │
+│        │ │                    │ │   │
+│        │ └────────────────────┘ │   │
+│        └────────────────────────┘   │
+│                                     │
+└─────────────────────────────────────┘
+</pre></div>
+</div>
+<p>mientras otras páginas (&#8220;boom&#8221; y &#8220;baz&#8221;) comparten una estructura de contenido diferente &#8212; dos cajas lado a lado:</p>
+<div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
+│                                     │
+│        ┌── bloque &quot;contenido&quot; ──┐   │
+│        │                        │   │
+│        │ ┌ bloque ┐ ┌ bloque ┐  │   │
+│        │ │ &quot;izq&quot;  │ │ &quot;der&quot;  │  │   │
+│        │ │        │ │        │  │   │
+│        │ │        │ │        │  │   │
+│        │ └────────┘ └────────┘  │   │
+│        └────────────────────────┘   │
+│                                     │
+└─────────────────────────────────────┘
+</pre></div>
+</div>
+<p>Sin la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt>, tienes dos maneras de diseñar tus plantillas:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Crear dos plantillas base &#8220;intermedias&#8221; que extiendan a la plantilla del diseño principal: una con cajas apiladas verticalmente usada por las páginas &#8220;foo&#8221; y &#8220;bar&#8221; y otra con cajas lado a lado para las páginas &#8220;boom&#8221; y &#8220;baz&#8221;.</li>
+<li>Integrar el marcado para las cajas sup/inf e izq/der en cada plantilla de página directamente.</li>
+</ul>
+</div></blockquote>
+<p>Estas dos soluciones no se adaptan bien porque cada una tiene un gran inconveniente:</p>
+<blockquote>
+<div><ul class="simple">
+<li>La primer solución en verdad puede trabajar para este ejemplo simplificado. Pero imagina que añadimos una barra lateral, la cual a su vez contiene diferentes, estructuras de contenido recurrente. Ahora tendríamos que crear plantillas base intermedias para todas las combinaciones que produzcan estructuras de contenido y estructura de la barra lateral... y así sucesivamente.</li>
+<li>La segunda solución consiste en duplicar código común con todos sus efectos y consecuencias negativas: cualquier cambio implica encontrar y editar todas las copias afectadas por la estructura, la corrección se tiene que verificar en cada copia, las copias pueden estar fuera de sincronía por modificaciones descuidadas, etc.</li>
+</ul>
+</div></blockquote>
+<p>En tal situación, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> viene muy bien. El código del diseño común puede vivir en una sola plantilla base, y las dos estructuras de contenido diferentes, vamos a llamarlas &#8220;microdiseños&#8221; tendremos plantillas separadas, que serán integradas conforme sea necesario:</p>
+<p>Plantilla de la página <tt class="docutils literal"><span class="pre">foo.twig</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;layout_skeleton.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;vertical_boxes_skeleton.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">top</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            Algún contenido para la caja de prueba superior</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">bottom</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            Algún contenido para la caja de prueba inferior</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endembed</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Y aquí está el código para <tt class="docutils literal"><span class="pre">vertical_boxes_skeleton.twig</span></tt>:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;top_box&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{%</span> <span class="k">block</span> <span class="nv">top</span> <span class="cp">%}</span>
+        Contenido predefinido para la caja superior
+    <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;bottom_box&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{%</span> <span class="k">block</span> <span class="nv">bottom</span> <span class="cp">%}</span>
+        Contenido predefinido para la caja inferior
+    <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>El objetivo de la plantilla <tt class="docutils literal"><span class="pre">vertical_boxes_skeleton.twig</span></tt> es el de eliminar el marcado <em>HTML</em> para las cajas.</p>
+<p>La etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> toma exactamente los mismos argumentos que la etiqueta <tt class="docutils literal"><span class="pre">include</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;base&quot;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    ...</span>
+<span class="cp">{%</span> <span class="k">endembed</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;base&quot;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    ...</span>
+<span class="cp">{%</span> <span class="k">endembed</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;base&quot;</span> <span class="k">ignore missing</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    ...</span>
+<span class="cp">{%</span> <span class="k">endembed</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Debido a que las plantillas integradas no tienen &#8220;nombres&#8221;, las estrategias de autoescape basadas en el <tt class="file docutils literal"><span class="pre">&quot;nombre</span> <span class="pre">de</span> <span class="pre">archivo&quot;</span></tt> de la plantilla no funcionan como se espera si cambias el contexto (por ejemplo, si integras una plantilla <em>CSS</em>/<em>JavaScript</em> en un archivo <em>HTML</em>). En ese caso, establece explícitamente el valor predefinido para la estrategia de escape automático con la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>.</p>
+</div>
+<div class="admonition-ver-tambien admonition seealso">
+<p class="first admonition-title">Ver también</p>
+<p class="last"><a class="reference internal" href="include.html"><em>include</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="../filters/index.html" title="Filtros"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="sandbox.html" title="sandbox"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

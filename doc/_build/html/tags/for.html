@@ -1,0 +1,268 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>for &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="if" href="if.html" />
+    <link rel="prev" title="Etiquetas" href="index.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="../index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="if.html" title="if"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Etiquetas"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="for">
+<h1><tt class="docutils literal"><span class="pre">for</span></tt><a class="headerlink" href="#for" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Recorre cada elemento de una secuencia. Por ejemplo, para mostrar una lista de usuarios provista en una variable llamada <tt class="docutils literal"><span class="pre">usuarios</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;h1&gt;Members&lt;/h1&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Una secuencia puede ser un arreglo o un objeto que implemente la interfaz <tt class="docutils literal"><span class="pre">Traversable</span></tt>.</p>
+</div>
+<p>Si necesitas iterar en una secuencia de números, el operador <tt class="docutils literal"><span class="pre">..</span></tt> es muy útil:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> <span class="m">0.</span><span class="nv">.10</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    * </span><span class="cp">{{</span> <span class="nv">i</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>El fragmento de código anterior debería imprimir todos los números del 0 al 10.</p>
+<p>También lo puedes utilizar con letras:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">letter</span> <span class="k">in</span> <span class="s1">&#39;a&#39;</span><span class="p">..</span><span class="s1">&#39;z&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    * </span><span class="cp">{{</span> <span class="nv">letter</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>El operador <tt class="docutils literal"><span class="pre">..</span></tt> puede tomar cualquier expresión en ambos lados:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">letter</span> <span class="k">in</span> <span class="s1">&#39;a&#39;</span><span class="o">|</span><span class="nf">upper</span><span class="p">..</span><span class="s1">&#39;z&#39;</span><span class="o">|</span><span class="nf">upper</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    * </span><span class="cp">{{</span> <span class="nv">letter</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="section" id="la-variable-loop">
+<h2>La variable <tt class="docutils literal"><span class="pre">loop</span></tt><a class="headerlink" href="#la-variable-loop" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Dentro de un bloque de bucle <tt class="docutils literal"><span class="pre">for</span></tt> puedes acceder a algunas variables especiales:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Descripción</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">loop.index</span></tt></td>
+<td>La iteración actual del bucle. (indexada en 1)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">loop.index0</span></tt></td>
+<td>La iteración actual del bucle. (indexada en 0)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">loop.revindex</span></tt></td>
+<td>El número de iteraciones a partir del final del bucle (indexadas en 1)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">loop.revindex0</span></tt></td>
+<td>El número de iteraciones a partir del final del bucle (indexadas en 0)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">loop.first</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si es la primera iteración</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">loop.last</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si es la última iteración</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">loop.length</span></tt></td>
+<td>El número de elementos en la secuencia</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">loop.parent</span></tt></td>
+<td>El contexto del padre</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">loop</span><span class="nv">.index</span> <span class="cp">}}</span><span class="x"> - </span><span class="cp">{{</span> <span class="nv">user.username</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Las variables <tt class="docutils literal"><span class="pre">loop.length</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex</span></tt>, <tt class="docutils literal"><span class="pre">loop.revindex0</span></tt> y <tt class="docutils literal"><span class="pre">loop.last</span></tt> únicamente están disponibles para arreglos <em>PHP</em>, u objetos que implementen la interfaz <tt class="docutils literal"><span class="pre">Countable</span></tt>. Tampoco están disponibles cuando iteras con una condición.</p>
+</div>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.2: </span>La compatibilidad con el modificador <tt class="docutils literal"><span class="pre">if</span></tt> se añadió en <em>Twig</em> 1.2.</p>
+</div>
+<div class="section" id="anadiendo-una-condicion">
+<h2>Añadiendo una condición<a class="headerlink" href="#anadiendo-una-condicion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A diferencia de <em>PHP</em>, en un bucle no es posible usar <tt class="docutils literal"><span class="pre">break</span></tt> ni <tt class="docutils literal"><span class="pre">continue</span></tt>. Sin embargo, puedes filtrar la secuencia durante la iteración, lo cual te permite omitir elementos. En el siguiente ejemplo se omiten todos los usuarios que no están activos:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="k">if</span> <span class="nv">user.active</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>La ventaja es que la variable especial <tt class="docutils literal"><span class="pre">loop</span></tt> contará correctamente, es decir, sin contar a los usuarios inactivos en la iteración. Ten en cuenta que las propiedades como <tt class="docutils literal"><span class="pre">loop.last</span></tt> no están definidas cuando usas bucles condicionales.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Usar la variable <tt class="docutils literal"><span class="pre">loop</span></tt> sin la condición no es recomendable debido a que no llevará a cabo lo que esperas se haga. Por ejemplo, añadir una condición como <tt class="docutils literal"><span class="pre">loop.index</span> <span class="pre">&gt;</span> <span class="pre">4</span></tt> no funcionará puesto que el índice únicamente se incrementa cuando la condición es cierta (por lo tanto, la condición nunca coincidirá).</p>
+</div>
+</div>
+<div class="section" id="la-clausula-else">
+<h2>La cláusula <tt class="docutils literal"><span class="pre">else</span></tt><a class="headerlink" href="#la-clausula-else" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Si no se llevó a cabo iteración debido a que la secuencia está vacía, puedes reproducir un bloque sustituto utilizando <tt class="docutils literal"><span class="pre">else</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;&lt;em&gt;no user found&lt;/em&gt;&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterando-en-las-claves">
+<h2>Iterando en las claves<a class="headerlink" href="#iterando-en-las-claves" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>De forma predeterminada, un bucle itera en los valores de la secuencia. Puedes iterar en las claves con el filtro <tt class="docutils literal"><span class="pre">keys</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;h1&gt;Members&lt;/h1&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">key</span> <span class="k">in</span> <span class="nv">users</span><span class="o">|</span><span class="nf">keys</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">key</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterando-en-claves-y-valores">
+<h2>Iterando en claves y valores<a class="headerlink" href="#iterando-en-claves-y-valores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>También puedes acceder tanto a las claves como a los valores:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">&lt;h1&gt;Members&lt;/h1&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">key</span><span class="o">,</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">key</span> <span class="cp">}}</span><span class="x">: </span><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="if.html" title="if"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Etiquetas"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

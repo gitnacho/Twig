@@ -26,7 +26,7 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
      * Devuelve instancias del analizador de segmentos para añadirlos a
          * la lista existente.
      *
-     * @return array Una matriz de instancias de Twig_TokenParserInterface
+     * @return array Un arreglo de instancias de Twig_TokenParserInterface
      *               o Twig_TokenParserBrokerInterface
      */
     public function getTokenParsers();
@@ -49,7 +49,7 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
      * Devuelve una lista de filtros para añadirla a la lista
          * existente.
      *
-     * @return array Una matriz de filtros
+     * @return array Un arreglo de filtros
      */
     public function getFilters()
     {

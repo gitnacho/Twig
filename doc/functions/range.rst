@@ -33,4 +33,11 @@ El operador integrado ``..`` es pura azúcar sintáctica para la función ``rang
 
     La función ``range`` trabaja como la función `range`_ nativa de *PHP*.
 
+Argumentos
+----------
+
+ * ``low``:  El primer valor de la secuencia.
+ * ``high``: El valor más alto posible de la secuencia.
+ * ``step``: El incremento entre elementos de la secuencia.
+
 .. _`range`: http://mx2.php.net/range

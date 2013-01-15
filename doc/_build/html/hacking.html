@@ -1,0 +1,270 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mejorando Twig &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mejorando-twig">
+<h1>Mejorando <em>Twig</em><a class="headerlink" href="#mejorando-twig" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><em>Twig</em> es muy extensible y lo puedes mejorar fácilmente. Ten en cuenta que probablemente deberías tratar de crear una extensión antes de sumergirte en el núcleo, puesto que la mayoría de las características y mejoras se pueden hacer con extensiones. Este capítulo también es útil para personas que quieren entender cómo funciona <em>Twig</em> bajo el capó.</p>
+<div class="section" id="como-funciona-twig">
+<h2>¿Cómo funciona <em>Twig</em>?<a class="headerlink" href="#como-funciona-twig" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La reproducción de una plantilla <em>Twig</em> se puede resumir en cuatro pasos fundamentales:</p>
+<ul class="simple">
+<li><strong>Cargar</strong> la plantilla: Si la plantilla ya está compilada, la carga y va al paso <em>evaluación</em>, de lo contrario:<ul>
+<li>En primer lugar, el <strong>analizador léxico</strong> reduce el código fuente de la plantilla a pequeñas piezas para facilitar su procesamiento;</li>
+<li>A continuación, el <strong>analizador</strong> convierte el flujo del segmento en un árbol de nodos significativo (el árbol de sintaxis abstracta);</li>
+<li>Eventualmente, el <em>compilador</em> transforma el árbol de sintaxis abstracta en código <em>PHP</em>;</li>
+</ul>
+</li>
+<li><strong>Evaluar</strong> la plantilla: Básicamente significa llamar al método <tt class="docutils literal"><span class="pre">display()</span></tt> de la plantilla compilada adjuntando el contexto.</li>
+</ul>
+</div>
+<div class="section" id="el-analizador-lexico">
+<h2>El analizador léxico<a class="headerlink" href="#el-analizador-lexico" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El objetivo del analizador léxico de <em>Twig</em> es dividir el código fuente en un flujo de segmentos (donde cada segmento es de la clase <tt class="docutils literal"><span class="pre">token</span></tt>, y el flujo es una instancia de <tt class="docutils literal"><span class="pre">Twig_TokenStream</span></tt>). El analizador léxico predeterminado reconoce nueve diferentes tipos de segmentos:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Twig_Token::TEXT_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::BLOCK_START_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::VAR_START_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::BLOCK_END_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::VAR_END_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::NAME_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::NUMBER_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::STRING_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::OPERATOR_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Twig_Token::EOF_TYPE</span></tt></li>
+</ul>
+<p>Puedes convertir manualmente un código fuente en un flujo de segmentos llamando al método <tt class="docutils literal"><span class="pre">tokenize()</span></tt> de un entorno:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$stream</span> <span class="o">=</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">tokenize</span><span class="p">(</span><span class="nv">$source</span><span class="p">,</span> <span class="nv">$identifier</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Dado que el flujo tiene un método <tt class="docutils literal"><span class="pre">__toString()</span></tt>, puedes tener una representación textual del mismo haciendo eco del objeto:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$stream</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Aquí está la salida para la plantilla <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">{{</span> <span class="pre">name</span> <span class="pre">}}</span></tt>:</p>
+<div class="highlight-text"><div class="highlight"><pre>TEXT_TYPE(Hello )
+VAR_START_TYPE()
+NAME_TYPE(name)
+VAR_END_TYPE()
+EOF_TYPE()
+</pre></div>
+</div>
+<p>Puedes cambiar el analizador léxico predeterminado que usa <em>Twig</em> (<tt class="docutils literal"><span class="pre">Twig_Lexer</span></tt>) llamando al método <tt class="docutils literal"><span class="pre">setLexer()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">setLexer</span><span class="p">(</span><span class="nv">$lexer</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Las clases Lexer deben implementar a <tt class="docutils literal"><span class="pre">Twig_LexerInterface</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">interface</span> <span class="nx">Twig_LexerInterface</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Segmenta el código fuente.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  string $code     El código fuente</span>
+<span class="sd">     * @param string $filename Un identificador único para el</span>
+<span class="sd">     *                                          código fuente</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return Twig_TokenStream Una muestra de la instancia del</span>
+<span class="sd">     *                          flujo</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">tokenize</span><span class="p">(</span><span class="nv">$code</span><span class="p">,</span> <span class="nv">$filename</span> <span class="o">=</span> <span class="s1">&#39;n/a&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="el-analizador-sintactico">
+<h2>El analizador sintáctico<a class="headerlink" href="#el-analizador-sintactico" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El analizador convierte el flujo de segmentos en un <tt class="docutils literal"><span class="pre">ASA</span></tt> (árbol de sintaxis abstracta), o un árbol de nodos (de clase <tt class="docutils literal"><span class="pre">Twig_Node_Module</span></tt>). La extensión del núcleo define los nodos básicos como: <tt class="docutils literal"><span class="pre">for</span></tt>, <tt class="docutils literal"><span class="pre">if</span></tt>, ... y la expresión nodos.</p>
+<p>Puedes convertir manualmente un flujo de segmentos en un nodo del árbol llamando al método <tt class="docutils literal"><span class="pre">parse()</span></tt> de un entorno:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$nodes</span> <span class="o">=</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">parse</span><span class="p">(</span><span class="nv">$stream</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Al hacer eco del objeto nodo te da una buena representación del árbol:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$nodes</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Aquí está la salida para la plantilla <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">{{</span> <span class="pre">name</span> <span class="pre">}}</span></tt>:</p>
+<div class="highlight-text"><div class="highlight"><pre>Twig_Node_Module(
+  Twig_Node_Text(Hello )
+  Twig_Node_Print(
+    Twig_Node_Expression_Name(name)
+  )
+)
+</pre></div>
+</div>
+<p>El analizador predeterminado (<tt class="docutils literal"><span class="pre">Twig_TokenParser</span></tt>) también se puede cambiar mediante una llamada al método <tt class="docutils literal"><span class="pre">setParser()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">setParser</span><span class="p">(</span><span class="nv">$analizador</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Todos los analizadores de <em>Twig</em> deben implementar a <tt class="docutils literal"><span class="pre">Twig_ParserInterface</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">interface</span> <span class="nx">Twig_ParserInterface</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Convierte un flujo de segmentos en un árbol de nodos.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param Twig_TokenStream $stream Una instancia de una</span>
+<span class="sd">     *                                 muestra del flujo</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return Twig_Node_Module Un nodo del árbol</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">parser</span><span class="p">(</span><span class="nx">Twig_TokenStream</span> <span class="nv">$code</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="el-compilador">
+<h2>El compilador<a class="headerlink" href="#el-compilador" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El último paso lo lleva a cabo el compilador. Este necesita un árbol de nodos como entrada y genera código <em>PHP</em> que se puede emplear para ejecutar las plantillas en tiempo de ejecución. El compilador predeterminado genera las clases <em>PHP</em> para facilitar la implementación de la herencia de plantillas.</p>
+<p>Puedes llamar al compilador manualmente con el método <tt class="docutils literal"><span class="pre">compile()</span></tt> de un entorno:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$php</span> <span class="o">=</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">compile</span><span class="p">(</span><span class="nv">$nodes</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>El método <tt class="docutils literal"><span class="pre">compile()</span></tt> devuelve el código fuente <em>PHP</em> que representa al nodo.</p>
+<p>La plantilla generada por un patrón <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">{{</span> <span class="pre">name</span> <span class="pre">}}</span></tt> es la siguiente:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cm">/* Hello {{ name }} */</span>
+<span class="k">class</span> <span class="nc">__TwigTemplate_1121b6f109fe93ebe8c6e22e3712bceb</span> <span class="k">extends</span> <span class="nx">Twig_Template</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">(</span><span class="nv">$context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">env</span><span class="o">-&gt;</span><span class="na">initRuntime</span><span class="p">();</span>
+
+        <span class="c1">// line 1</span>
+        <span class="k">echo</span> <span class="s2">&quot;Hello &quot;</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$context</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$context</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="k">null</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>En cuanto a los analizadores léxico y sintáctico, el compilador predeterminado (<tt class="docutils literal"><span class="pre">Twig_Compiler</span></tt>) se puede cambiar mediante una llamada al método <tt class="docutils literal"><span class="pre">setCompiler()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">setCompiler</span><span class="p">(</span><span class="nv">$compilador</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Todos los compiladores de <em>Twig</em> deben implementar a <tt class="docutils literal"><span class="pre">Twig_CompilerInterface</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">interface</span> <span class="nx">Twig_CompilerInterface</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Compila un nodo.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  Twig_Node $node El nodo a compilar</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return Twig_Compiler La instancia actual del compilador</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">compile</span><span class="p">(</span><span class="nx">Twig_Node</span> <span class="nv">$node</span><span class="p">);</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Obtiene el código PHP actual después de la compilación.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string The PHP code</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">getSource</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 12, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

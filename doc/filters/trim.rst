@@ -21,4 +21,9 @@ y final de una cadena:
 
     Internamente, *Twig* usa la función `trim`_ de *PHP*.
 
+Argumentos
+----------
+
+ * ``character_mask``: Los caracteres a eliminar
+
 .. _`trim`: http://php.net/trim

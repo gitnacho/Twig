@@ -1,0 +1,602 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Twig para desarrolladores &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="index.html" />
+    <link rel="next" title="Extendiendo Twig" href="advanced.html" />
+    <link rel="prev" title="Twig para diseñadores de plantillas" href="templates.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="advanced.html" title="Extendiendo Twig"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="templates.html" title="Twig para diseñadores de plantillas"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="twig-para-desarrolladores">
+<h1><em>Twig</em> para desarrolladores<a class="headerlink" href="#twig-para-desarrolladores" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este capítulo describe la <em>API</em> para <em>Twig</em> y no el lenguaje de plantillas. Será muy útil como referencia para aquellos que implementan la interfaz de plantillas para la aplicación y no para los que están creando plantillas <em>Twig</em>.</p>
+<div class="section" id="fundamentos">
+<h2>Fundamentos<a class="headerlink" href="#fundamentos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Twig</em> utiliza un objeto central llamado <strong>entorno</strong> (de la clase <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>). Las instancias de esta clase se utilizan para almacenar la configuración y extensiones, y se utilizan para cargar plantillas del sistema de archivos o en otros lugares.</p>
+<p>La mayoría de las aplicaciones debe crear un objeto <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt> al iniciar la aplicación y usarlo para cargar plantillas. En algunos casos, sin embargo, es útil disponer de múltiples entornos lado a lado, si estás usando distintas configuraciones.</p>
+<p>La forma más sencilla de configurar <em>Twig</em> para cargar plantillas para tu aplicación se ve más o menos así:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">require_once</span> <span class="s1">&#39;/ruta/a/lib/Twig/Autoloader.php&#39;</span><span class="p">;</span>
+<span class="nx">Twig_Autoloader</span><span class="o">::</span><span class="na">register</span><span class="p">();</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Filesystem</span><span class="p">(</span><span class="s1">&#39;/ruta/a/templates&#39;</span><span class="p">);</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;cache&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/ruta/a/compilation_cache&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Esto creará un entorno de plantillas con la configuración predeterminada y un cargador que busca las plantillas en el directorio <tt class="docutils literal"><span class="pre">/ruta/a/templates/</span></tt>. Hay diferentes cargadores disponibles y también puedes escribir el tuyo si deseas cargar plantillas de una base de datos u otros recursos.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Ten en cuenta que el segundo argumento del entorno es un arreglo de opciones.
+La opción <tt class="docutils literal"><span class="pre">cache</span></tt> es un directorio de caché de compilación, donde <em>Twig</em> memoriza las plantillas compiladas para evitar la fase de análisis de las subsiguientes peticiones. Esta es muy diferente de la caché que posiblemente desees agregar para evaluar plantillas. Para tal necesidad, puedes utilizar cualquier biblioteca de caché <em>PHP</em> disponible.</p>
+</div>
+<p>Para cargar una plantilla desde este entorno sólo tienes que llamar al método <tt class="docutils literal"><span class="pre">LoadTemplate()</span></tt> el cual devuelve una instancia de <tt class="docutils literal"><span class="pre">Twig_Template</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$template</span> <span class="o">=</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">loadTemplate</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Para reproducir la plantilla con algunas variables, llama al método <tt class="docutils literal"><span class="pre">render()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$template</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;the&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;variables&#39;</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;here&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">El método <tt class="docutils literal"><span class="pre">display()</span></tt> es un atajo para reproducir la plantilla directamente.</p>
+</div>
+<p>También puedes exponer los métodos de extensión como funciones en tus plantillas:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span>  <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
+                     <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;the&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;variables&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;go&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;here&#39;</span>
+                  <span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="opciones-del-entorno">
+<span id="environment-options"></span><h2>Opciones del entorno<a class="headerlink" href="#opciones-del-entorno" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Al crear una nueva instancia de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt>, puedes pasar un arreglo de opciones como segundo argumento del constructor:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Las siguientes opciones están disponibles:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">debug</span></tt>: Cuando se establece en <tt class="docutils literal"><span class="pre">true</span></tt>, las plantillas generadas tienen un método <tt class="docutils literal"><span class="pre">__toString()</span></tt> que puedes utilizar para mostrar los nodos generados (el predeterminado es <tt class="docutils literal"><span class="pre">false</span></tt>).</li>
+<li><tt class="docutils literal"><span class="pre">charset</span></tt>: El juego de caracteres usado por las plantillas (por omisión es <tt class="docutils literal"><span class="pre">utf-8</span></tt>).</li>
+<li><tt class="docutils literal"><span class="pre">base_template_class</span></tt>: La clase de plantilla base utilizada para generar plantillas (por omisión <tt class="docutils literal"><span class="pre">Twig_Template</span></tt>).</li>
+<li><tt class="docutils literal"><span class="pre">cache</span></tt>: Una ruta absoluta donde almacenar las plantillas compiladas, o <tt class="docutils literal"><span class="pre">false</span></tt> para desactivar el almacenamiento en caché (el cual es el valor predeterminado).</li>
+<li><tt class="docutils literal"><span class="pre">auto_reload</span></tt>: Cuando desarrollas con <em>Twig</em>, es útil volver a compilar la plantilla cada vez que el código fuente cambia. Si no proporcionas un valor para la opción <tt class="docutils literal"><span class="pre">auto_reload</span></tt>, se determinará automáticamente en función del valor <tt class="docutils literal"><span class="pre">debug</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">strict_variables</span></tt>: Si se establece en <tt class="docutils literal"><span class="pre">false</span></tt>, <em>Twig</em> ignorará silenciosamente las variables no válidas (variables y/o atributos/métodos que no existen) y los reemplazará con un valor <tt class="docutils literal"><span class="pre">null</span></tt>. Cuando se establece en <tt class="docutils literal"><span class="pre">true</span></tt>, <em>Twig</em> produce una excepción en su lugar (el predeterminado es <tt class="docutils literal"><span class="pre">false</span></tt>).</li>
+<li><tt class="docutils literal"><span class="pre">autoescape</span></tt>: Si se establece en <tt class="docutils literal"><span class="pre">true</span></tt>, el escape automático será habilitado de manera predeterminada para todas las plantillas (por omisión es <tt class="docutils literal"><span class="pre">true</span></tt>). As of Twig 1.8, you can set the
+escaping strategy to use (<tt class="docutils literal"><span class="pre">html</span></tt>, <tt class="docutils literal"><span class="pre">js</span></tt>, <tt class="docutils literal"><span class="pre">false</span></tt> to disable).
+As of Twig 1.9, you can set the escaping strategy to use (<tt class="docutils literal"><span class="pre">css</span></tt>, <tt class="docutils literal"><span class="pre">url</span></tt>,
+<tt class="docutils literal"><span class="pre">html_attr</span></tt>, or a PHP callback that takes the template &#8220;filename&#8221; and must
+return the escaping strategy to use &#8211; the callback cannot be a function name
+to avoid collision with built-in escaping strategies).</li>
+<li><tt class="docutils literal"><span class="pre">optimizations</span></tt>: Una marca que indica cuales optimizaciones aplicar (por omisión a <tt class="docutils literal"><span class="pre">-1</span></tt> &#8211; todas las optimizaciones están habilitadas; para desactivarla ponla a <tt class="docutils literal"><span class="pre">0</span></tt>).</li>
+</ul>
+</div>
+<div class="section" id="cargadores">
+<h2>Cargadores<a class="headerlink" href="#cargadores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los cargadores son responsables de cargar las plantillas desde un recurso como el sistema de archivos.</p>
+<div class="section" id="cache-de-compilacion">
+<h3>Caché de compilación<a class="headerlink" href="#cache-de-compilacion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Todos los cargadores de plantillas en cache pueden compilar plantillas en el sistema de archivos para su futura reutilización. Esto acelera mucho cómo se compilan las plantillas <em>Twig</em> una sola vez; y el aumento del rendimiento es aún mayor si utilizas un acelerador <em>PHP</em> como <em>APC</em>.
+Consulta las opciones anteriores <tt class="docutils literal"><span class="pre">cache</span></tt> y <tt class="docutils literal"><span class="pre">auto_reload</span></tt> de <tt class="docutils literal"><span class="pre">Twig_Environment</span></tt> para más información.</p>
+</div>
+<div class="section" id="cargadores-integrados">
+<h3>Cargadores integrados<a class="headerlink" href="#cargadores-integrados" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Aquí está una lista de los cargadores incorporados de que dispone <em>Twig</em>:</p>
+<div class="section" id="twig-loader-filesystem">
+<h4><tt class="docutils literal"><span class="pre">Twig_Loader_Filesystem</span></tt><a class="headerlink" href="#twig-loader-filesystem" title="Enlazar permanentemente con este título">¶</a></h4>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.10: </span>The <tt class="docutils literal"><span class="pre">prependPath()</span></tt> and support for namespaces were added in Twig 1.10.</p>
+<p><tt class="docutils literal"><span class="pre">Twig_Loader_Filesystem</span></tt>: Carga plantillas desde el sistema de archivos. Este cargador puede encontrar plantillas en los directorios del sistema de archivos y es la manera preferida de cargarlas:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Filesystem</span><span class="p">(</span><span class="nv">$templateDir</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>También puedes buscar plantillas en un arreglo de directorios:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Filesystem</span><span class="p">(</span>
+                                           <span class="k">array</span><span class="p">(</span>  <span class="nv">$templateDir1</span><span class="p">,</span>
+                                                   <span class="nv">$templateDir2</span>
+                                        <span class="p">));</span>
+</pre></div>
+</div>
+<p>Con esta configuración, <em>Twig</em> primero buscará las plantillas en <tt class="docutils literal"><span class="pre">$templateDir1</span></tt> y si no existen, regresará a buscar en <tt class="docutils literal"><span class="pre">$templateDir2</span></tt>.</p>
+<p>You can add or prepend paths via the <tt class="docutils literal"><span class="pre">addPath()</span></tt> and <tt class="docutils literal"><span class="pre">prependPath()</span></tt>
+methods:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">addPath</span><span class="p">(</span><span class="nv">$templateDir3</span><span class="p">);</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">prependPath</span><span class="p">(</span><span class="nv">$templateDir4</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The filesystem loader also supports namespaced templates. This allows to group
+your templates under different namespaces which have their own template paths.</p>
+<p>When using the <tt class="docutils literal"><span class="pre">setPaths()</span></tt>, <tt class="docutils literal"><span class="pre">addPath()</span></tt>, and <tt class="docutils literal"><span class="pre">prependPath()</span></tt> methods,
+specify the namespace as the second argument (when not specified, these
+methods act on the &#8220;main&#8221; namespace):</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">addPath</span><span class="p">(</span><span class="nv">$templateDir</span><span class="p">,</span> <span class="s1">&#39;admin&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Namespaced templates can be accessed via the special
+<tt class="docutils literal"><span class="pre">&#64;namespace_name/template_path</span></tt> notation:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@admin/index.html&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="twig-loader-string">
+<h4><tt class="docutils literal"><span class="pre">Twig_Loader_String</span></tt><a class="headerlink" href="#twig-loader-string" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">Twig_Loader_String</span></tt> carga plantillas desde cadenas. Es un cargador ficticio como referencia a la plantilla es el código fuente de la plantilla:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_String</span><span class="p">();</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;Hello {{ name }}!&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Este cargador sólo se debe utilizar en las pruebas unitarias, ya que tiene serias limitaciones:
+varias etiquetas, tal como <tt class="docutils literal"><span class="pre">extends</span></tt> o <tt class="docutils literal"><span class="pre">include</span></tt> no tiene sentido que se utilicen como referencia a la plantilla puesto que es el código fuente de plantilla en sí.</p>
+</div>
+<div class="section" id="twig-loader-array">
+<h4><tt class="docutils literal"><span class="pre">Twig_Loader_Array</span></tt><a class="headerlink" href="#twig-loader-array" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">Twig_Loader_Array</span></tt> carga una plantilla a partir de un arreglo <em>PHP</em>. Se le pasa un arreglo de cadenas vinculadas a los nombres de plantilla:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;index.html&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello {{ name }}!&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Este cargador es muy útil en las pruebas unitarias. También puede ser útil en proyectos pequeños donde tiene sentido almacenar todas las plantillas en un único archivo <em>PHP</em>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Cuando utilices los cargadores de <tt class="docutils literal"><span class="pre">Array</span></tt> o <tt class="docutils literal"><span class="pre">String</span></tt> con un mecanismo de caché, debes saber que se genera una nueva clave de caché cada vez que «cambia» el contenido de una plantilla (la clave de caché es el código fuente de la plantilla). Si no deseas ver que tu caché crezca fuera de control, es necesario tener cuidado de limpiar el archivo de caché antiguo en sí mismo.</p>
+</div>
+</div>
+<div class="section" id="twig-loader-chain">
+<h4><tt class="docutils literal"><span class="pre">Twig_Loader_Chain</span></tt><a class="headerlink" href="#twig-loader-chain" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">Twig_Loader_Chain</span></tt> delegates the loading of templates to other loaders:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$loader1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;base.html&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{% block content %}{% endblock %}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+<span class="nv">$loader2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;index.html&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{% extends &quot;base.twig&quot; %}{% block content %}Hello {{ name }}{% endblock %}&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;base.html&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Will never be loaded&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Loader_Chain</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$loader1</span><span class="p">,</span> <span class="nv">$loader2</span><span class="p">));</span>
+
+<span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="nv">$loader</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When looking for a template, Twig will try each loader in turn and it will
+return as soon as the template is found. When rendering the <tt class="docutils literal"><span class="pre">index.html</span></tt>
+template from the above example, Twig will load it with <tt class="docutils literal"><span class="pre">$loader2</span></tt> but the
+<tt class="docutils literal"><span class="pre">base.html</span></tt> template will be loaded from <tt class="docutils literal"><span class="pre">$loader1</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">Twig_Loader_Chain</span></tt> accepts any loader that implements
+<tt class="docutils literal"><span class="pre">Twig_LoaderInterface</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">You can also add loaders via the <tt class="docutils literal"><span class="pre">addLoader()</span></tt> method.</p>
+</div>
+</div>
+</div>
+<div class="section" id="creando-tu-propio-cargador">
+<h3>Creando tu propio cargador<a class="headerlink" href="#creando-tu-propio-cargador" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Todos los cargadores implementan la interfaz <tt class="docutils literal"><span class="pre">Twig_LoaderInterface</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">interface</span> <span class="nx">Twig_LoaderInterface</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Obtiene el código fuente de una plantilla, del nombre dado.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  string $name cadena del nombre de la plantilla a cargar</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string The template source code</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">getSource</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Obtiene la clave de la caché para usarla en un nombre de plantilla dado.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param  string $name cadena del nombre de la plantilla a cargar</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return string La clave de caché</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">getCacheKey</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     * Devuelve true si la plantilla aún está fresca.</span>
+<span class="sd">     *</span>
+<span class="sd">     * @param string    $name El nombre de la plantilla</span>
+<span class="sd">     * @param timestamp $time Hora de la última modificación de la plantilla</span>
+<span class="sd">     *                        en caché</span>
+<span class="sd">     */</span>
+    <span class="k">function</span> <span class="nf">isFresh</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$time</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A modo de ejemplo, esto es lo que dice el <tt class="docutils literal"><span class="pre">Twig_Loader_String</span></tt> incorporado:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Twig_Loader_String</span> <span class="k">implements</span> <span class="nx">Twig_LoaderInterface</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSource</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCacheKey</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="nv">$name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">isFresh</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$time</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>El método <tt class="docutils literal"><span class="pre">isFresh()</span></tt> debe devolver <tt class="docutils literal"><span class="pre">true</span></tt> si la plantilla actual en caché aún es fresca, dado el tiempo de la última modificación, o <tt class="docutils literal"><span class="pre">false</span></tt> de lo contrario.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">As of Twig 1.11.0, you can also implement <tt class="docutils literal"><span class="pre">Twig_ExistsLoaderInterface</span></tt>
+to make your loader faster when used with the chain loader.</p>
+</div>
+</div>
+</div>
+<div class="section" id="usando-extensiones">
+<h2>Usando extensiones<a class="headerlink" href="#usando-extensiones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las extensiones <em>Twig</em> son paquetes que añaden nuevas características a <em>Twig</em>. Usar una extensión es tan simple como usar el método <tt class="docutils literal"><span class="pre">addExtension()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="k">new</span> <span class="nx">Twig_Extension_Sandbox</span><span class="p">());</span>
+</pre></div>
+</div>
+<p><em>Twig</em> viene con las siguientes extensiones:</p>
+<ul class="simple">
+<li><em>Twig_Extension_Core</em>: Define todas las características básicas de <em>Twig</em>.</li>
+<li><em>Twig_Extension_Escaper</em>: Agrega escape automático y la posibilidad de escapar/no escapar bloques de código.</li>
+<li><em>Twig_Extension_Sandbox</em>: Agrega un modo de recinto de seguridad para el entorno predeterminado de <em>Twig</em>, en el cual es seguro evaluar código que no es de confianza.</li>
+<li><em>Twig_Extension_Optimizer</em>: Optimiza el nodo del árbol antes de la compilación.</li>
+</ul>
+<p>El núcleo, las extensiones del mecanismo de escape y optimización no es necesario añadirlas al entorno <em>Twig</em>, debido a que se registran de forma predeterminada.</p>
+</div>
+<div class="section" id="extensiones-incorporadas">
+<h2>Extensiones incorporadas<a class="headerlink" href="#extensiones-incorporadas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Esta sección describe las características agregadas por las extensiones incorporadas.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Lee el capítulo sobre la ampliación de <em>Twig</em> para que veas cómo crear tus propias extensiones.</p>
+</div>
+<div class="section" id="extension-core">
+<h3>Extensión <tt class="docutils literal"><span class="pre">core</span></tt><a class="headerlink" href="#extension-core" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La extensión <tt class="docutils literal"><span class="pre">core</span></tt> define todas las características principales de <em>Twig</em>:</p>
+<ul class="simple">
+<li>Etiquetas;<ul>
+<li><tt class="docutils literal"><span class="pre">for</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">if</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">extends</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">include</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">block</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">filter</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">macro</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">import</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">from</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">set</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">spaceless</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">autoescape</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">do</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">embed</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">flush</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">verbatim</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sandbox</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">use</span></tt></li>
+</ul>
+</li>
+<li>Filtros:<ul>
+<li><tt class="docutils literal"><span class="pre">date</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">format</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">replace</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">url_encode</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">json_encode</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">title</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">capitalize</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">upper</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lower</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">striptags</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">join</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">reverse</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">length</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sort</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">merge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">default</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">keys</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">escape</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">e</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">abs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">convert_encoding</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">date_modify</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">nl2br</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">number_format</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">raw</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">slice</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">trim</span></tt></li>
+</ul>
+</li>
+<li>Funciones:<ul>
+<li><tt class="docutils literal"><span class="pre">range</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">constant</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">cycle</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">parent</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">block</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">attribute</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">date</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dump</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">random</span></tt></li>
+</ul>
+</li>
+<li>Pruebas:<ul>
+<li><tt class="docutils literal"><span class="pre">even</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">odd</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">defined</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sameas</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">null</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">divisibleby</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">constant</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">empty</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">iterable</span></tt></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="extension-escaper">
+<h3>Extensión <tt class="docutils literal"><span class="pre">escaper</span></tt><a class="headerlink" href="#extension-escaper" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La extensión <tt class="docutils literal"><span class="pre">escaper</span></tt> añade a <em>Twig</em> el escape automático de la salida. Esta define una nueva etiqueta, <tt class="docutils literal"><span class="pre">autoescape</span></tt>, y un filtro <tt class="docutils literal"><span class="pre">raw</span></tt>.</p>
+<p>Al crear la extensión <tt class="docutils literal"><span class="pre">escaper</span></tt>, puedes activar o desactivar la estrategia de escape global de la salida:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$escaper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Extension_Escaper</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="nv">$escaper</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Si la estableces a <tt class="docutils literal"><span class="pre">true</span></tt>, se escapan todas las variables en las plantillas, excepto las que utilizan el filtro <tt class="docutils literal"><span class="pre">raw</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">article.to_html</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>También puedes cambiar el modo de escape a nivel local usando la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt> (consulta la documentación para la sintaxis usada por el <a class="reference internal" href="tags/autoescape.html"><em>autoescape</em></a> antes de la versión <em>1.8</em> de <em>Twig</em>):</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x">      </span><span class="c">{# var no se escapa #}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span> <span class="cp">}}</span><span class="x">   </span><span class="c">{# var no se escapa doblemente #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">La etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt> no tiene ningún efecto sobre los archivos incluidos.</p>
+</div>
+<p>Las reglas de escape se implementan de la siguiente manera:</p>
+<ul>
+<li><p class="first">Literales (enteros, booleanos, arreglos, ...) utilizados en la plantilla directamente como variables o argumentos de filtros no son escapados automáticamente:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;Twig&lt;br /&gt;&quot;</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# no se escapa #}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">text</span> <span class="o">=</span> <span class="s2">&quot;Twig&lt;br /&gt;&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">text</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# será escapado #}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Expresiones cuyo resultado siempre es un literal o una variable marcada como segura nunca serán escapadas automáticamente:</p>
+<div class="highlight-jinja"><pre>{{ foo ? "Twig&lt;br /&gt;" : "&lt;br /&gt;Twig" }} {# no será escapado #}
+
+{% set text = "Twig&lt;br /&gt;" %}
+{{ foo ? text : "&lt;br /&gt;Twig" }} {# será escapado #}
+
+{% set text = "Twig&lt;br /&gt;" %}
+{{ foo ? text|raw : "&lt;br /&gt;Twig" }} {# no será escapado #}
+
+{% set text = "Twig&lt;br /&gt;" %}
+{{ foo ? text|escape : "&lt;br /&gt;Twig" }} {# el resultado de la expresión
+                                          no será escapado #}</pre>
+</div>
+</li>
+<li><p class="first">El escape se aplica antes de la impresión, después de haber aplicado cualquier otro filtro:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">upper</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# es equivalente a {{ var|upper|escape }} #}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">El filtro <tt class="docutils literal"><span class="pre">raw</span></tt> sólo se debe utilizar al final de la cadena de filtros:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">raw</span><span class="o">|</span><span class="nf">upper</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# se deberá escapar #}</span><span class="x"></span>
+
+<span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">upper</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# no será escapado #}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">No se aplica el escape automático si el último filtro de la cadena está marcado como seguro para el contexto actual (por ejemplo, <tt class="docutils literal"><span class="pre">html</span></tt> o <tt class="docutils literal"><span class="pre">js</span></tt>). <tt class="docutils literal"><span class="pre">escaper</span></tt> y <tt class="docutils literal"><span class="pre">escaper('html')</span></tt> están marcados como seguros para <em>html</em>, <tt class="docutils literal"><span class="pre">escaper('js')</span></tt> está marcado como seguro para <em>javascript</em>, <tt class="docutils literal"><span class="pre">raw</span></tt> está marcado como seguro para todo.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;js&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="s1">&#39;html&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# será escapado para html y javascript #}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# será escapado para javascript #}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="s1">&#39;js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# no se escapará doblemente #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Ten en cuenta que el escape automático tiene algunas limitaciones puesto que el escapado se aplica en las expresiones después de su evaluación. Por ejemplo, cuando trabajas en concatenación, <tt class="docutils literal"><span class="pre">{{foo|raw</span> <span class="pre">~</span> <span class="pre">bar</span> <span class="pre">}}</span></tt> no dará el resultado esperado ya que el escape se aplica sobre el resultado de la concatenación y no en las variables individuales (por lo tanto aquí, el filtro <tt class="docutils literal"><span class="pre">raw</span></tt> no tendrá ningún efecto).</p>
+</div>
+</div>
+<div class="section" id="extension-sandbox">
+<h3>Extensión <tt class="docutils literal"><span class="pre">sandbox</span></tt><a class="headerlink" href="#extension-sandbox" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La extensión <tt class="docutils literal"><span class="pre">sandbox</span></tt> se puede utilizar para evaluar código no confiable. El acceso a los atributos y los métodos inseguros está prohibido. El entorno recinto de seguridad es manejado por una política de la instancia. Por omisión, <em>Twig</em> viene con una política de clase:
+<tt class="docutils literal"><span class="pre">Twig_Sandbox_SecurityPolicy</span></tt>. Esta clase te permite agregar a la lista blanca algunas etiquetas, filtros, propiedades y métodos:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$tags</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;if&#39;</span><span class="p">);</span>
+<span class="nv">$filters</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;upper&#39;</span><span class="p">);</span>
+<span class="nv">$methods</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;Article&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>  <span class="s1">&#39;getTitle&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;getBody&#39;</span>
+                                    <span class="p">),</span>
+<span class="p">);</span>
+<span class="nv">$properties</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;Article&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;body&#39;</span>
+                                       <span class="p">),</span>
+<span class="p">);</span>
+<span class="nv">$functions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">);</span>
+<span class="nv">$policy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Sandbox_SecurityPolicy</span><span class="p">(</span>  <span class="nv">$tags</span><span class="p">,</span>
+                                            <span class="nv">$filters</span><span class="p">,</span>
+                                            <span class="nv">$methods</span><span class="p">,</span>
+                                            <span class="nv">$properties</span><span class="p">,</span>
+                                            <span class="nv">$functions</span>
+                                          <span class="p">);</span>
+</pre></div>
+</div>
+<p>Con la configuración anterior, la política de seguridad sólo te permitirá usar los filtros <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">tag</span></tt> y <tt class="docutils literal"><span class="pre">upper</span></tt>. Por otra parte, las plantillas sólo podrán llamar a los métodos <tt class="docutils literal"><span class="pre">getTitle()</span></tt> y <tt class="docutils literal"><span class="pre">getBody()</span></tt> en objetos <tt class="docutils literal"><span class="pre">Article</span></tt>, y a las propiedades públicas <tt class="docutils literal"><span class="pre">title</span></tt> y <tt class="docutils literal"><span class="pre">body</span></tt>. Todo lo demás no está permitido y se generará una excepción <tt class="docutils literal"><span class="pre">Twig_Sandbox_SecurityError</span></tt>.</p>
+<p>El objeto política es el primer argumento del constructor del recinto de seguridad:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$sandbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Extension_Sandbox</span><span class="p">(</span><span class="nv">$policy</span><span class="p">);</span>
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="nv">$sandbox</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>De forma predeterminada, el modo de recinto de seguridad está desactivado y se activa cuando se incluye código de plantilla que no es de confianza usando la etiqueta <tt class="docutils literal"><span class="pre">sandbox</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">sandbox</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;user.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endsandbox</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Puedes poner todas las plantillas en el recinto de seguridad pasando <tt class="docutils literal"><span class="pre">true</span></tt> como segundo argumento al constructor de la extensión:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$sandbox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Extension_Sandbox</span><span class="p">(</span><span class="nv">$policy</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extension-optimizer">
+<h3>Extensión <tt class="docutils literal"><span class="pre">optimizer</span></tt><a class="headerlink" href="#extension-optimizer" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La extensión <tt class="docutils literal"><span class="pre">optimizer</span></tt> optimiza el nodo del árbol antes de compilarlo:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="k">new</span> <span class="nx">Twig_Extension_Optimizer</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Por omisión, todas las optimizaciones están activadas. Puedes seleccionar las que desees habilitar pasándolas al constructor:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$optimizer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Extension_Optimizer</span><span class="p">(</span>
+                                <span class="nx">Twig_NodeVisitor_Optimizer</span><span class="o">::</span><span class="na">OPTIMIZE_FOR</span><span class="p">);</span>
+
+<span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="nv">$optimizer</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="excepciones">
+<h2>Excepciones<a class="headerlink" href="#excepciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Twig</em> puede lanzar excepciones:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Twig_Error</span></tt>: La excepción base para todos los errores.</li>
+<li><tt class="docutils literal"><span class="pre">Twig_Error_Syntax</span></tt>: Lanzada para indicar al usuario que hay un problema con la sintaxis de la plantilla.</li>
+<li><tt class="docutils literal"><span class="pre">Twig_Error_Runtime</span></tt>: Lanzada cuando se produce un error en tiempo de ejecución (cuando un filtro no existe, por ejemplo).</li>
+<li><tt class="docutils literal"><span class="pre">Twig_Error_Loader</span></tt>: Se lanza al producirse un error durante la carga de la plantilla.</li>
+<li><tt class="docutils literal"><span class="pre">Twig_Sandbox_SecurityError</span></tt>: Lanzada cuando aparece una etiqueta, filtro, o se llama a un método no permitido en una plantilla de un recinto de seguridad.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="advanced.html" title="Extendiendo Twig"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="templates.html" title="Twig para diseñadores de plantillas"
+             >anterior</a> |</li>
+        <li><a href="index.html">Twig en Español</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

@@ -1,0 +1,198 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>escape &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Filtros" href="index.html" />
+    <link rel="next" title="raw" href="raw.html" />
+    <link rel="prev" title="keys" href="keys.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="../index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="raw.html" title="raw"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="keys.html" title="keys"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Filtros</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="escape">
+<h1><tt class="docutils literal"><span class="pre">escape</span></tt><a class="headerlink" href="#escape" title="Enlazar permanentemente con este título">¶</a></h1>
+<p class="versionadded">
+<span class="versionmodified">Nuevo en la versión 1.9.0: </span>Las estrategias <tt class="docutils literal"><span class="pre">css</span></tt>, <tt class="docutils literal"><span class="pre">url</span></tt> y <tt class="docutils literal"><span class="pre">html_attr</span></tt> se añadieron en <em>Twig</em> 1.9.0.</p>
+<p>El filtro <tt class="docutils literal"><span class="pre">escape</span></tt> escapa una cadena para una inserción segura en la salida final. Es compatible con diferentes estrategias de escape en función del contexto de la plantilla.</p>
+<p>De manera predeterminada, se utiliza la estrategia de escape <tt class="docutils literal"><span class="pre">HTML</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">escape</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Por conveniencia, el filtro <tt class="docutils literal"><span class="pre">e</span></tt> está definido como un alias:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Además, puedes usar el filtro <tt class="docutils literal"><span class="pre">escape</span></tt> fuera del contexto <em>HTML</em> gracias al argumento opcional que define la estrategia de escape a usar:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span> <span class="cp">}}</span><span class="x"></span>
+<span class="c">{# es equivalente a #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span><span class="o">(</span><span class="s1">&#39;html&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Y aquí tienes cómo escapar variables incluidas en código <em>JavaScript</em>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="s1">&#39;js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">user.username</span><span class="o">|</span><span class="nf">e</span><span class="o">(</span><span class="s1">&#39;js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>El filtro <tt class="docutils literal"><span class="pre">escape</span></tt> admite las siguientes estrategias de escape:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">html</span></tt>: Escapa una cadena para el contexto <strong>HTML body</strong>.</li>
+<li><tt class="docutils literal"><span class="pre">js</span></tt>: Escapa una cadena para el <strong>contexto JavaScript</strong>.</li>
+<li><tt class="docutils literal"><span class="pre">css</span></tt>: Escapa una cadena para el <strong>contexto CSS</strong>. El escape <em>CSS</em> se puede aplicar a cualquier cadena insertada en <em>CSS</em> y escapa todo excepto caracteres alfanuméricos.</li>
+<li><tt class="docutils literal"><span class="pre">url</span></tt>: Escapa una cadena para los <strong>contextos URI o parameter</strong>. Este no se debe usar para escapar una <em>URI</em> completa; sólo un subcomponente insertado.</li>
+<li><tt class="docutils literal"><span class="pre">html_attr</span></tt>: Escapa una cadena para el contexto <strong>atributo HTML</strong>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">Internamente, <tt class="docutils literal"><span class="pre">escape</span></tt> utiliza la función <a class="reference external" href="http://php.net/htmlspecialchars">htmlspecialchars</a> nativa de <em>PHP</em>.</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Prudencia</p>
+<p>When using automatic escaping, Twig tries to not double-escape a variable
+when the automatic escaping strategy is the same as the one applied by the
+escape filter; but that does not work when using a variable as the
+escaping strategy:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">strategy</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="s1">&#39;html&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">   </span><span class="c">{# won&#39;t be double-escaped #}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="nv">strategy</span><span class="o">)</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# will be double-escaped #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>When using a variable as the escaping strategy, you should disable
+automatic escaping:</p>
+<div class="last highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">strategy</span> <span class="o">=</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">var</span><span class="o">|</span><span class="nf">escape</span><span class="o">(</span><span class="nv">strategy</span><span class="o">)|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# won&#39;t be double-escaped #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="argumentos">
+<h2>Argumentos<a class="headerlink" href="#argumentos" title="Enlazar permanentemente con este título">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">strategy</span></tt>: The escaping strategy</li>
+<li><tt class="docutils literal"><span class="pre">charset</span></tt>:  The string charset</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="raw.html" title="raw"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="keys.html" title="keys"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Filtros</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

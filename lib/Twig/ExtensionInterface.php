@@ -25,7 +25,7 @@ interface Twig_ExtensionInterface
      *
      * @param Twig_Environment $environment The current Twig_Environment instance
      */
-    function initRuntime(Twig_Environment $environment);
+    public function initRuntime(Twig_Environment $environment);
 
     /**
      * Devuelve instancias del analizador de segmentos para añadirlos a
@@ -33,7 +33,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of Twig_TokenParserInterface or Twig_TokenParserBrokerInterface instances
      */
-    function getTokenParsers();
+    public function getTokenParsers();
 
     /**
      * Devuelve instancias del visitante de nodos para añadirlas a la
@@ -41,7 +41,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of Twig_NodeVisitorInterface instances
      */
-    function getNodeVisitors();
+    public function getNodeVisitors();
 
     /**
      * Devuelve una lista de filtros para añadirla a la lista
@@ -49,7 +49,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of filters
      */
-    function getFilters();
+    public function getFilters();
 
     /**
      * Devuelve una lista de pruebas para añadirla a la lista
@@ -57,7 +57,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of tests
      */
-    function getTests();
+    public function getTests();
 
     /**
      * Devuelve una lista de funciones para añadirla a la lista
@@ -65,7 +65,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of functions
      */
-    function getFunctions();
+    public function getFunctions();
 
     /**
      * Devuelve una lista de operadores para añadirla a la lista
@@ -73,7 +73,7 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of operators
      */
-    function getOperators();
+    public function getOperators();
 
     /**
      * Devuelve una lista de variables globales para añadirla a la
@@ -81,12 +81,12 @@ interface Twig_ExtensionInterface
      *
      * @return array An array of global variables
      */
-    function getGlobals();
+    public function getGlobals();
 
     /**
      * Devuelve el nombre de la extensión.
      *
      * @return string The extension name
      */
-    function getName();
+    public function getName();
 }

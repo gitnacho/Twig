@@ -1,0 +1,158 @@
+\BOOKMARK [-1][-]{part.1}{I Introducci\363n}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Requisitos previos}{part.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Instalando}{part.1}% 3
+\BOOKMARK [1][-]{section.2.1}{Instalando la versi\363n comprimida}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{Instalando la versi\363n de desarrollo}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.3}{Instalando el paquete PEAR}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.4}{Instalando v\355a Composer}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.5}{Instalando la extensi\363n C}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Uso b\341sico de la API}{part.1}% 9
+\BOOKMARK [-1][-]{part.2}{II Twig para dise\361adores de plantillas}{}% 10
+\BOOKMARK [0][-]{chapter.4}{Sinopsis}{part.2}% 11
+\BOOKMARK [0][-]{chapter.5}{Integrando con IDEs}{part.2}% 12
+\BOOKMARK [0][-]{chapter.6}{Variables}{part.2}% 13
+\BOOKMARK [1][-]{section.6.1}{Variables globales}{chapter.6}% 14
+\BOOKMARK [1][-]{section.6.2}{Definiendo variables}{chapter.6}% 15
+\BOOKMARK [0][-]{chapter.7}{Filtros}{part.2}% 16
+\BOOKMARK [0][-]{chapter.8}{Funciones}{part.2}% 17
+\BOOKMARK [0][-]{chapter.9}{Estructuras de control}{part.2}% 18
+\BOOKMARK [0][-]{chapter.10}{Comentarios}{part.2}% 19
+\BOOKMARK [0][-]{chapter.11}{Incluyendo otras plantillas}{part.2}% 20
+\BOOKMARK [0][-]{chapter.12}{Herencia en plantillas}{part.2}% 21
+\BOOKMARK [0][-]{chapter.13}{Escapando HTML}{part.2}% 22
+\BOOKMARK [1][-]{section.13.1}{Trabajando con el escape manual}{chapter.13}% 23
+\BOOKMARK [1][-]{section.13.2}{Trabajando con escape autom\341tico}{chapter.13}% 24
+\BOOKMARK [0][-]{chapter.14}{Escapando}{part.2}% 25
+\BOOKMARK [0][-]{chapter.15}{Macros}{part.2}% 26
+\BOOKMARK [0][-]{chapter.16}{Expresiones}{part.2}% 27
+\BOOKMARK [1][-]{section.16.1}{Literales}{chapter.16}% 28
+\BOOKMARK [1][-]{section.16.2}{Matem\341ticas}{chapter.16}% 29
+\BOOKMARK [1][-]{section.16.3}{L\363gica}{chapter.16}% 30
+\BOOKMARK [1][-]{section.16.4}{Comparaciones}{chapter.16}% 31
+\BOOKMARK [1][-]{section.16.5}{Operador de contenci\363n}{chapter.16}% 32
+\BOOKMARK [1][-]{section.16.6}{Operador de prueba}{chapter.16}% 33
+\BOOKMARK [1][-]{section.16.7}{Otros operadores}{chapter.16}% 34
+\BOOKMARK [1][-]{section.16.8}{Interpolando cadenas}{chapter.16}% 35
+\BOOKMARK [0][-]{chapter.17}{Controlando el espacio en blanco}{part.2}% 36
+\BOOKMARK [0][-]{chapter.18}{Extendiendo}{part.2}% 37
+\BOOKMARK [-1][-]{part.3}{III Twig para desarrolladores}{}% 38
+\BOOKMARK [0][-]{chapter.19}{Fundamentos}{part.3}% 39
+\BOOKMARK [0][-]{chapter.20}{Opciones del entorno}{part.3}% 40
+\BOOKMARK [0][-]{chapter.21}{Cargadores}{part.3}% 41
+\BOOKMARK [1][-]{section.21.1}{Cach\351 de compilaci\363n}{chapter.21}% 42
+\BOOKMARK [1][-]{section.21.2}{Cargadores integrados}{chapter.21}% 43
+\BOOKMARK [1][-]{section.21.3}{Creando tu propio cargador}{chapter.21}% 44
+\BOOKMARK [0][-]{chapter.22}{Usando extensiones}{part.3}% 45
+\BOOKMARK [0][-]{chapter.23}{Extensiones incorporadas}{part.3}% 46
+\BOOKMARK [1][-]{section.23.1}{Extensi\363n core}{chapter.23}% 47
+\BOOKMARK [1][-]{section.23.2}{Extensi\363n escaper}{chapter.23}% 48
+\BOOKMARK [1][-]{section.23.3}{Extensi\363n sandbox}{chapter.23}% 49
+\BOOKMARK [1][-]{section.23.4}{Extensi\363n optimizer}{chapter.23}% 50
+\BOOKMARK [0][-]{chapter.24}{Excepciones}{part.3}% 51
+\BOOKMARK [-1][-]{part.4}{IV Extendiendo Twig}{}% 52
+\BOOKMARK [0][-]{chapter.25}{Globales}{part.4}% 53
+\BOOKMARK [0][-]{chapter.26}{Filtros}{part.4}% 54
+\BOOKMARK [1][-]{section.26.1}{Entorno consciente de filtros}{chapter.26}% 55
+\BOOKMARK [1][-]{section.26.2}{Escapando autom\341ticamente}{chapter.26}% 56
+\BOOKMARK [1][-]{section.26.3}{Filtros din\341micos}{chapter.26}% 57
+\BOOKMARK [0][-]{chapter.27}{Funciones}{part.4}% 58
+\BOOKMARK [1][-]{section.27.1}{Funciones din\341micas}{chapter.27}% 59
+\BOOKMARK [0][-]{chapter.28}{Etiquetas}{part.4}% 60
+\BOOKMARK [1][-]{section.28.1}{Registrando una nueva etiqueta}{chapter.28}% 61
+\BOOKMARK [1][-]{section.28.2}{Definiendo un analizador de fragmentos}{chapter.28}% 62
+\BOOKMARK [1][-]{section.28.3}{Definiendo un nodo}{chapter.28}% 63
+\BOOKMARK [0][-]{chapter.29}{Creando una extensi\363n}{part.4}% 64
+\BOOKMARK [1][-]{section.29.1}{Globales}{chapter.29}% 65
+\BOOKMARK [1][-]{section.29.2}{Funciones}{chapter.29}% 66
+\BOOKMARK [1][-]{section.29.3}{Filtros}{chapter.29}% 67
+\BOOKMARK [1][-]{section.29.4}{Etiquetas}{chapter.29}% 68
+\BOOKMARK [1][-]{section.29.5}{Operadores}{chapter.29}% 69
+\BOOKMARK [1][-]{section.29.6}{Pruebas}{chapter.29}% 70
+\BOOKMARK [-1][-]{part.5}{V Twig por dentro}{}% 71
+\BOOKMARK [0][-]{chapter.30}{\277C\363mo funciona Twig?}{part.5}% 72
+\BOOKMARK [0][-]{chapter.31}{El analizador l\351xico}{part.5}% 73
+\BOOKMARK [0][-]{chapter.32}{El analizador sint\341ctico}{part.5}% 74
+\BOOKMARK [0][-]{chapter.33}{El compilador}{part.5}% 75
+\BOOKMARK [-1][-]{part.6}{VI Recetas}{}% 76
+\BOOKMARK [0][-]{chapter.34}{Haciendo un dise\361o condicional}{part.6}% 77
+\BOOKMARK [0][-]{chapter.35}{Haciendo una inclusi\363n din\341mica}{part.6}% 78
+\BOOKMARK [0][-]{chapter.36}{Sustituyendo una plantilla que adem\341s se extiende a s\355 misma}{part.6}% 79
+\BOOKMARK [0][-]{chapter.37}{Personalizando la sintaxis}{part.6}% 80
+\BOOKMARK [0][-]{chapter.38}{Usando propiedades din\341micas de objetos}{part.6}% 81
+\BOOKMARK [0][-]{chapter.39}{Accediendo al contexto del padre en bucles anidados}{part.6}% 82
+\BOOKMARK [0][-]{chapter.40}{Definiendo al vuelo funciones indefinidas y filtros}{part.6}% 83
+\BOOKMARK [0][-]{chapter.41}{Validando la sintaxis de la plantilla}{part.6}% 84
+\BOOKMARK [0][-]{chapter.42}{Actualizando plantillas modificadas cuando APC est\341 habilitado y apc.stat=0}{part.6}% 85
+\BOOKMARK [0][-]{chapter.43}{Reutilizando el estado de un visitante de nodo}{part.6}% 86
+\BOOKMARK [0][-]{chapter.44}{Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada}{part.6}% 87
+\BOOKMARK [-1][-]{part.7}{VII Est\341ndares de codificaci\363n}{}% 88
+\BOOKMARK [-1][-]{part.8}{VIII Etiquetas}{}% 89
+\BOOKMARK [0][-]{chapter.45}{for}{part.8}% 90
+\BOOKMARK [1][-]{section.45.1}{La variable loop}{chapter.45}% 91
+\BOOKMARK [1][-]{section.45.2}{A\361adiendo una condici\363n}{chapter.45}% 92
+\BOOKMARK [1][-]{section.45.3}{La cl\341usula else}{chapter.45}% 93
+\BOOKMARK [1][-]{section.45.4}{Iterando en las claves}{chapter.45}% 94
+\BOOKMARK [1][-]{section.45.5}{Iterando en claves y valores}{chapter.45}% 95
+\BOOKMARK [0][-]{chapter.46}{if}{part.8}% 96
+\BOOKMARK [0][-]{chapter.47}{macro}{part.8}% 97
+\BOOKMARK [0][-]{chapter.48}{filter}{part.8}% 98
+\BOOKMARK [0][-]{chapter.49}{set}{part.8}% 99
+\BOOKMARK [0][-]{chapter.50}{extends}{part.8}% 100
+\BOOKMARK [1][-]{section.50.1}{Plantilla descendiente}{chapter.50}% 101
+\BOOKMARK [0][-]{chapter.51}{block}{part.8}% 102
+\BOOKMARK [0][-]{chapter.52}{include}{part.8}% 103
+\BOOKMARK [0][-]{chapter.53}{import}{part.8}% 104
+\BOOKMARK [0][-]{chapter.54}{from}{part.8}% 105
+\BOOKMARK [0][-]{chapter.55}{use}{part.8}% 106
+\BOOKMARK [0][-]{chapter.56}{spaceless}{part.8}% 107
+\BOOKMARK [0][-]{chapter.57}{autoescape}{part.8}% 108
+\BOOKMARK [0][-]{chapter.58}{raw}{part.8}% 109
+\BOOKMARK [0][-]{chapter.59}{flush}{part.8}% 110
+\BOOKMARK [0][-]{chapter.60}{do}{part.8}% 111
+\BOOKMARK [0][-]{chapter.61}{sandbox}{part.8}% 112
+\BOOKMARK [0][-]{chapter.62}{embed}{part.8}% 113
+\BOOKMARK [-1][-]{part.9}{IX Filtros}{}% 114
+\BOOKMARK [0][-]{chapter.63}{date}{part.9}% 115
+\BOOKMARK [0][-]{chapter.64}{format}{part.9}% 116
+\BOOKMARK [0][-]{chapter.65}{replace}{part.9}% 117
+\BOOKMARK [0][-]{chapter.66}{number\137format}{part.9}% 118
+\BOOKMARK [0][-]{chapter.67}{url\137encode}{part.9}% 119
+\BOOKMARK [0][-]{chapter.68}{json\137encode}{part.9}% 120
+\BOOKMARK [0][-]{chapter.69}{convert\137encoding}{part.9}% 121
+\BOOKMARK [0][-]{chapter.70}{title}{part.9}% 122
+\BOOKMARK [0][-]{chapter.71}{capitalize}{part.9}% 123
+\BOOKMARK [0][-]{chapter.72}{nl2br}{part.9}% 124
+\BOOKMARK [0][-]{chapter.73}{upper}{part.9}% 125
+\BOOKMARK [0][-]{chapter.74}{lower}{part.9}% 126
+\BOOKMARK [0][-]{chapter.75}{striptags}{part.9}% 127
+\BOOKMARK [0][-]{chapter.76}{join}{part.9}% 128
+\BOOKMARK [0][-]{chapter.77}{reverse}{part.9}% 129
+\BOOKMARK [0][-]{chapter.78}{length}{part.9}% 130
+\BOOKMARK [0][-]{chapter.79}{sort}{part.9}% 131
+\BOOKMARK [0][-]{chapter.80}{default}{part.9}% 132
+\BOOKMARK [0][-]{chapter.81}{keys}{part.9}% 133
+\BOOKMARK [0][-]{chapter.82}{escape}{part.9}% 134
+\BOOKMARK [0][-]{chapter.83}{raw}{part.9}% 135
+\BOOKMARK [0][-]{chapter.84}{merge}{part.9}% 136
+\BOOKMARK [0][-]{chapter.85}{slice}{part.9}% 137
+\BOOKMARK [0][-]{chapter.86}{trim}{part.9}% 138
+\BOOKMARK [-1][-]{part.10}{X Funciones}{}% 139
+\BOOKMARK [0][-]{chapter.87}{range}{part.10}% 140
+\BOOKMARK [0][-]{chapter.88}{cycle}{part.10}% 141
+\BOOKMARK [0][-]{chapter.89}{constant}{part.10}% 142
+\BOOKMARK [0][-]{chapter.90}{random}{part.10}% 143
+\BOOKMARK [0][-]{chapter.91}{attribute}{part.10}% 144
+\BOOKMARK [0][-]{chapter.92}{block}{part.10}% 145
+\BOOKMARK [0][-]{chapter.93}{parent}{part.10}% 146
+\BOOKMARK [0][-]{chapter.94}{dump}{part.10}% 147
+\BOOKMARK [0][-]{chapter.95}{date}{part.10}% 148
+\BOOKMARK [-1][-]{part.11}{XI Probando}{}% 149
+\BOOKMARK [0][-]{chapter.96}{divisibleby}{part.11}% 150
+\BOOKMARK [0][-]{chapter.97}{null}{part.11}% 151
+\BOOKMARK [0][-]{chapter.98}{even}{part.11}% 152
+\BOOKMARK [0][-]{chapter.99}{odd}{part.11}% 153
+\BOOKMARK [0][-]{chapter.100}{sameas}{part.11}% 154
+\BOOKMARK [0][-]{chapter.101}{constant}{part.11}% 155
+\BOOKMARK [0][-]{chapter.102}{defined}{part.11}% 156
+\BOOKMARK [0][-]{chapter.103}{empty}{part.11}% 157
+\BOOKMARK [0][-]{chapter.104}{iterable}{part.11}% 158

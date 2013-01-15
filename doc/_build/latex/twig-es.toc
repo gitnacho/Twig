@@ -1,0 +1,166 @@
+\select@language {spanish}
+\contentsline {part}{I\hspace {1em}Introducci\IeC {\'o}n}{1}{part.1}
+\contentsline {chapter}{\numberline {1}Requisitos previos}{5}{chapter.1}
+\contentsline {chapter}{\numberline {2}Instalando}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Instalando la versi\IeC {\'o}n comprimida}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Instalando la versi\IeC {\'o}n de desarrollo}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Instalando el paquete \emph {PEAR}}{7}{section.2.3}
+\contentsline {section}{\numberline {2.4}Instalando v\IeC {\'\i }a \texttt {Composer}}{7}{section.2.4}
+\contentsline {section}{\numberline {2.5}Instalando la extensi\IeC {\'o}n \emph {C}}{8}{section.2.5}
+\contentsline {chapter}{\numberline {3}Uso b\IeC {\'a}sico de la \emph {API}}{9}{chapter.3}
+\contentsline {part}{II\hspace {1em}\emph {Twig} para dise\IeC {\~n}adores de plantillas}{11}{part.2}
+\contentsline {chapter}{\numberline {4}Sinopsis}{15}{chapter.4}
+\contentsline {chapter}{\numberline {5}Integrando con \emph {IDEs}}{17}{chapter.5}
+\contentsline {chapter}{\numberline {6}Variables}{19}{chapter.6}
+\contentsline {section}{\numberline {6.1}Variables globales}{20}{section.6.1}
+\contentsline {section}{\numberline {6.2}Definiendo variables}{20}{section.6.2}
+\contentsline {chapter}{\numberline {7}Filtros}{21}{chapter.7}
+\contentsline {chapter}{\numberline {8}Funciones}{23}{chapter.8}
+\contentsline {chapter}{\numberline {9}Estructuras de control}{25}{chapter.9}
+\contentsline {chapter}{\numberline {10}Comentarios}{27}{chapter.10}
+\contentsline {chapter}{\numberline {11}Incluyendo otras plantillas}{29}{chapter.11}
+\contentsline {chapter}{\numberline {12}Herencia en plantillas}{31}{chapter.12}
+\contentsline {chapter}{\numberline {13}Escapando \emph {HTML}}{33}{chapter.13}
+\contentsline {section}{\numberline {13.1}Trabajando con el escape manual}{33}{section.13.1}
+\contentsline {section}{\numberline {13.2}Trabajando con escape autom\IeC {\'a}tico}{33}{section.13.2}
+\contentsline {chapter}{\numberline {14}Escapando}{35}{chapter.14}
+\contentsline {chapter}{\numberline {15}Macros}{37}{chapter.15}
+\contentsline {chapter}{\numberline {16}Expresiones}{39}{chapter.16}
+\contentsline {section}{\numberline {16.1}Literales}{39}{section.16.1}
+\contentsline {section}{\numberline {16.2}Matem\IeC {\'a}ticas}{40}{section.16.2}
+\contentsline {section}{\numberline {16.3}L\IeC {\'o}gica}{40}{section.16.3}
+\contentsline {section}{\numberline {16.4}Comparaciones}{40}{section.16.4}
+\contentsline {section}{\numberline {16.5}Operador de contenci\IeC {\'o}n}{41}{section.16.5}
+\contentsline {section}{\numberline {16.6}Operador de prueba}{41}{section.16.6}
+\contentsline {section}{\numberline {16.7}Otros operadores}{41}{section.16.7}
+\contentsline {section}{\numberline {16.8}Interpolando cadenas}{42}{section.16.8}
+\contentsline {chapter}{\numberline {17}Controlando el espacio en blanco}{43}{chapter.17}
+\contentsline {chapter}{\numberline {18}Extendiendo}{45}{chapter.18}
+\contentsline {part}{III\hspace {1em}\emph {Twig} para desarrolladores}{47}{part.3}
+\contentsline {chapter}{\numberline {19}Fundamentos}{51}{chapter.19}
+\contentsline {chapter}{\numberline {20}Opciones del entorno}{53}{chapter.20}
+\contentsline {chapter}{\numberline {21}Cargadores}{55}{chapter.21}
+\contentsline {section}{\numberline {21.1}Cach\IeC {\'e} de compilaci\IeC {\'o}n}{55}{section.21.1}
+\contentsline {section}{\numberline {21.2}Cargadores integrados}{55}{section.21.2}
+\contentsline {section}{\numberline {21.3}Creando tu propio cargador}{56}{section.21.3}
+\contentsline {chapter}{\numberline {22}Usando extensiones}{59}{chapter.22}
+\contentsline {chapter}{\numberline {23}Extensiones incorporadas}{61}{chapter.23}
+\contentsline {section}{\numberline {23.1}Extensi\IeC {\'o}n \texttt {core}}{61}{section.23.1}
+\contentsline {section}{\numberline {23.2}Extensi\IeC {\'o}n \texttt {escaper}}{62}{section.23.2}
+\contentsline {section}{\numberline {23.3}Extensi\IeC {\'o}n \texttt {sandbox}}{64}{section.23.3}
+\contentsline {section}{\numberline {23.4}Extensi\IeC {\'o}n \texttt {optimizer}}{65}{section.23.4}
+\contentsline {chapter}{\numberline {24}Excepciones}{67}{chapter.24}
+\contentsline {part}{IV\hspace {1em}Extendiendo \emph {Twig}}{69}{part.4}
+\contentsline {chapter}{\numberline {25}Globales}{73}{chapter.25}
+\contentsline {chapter}{\numberline {26}Filtros}{75}{chapter.26}
+\contentsline {section}{\numberline {26.1}Entorno consciente de filtros}{76}{section.26.1}
+\contentsline {section}{\numberline {26.2}Escapando autom\IeC {\'a}ticamente}{77}{section.26.2}
+\contentsline {section}{\numberline {26.3}Filtros din\IeC {\'a}micos}{77}{section.26.3}
+\contentsline {chapter}{\numberline {27}Funciones}{79}{chapter.27}
+\contentsline {section}{\numberline {27.1}Funciones din\IeC {\'a}micas}{79}{section.27.1}
+\contentsline {chapter}{\numberline {28}Etiquetas}{81}{chapter.28}
+\contentsline {section}{\numberline {28.1}Registrando una nueva etiqueta}{81}{section.28.1}
+\contentsline {section}{\numberline {28.2}Definiendo un analizador de fragmentos}{82}{section.28.2}
+\contentsline {section}{\numberline {28.3}Definiendo un nodo}{83}{section.28.3}
+\contentsline {chapter}{\numberline {29}Creando una extensi\IeC {\'o}n}{85}{chapter.29}
+\contentsline {section}{\numberline {29.1}Globales}{87}{section.29.1}
+\contentsline {section}{\numberline {29.2}Funciones}{87}{section.29.2}
+\contentsline {section}{\numberline {29.3}Filtros}{88}{section.29.3}
+\contentsline {subsection}{\numberline {29.3.1}Sustituyendo los filtros predeterminados}{89}{subsection.29.3.1}
+\contentsline {section}{\numberline {29.4}Etiquetas}{89}{section.29.4}
+\contentsline {section}{\numberline {29.5}Operadores}{90}{section.29.5}
+\contentsline {section}{\numberline {29.6}Pruebas}{90}{section.29.6}
+\contentsline {part}{V\hspace {1em}\emph {Twig} por dentro}{91}{part.5}
+\contentsline {chapter}{\numberline {30}\IeC {\textquestiondown }C\IeC {\'o}mo funciona \emph {Twig}?}{95}{chapter.30}
+\contentsline {chapter}{\numberline {31}El analizador l\IeC {\'e}xico}{97}{chapter.31}
+\contentsline {chapter}{\numberline {32}El analizador sint\IeC {\'a}ctico}{99}{chapter.32}
+\contentsline {chapter}{\numberline {33}El compilador}{101}{chapter.33}
+\contentsline {part}{VI\hspace {1em}Recetas}{103}{part.6}
+\contentsline {chapter}{\numberline {34}Haciendo un dise\IeC {\~n}o condicional}{105}{chapter.34}
+\contentsline {chapter}{\numberline {35}Haciendo una inclusi\IeC {\'o}n din\IeC {\'a}mica}{107}{chapter.35}
+\contentsline {chapter}{\numberline {36}Sustituyendo una plantilla que adem\IeC {\'a}s se extiende a s\IeC {\'\i } misma}{109}{chapter.36}
+\contentsline {chapter}{\numberline {37}Personalizando la sintaxis}{111}{chapter.37}
+\contentsline {chapter}{\numberline {38}Usando propiedades din\IeC {\'a}micas de objetos}{113}{chapter.38}
+\contentsline {chapter}{\numberline {39}Accediendo al contexto del padre en bucles anidados}{115}{chapter.39}
+\contentsline {chapter}{\numberline {40}Definiendo al vuelo funciones indefinidas y filtros}{117}{chapter.40}
+\contentsline {chapter}{\numberline {41}Validando la sintaxis de la plantilla}{119}{chapter.41}
+\contentsline {chapter}{\numberline {42}Actualizando plantillas modificadas cuando \emph {APC} est\IeC {\'a} habilitado y \texttt {apc.stat=0}}{121}{chapter.42}
+\contentsline {chapter}{\numberline {43}Reutilizando el estado de un visitante de nodo}{123}{chapter.43}
+\contentsline {chapter}{\numberline {44}Usando el nombre de la plantilla para determinar la estrategia de escape predeterminada}{125}{chapter.44}
+\contentsline {part}{VII\hspace {1em}Est\IeC {\'a}ndares de codificaci\IeC {\'o}n}{127}{part.7}
+\contentsline {part}{VIII\hspace {1em}Etiquetas}{131}{part.8}
+\contentsline {chapter}{\numberline {45}\texttt {for}}{133}{chapter.45}
+\contentsline {section}{\numberline {45.1}La variable \texttt {loop}}{133}{section.45.1}
+\contentsline {section}{\numberline {45.2}A\IeC {\~n}adiendo una condici\IeC {\'o}n}{134}{section.45.2}
+\contentsline {section}{\numberline {45.3}La cl\IeC {\'a}usula \texttt {else}}{134}{section.45.3}
+\contentsline {section}{\numberline {45.4}Iterando en las claves}{135}{section.45.4}
+\contentsline {section}{\numberline {45.5}Iterando en claves y valores}{135}{section.45.5}
+\contentsline {chapter}{\numberline {46}\texttt {if}}{137}{chapter.46}
+\contentsline {chapter}{\numberline {47}\texttt {macro}}{139}{chapter.47}
+\contentsline {chapter}{\numberline {48}\texttt {filter}}{141}{chapter.48}
+\contentsline {chapter}{\numberline {49}\texttt {set}}{143}{chapter.49}
+\contentsline {chapter}{\numberline {50}\texttt {extends}}{145}{chapter.50}
+\contentsline {section}{\numberline {50.1}Plantilla descendiente}{145}{section.50.1}
+\contentsline {subsection}{\numberline {50.1.1}Bloques padre}{146}{subsection.50.1.1}
+\contentsline {subsection}{\numberline {50.1.2}Etiquetas de cierre de bloque nombradas}{146}{subsection.50.1.2}
+\contentsline {subsection}{\numberline {50.1.3}Bloques anidados y \IeC {\'a}mbito}{147}{subsection.50.1.3}
+\contentsline {subsection}{\numberline {50.1.4}Atajos de bloque}{147}{subsection.50.1.4}
+\contentsline {subsection}{\numberline {50.1.5}Herencia din\IeC {\'a}mica}{147}{subsection.50.1.5}
+\contentsline {subsection}{\numberline {50.1.6}Herencia condicional}{147}{subsection.50.1.6}
+\contentsline {chapter}{\numberline {51}\texttt {block}}{149}{chapter.51}
+\contentsline {chapter}{\numberline {52}\texttt {include}}{151}{chapter.52}
+\contentsline {chapter}{\numberline {53}\texttt {import}}{153}{chapter.53}
+\contentsline {chapter}{\numberline {54}\texttt {from}}{155}{chapter.54}
+\contentsline {chapter}{\numberline {55}\texttt {use}}{157}{chapter.55}
+\contentsline {chapter}{\numberline {56}\texttt {spaceless}}{159}{chapter.56}
+\contentsline {chapter}{\numberline {57}\texttt {autoescape}}{161}{chapter.57}
+\contentsline {chapter}{\numberline {58}\texttt {raw}}{163}{chapter.58}
+\contentsline {chapter}{\numberline {59}\texttt {flush}}{165}{chapter.59}
+\contentsline {chapter}{\numberline {60}\texttt {do}}{167}{chapter.60}
+\contentsline {chapter}{\numberline {61}\texttt {sandbox}}{169}{chapter.61}
+\contentsline {chapter}{\numberline {62}\texttt {embed}}{171}{chapter.62}
+\contentsline {part}{IX\hspace {1em}Filtros}{175}{part.9}
+\contentsline {chapter}{\numberline {63}\texttt {date}}{177}{chapter.63}
+\contentsline {chapter}{\numberline {64}\texttt {format}}{179}{chapter.64}
+\contentsline {chapter}{\numberline {65}\texttt {replace}}{181}{chapter.65}
+\contentsline {chapter}{\numberline {66}\texttt {number\_format}}{183}{chapter.66}
+\contentsline {chapter}{\numberline {67}\texttt {url\_encode}}{185}{chapter.67}
+\contentsline {chapter}{\numberline {68}\texttt {json\_encode}}{187}{chapter.68}
+\contentsline {chapter}{\numberline {69}\texttt {convert\_encoding}}{189}{chapter.69}
+\contentsline {chapter}{\numberline {70}\texttt {title}}{191}{chapter.70}
+\contentsline {chapter}{\numberline {71}\texttt {capitalize}}{193}{chapter.71}
+\contentsline {chapter}{\numberline {72}\texttt {nl2br}}{195}{chapter.72}
+\contentsline {chapter}{\numberline {73}\texttt {upper}}{197}{chapter.73}
+\contentsline {chapter}{\numberline {74}\texttt {lower}}{199}{chapter.74}
+\contentsline {chapter}{\numberline {75}\texttt {striptags}}{201}{chapter.75}
+\contentsline {chapter}{\numberline {76}\texttt {join}}{203}{chapter.76}
+\contentsline {chapter}{\numberline {77}\texttt {reverse}}{205}{chapter.77}
+\contentsline {chapter}{\numberline {78}\texttt {length}}{207}{chapter.78}
+\contentsline {chapter}{\numberline {79}\texttt {sort}}{209}{chapter.79}
+\contentsline {chapter}{\numberline {80}\texttt {default}}{211}{chapter.80}
+\contentsline {chapter}{\numberline {81}\texttt {keys}}{213}{chapter.81}
+\contentsline {chapter}{\numberline {82}\texttt {escape}}{215}{chapter.82}
+\contentsline {chapter}{\numberline {83}\texttt {raw}}{217}{chapter.83}
+\contentsline {chapter}{\numberline {84}\texttt {merge}}{219}{chapter.84}
+\contentsline {chapter}{\numberline {85}\texttt {slice}}{221}{chapter.85}
+\contentsline {chapter}{\numberline {86}\texttt {trim}}{223}{chapter.86}
+\contentsline {part}{X\hspace {1em}Funciones}{225}{part.10}
+\contentsline {chapter}{\numberline {87}\texttt {range}}{227}{chapter.87}
+\contentsline {chapter}{\numberline {88}\texttt {cycle}}{229}{chapter.88}
+\contentsline {chapter}{\numberline {89}\texttt {constant}}{231}{chapter.89}
+\contentsline {chapter}{\numberline {90}\texttt {random}}{233}{chapter.90}
+\contentsline {chapter}{\numberline {91}\texttt {attribute}}{235}{chapter.91}
+\contentsline {chapter}{\numberline {92}\texttt {block}}{237}{chapter.92}
+\contentsline {chapter}{\numberline {93}\texttt {parent}}{239}{chapter.93}
+\contentsline {chapter}{\numberline {94}\texttt {dump}}{241}{chapter.94}
+\contentsline {chapter}{\numberline {95}\texttt {date}}{243}{chapter.95}
+\contentsline {part}{XI\hspace {1em}Probando}{245}{part.11}
+\contentsline {chapter}{\numberline {96}\texttt {divisibleby}}{247}{chapter.96}
+\contentsline {chapter}{\numberline {97}\texttt {null}}{249}{chapter.97}
+\contentsline {chapter}{\numberline {98}\texttt {even}}{251}{chapter.98}
+\contentsline {chapter}{\numberline {99}\texttt {odd}}{253}{chapter.99}
+\contentsline {chapter}{\numberline {100}\texttt {sameas}}{255}{chapter.100}
+\contentsline {chapter}{\numberline {101}\texttt {constant}}{257}{chapter.101}
+\contentsline {chapter}{\numberline {102}\texttt {defined}}{259}{chapter.102}
+\contentsline {chapter}{\numberline {103}\texttt {empty}}{261}{chapter.103}
+\contentsline {chapter}{\numberline {104}\texttt {iterable}}{263}{chapter.104}

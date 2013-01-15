@@ -20,7 +20,7 @@
  * @package    twig
  * @author     Fabien Potencier <fabien@symfony.com>
  */
-class Twig_Loader_Array implements Twig_LoaderInterface
+class Twig_Loader_Array implements Twig_LoaderInterface, Twig_ExistsLoaderInterface
 {
     protected $templates;
 
@@ -51,11 +51,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Obtiene el código fuente de una plantilla, del nombre dado.
-     *
-     * @param string $name The name of the template to load
-     *
-     * @return string The template source code
+     * {@inheritdoc}
      */
     public function getSource($name)
     {
@@ -68,11 +64,15 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Obtiene la clave de la caché para usarla en un nombre de plantilla dado.
-     *
-     * @param string $name The name of the template to load
-     *
-     * @return string The cache key
+     * {@inheritdoc}
+     */
+    public function exists($name)
+    {
+        return isset($this->templates[(string) $name]);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getCacheKey($name)
     {
@@ -85,10 +85,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface
     }
 
     /**
-     * Devuelve true si la plantilla aún está fresca.
-     *
-     * @param string    $name El nombre de la plantilla
-     * @param timestamp $time The last modification time of the cached template
+     * {@inheritdoc}
      */
     public function isFresh($name, $time)
     {

@@ -11,4 +11,9 @@ El filtro ``reemplaza`` formatos de una cadena dada sustituyendo los marcadores 
     {# devuelve Me gustan foo y bar
        si el parámetro foo es igual a la cadena foo. #}
 
-.. seealso:: :doc:`format<format>`
+Argumentos
+----------
+
+ * ``replace_pairs``: Los valores de los marcadores de posición
+
+.. seealso:: :doc:`format <format>`

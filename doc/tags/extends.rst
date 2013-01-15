@@ -31,7 +31,9 @@ Vamos a definir una plantilla base, :file:`base.html`, la cual define el esquele
         </body>
     </html>
 
-En este ejemplo, las etiquetas :doc:`block <block>` definen cuatro bloques que las plantillas descendientes pueden rellenar. Todas las etiquetas ``block`` le dicen al motor de plantillas que una plantilla derivada puede sustituir esas porciones de la plantilla.
+En este ejemplo, las etiquetas :doc:`block <block>` definen cuatro bloques que las plantillas descendientes pueden rellenar.
+
+Todas las etiquetas ``block`` le dicen al motor de plantillas que una plantilla derivada puede sustituir esas porciones de la plantilla.
 
 Plantilla descendiente
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -83,8 +85,8 @@ Es posible reproducir el contenido del bloque padre usando la función :doc:`par
         {{ parent() }}
     {% endblock %}
 
-Etiquetas de cierre de bloque nombradas
----------------------------------------
+Etiquetas de cierre de bloques nombrados
+----------------------------------------
 
 *Twig* te permite poner el nombre del bloque después de la etiqueta para facilitar su lectura:
 
@@ -159,6 +161,76 @@ Gracias a que el nombre para la plantilla padre puede ser cualquier expresión *
 
     {% extends standalone ? "minimum.html" : "base.html" %}
 
-En este ejemplo, la plantilla debe extender a la plantilla base "minimum.html" si la variable ``standalone`` evalúa a ``true``, o de otra manera extiende a "base.html".
+En este ejemplo, la plantilla debe extender a la plantilla base :file:`minimum.html` si la variable ``standalone`` evalúa a ``true``, o de otra manera extiende a :file:`base.html`.
+
+¿Cómo trabajan los bloques?
+---------------------------
+
+Un bloque proporciona una manera de cambiar ciertas partes de una plantilla al reproducirla, pero de ninguna manera interfiere con la lógica a su alrededor.
+
+Toma el siguiente ejemplo que ilustra cómo trabaja un bloque y más importante, cómo no trabaja:
+
+.. code-block:: jinja
+
+    {# base.twig #}
+
+    {% for post in posts %}
+        {% block post %}
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.body }}</p>
+        {% endblock %}
+    {% endfor %}
+
+Si reproduces esta plantilla, el resultado sería exactamente igual con o sin la etiqueta ``block``. El ``block`` dentro del bucle ``for`` solo es una manera de hacerlo redefinible en una plantilla hija:
+
+.. code-block:: jinja
+
+    {# child.twig #}
+
+    {% extends "base.twig" %}
+
+    {% block post %}
+        <article>
+            <header>{{ post.title }}</header>
+            <section>{{ post.text }}</section>
+        </article>
+    {% endblock %}
+
+Ahora, al reproducir la plantilla hija, el bucle utilizará el bloque definido en la plantilla hija en vez del definido en la base; La plantilla ejecutada entonces es equivalente a lo siguiente:
+
+.. code-block:: jinja
+
+    {% for post in posts %}
+        <article>
+            <header>{{ post.title }}</header>
+            <section>{{ post.text }}</section>
+        </article>
+    {% endfor %}
+
+Observa otro ejemplo: un bloque incluido dentro de una declaración ``if``:
+
+.. code-block:: jinja
+
+    {% if posts is empty %}
+        {% block head %}
+            {{ parent() }}
+
+            <meta name="robots" content="noindex, follow">
+        {% endblock head %}
+    {% endif %}
+
+Contrario a lo que podrías pensar, esta plantilla no define un bloque condicionalmente; Sólo lo sustituye con una plantilla hija que produce lo que será dibujado cuándo la condición sea ``true``.
+
+Si quieres mostrar el resultado condicionalmente, en su lugar usa lo siguiente:
+
+.. code-block:: jinja
+
+    {% block head %}
+        {{ parent() }}
+
+        {% if posts is empty %}
+            <meta name="robots" content="noindex, follow">
+        {% endif %}
+    {% endblock head %}
 
 .. seealso:: :doc:`block<../functions/block>`, :doc:`block<../tags/block>`, :doc:`parent<../functions/parent>`, :doc:`use<../tags/use>`

@@ -1,0 +1,188 @@
+
+<!DOCTYPE html> 
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>autoescape &mdash; Manual de Twig en Español</title>
+    
+    <link rel="stylesheet" href="../_static/tnp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'v1.12.0-RC1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="shortcut icon" href="../_static/icotnp.ico"/>
+    <link rel="top" title="Manual de Twig en Español" href="../index.html" />
+    <link rel="up" title="Etiquetas" href="index.html" />
+    <link rel="next" title="verbatim" href="verbatim.html" />
+    <link rel="prev" title="spaceless" href="spaceless.html" /> 
+  </head>
+  <body>
+  <div class="imalogo">
+    
+  <a href="../index.html"><img src="http://gitnacho.github.com/tnp/img/twig/twig-logo.png" alt="Traducciones de Nacho Pacheco" />
+  
+    <a href="../index.html"><img src="http://gitnacho.github.com/tnp/_static/normaltnp.png" alt="Traducciones de Nacho Pacheco" /></a>
+    <div class="social">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="esymfony" data-lang="es">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div id="searchbox">
+      <form class="searc " action="../search.html" method="get">
+      <input type="search" name="q" placeholder="Término a buscar" />
+      <input type="submit" value="Ir" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <script type="text/javascript">$('#searchbox').show(0);</script>
+    </div>
+    
+
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="verbatim.html" title="verbatim"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="spaceless.html" title="spaceless"
+             accesskey="P">anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="autoescape">
+<h1><tt class="docutils literal"><span class="pre">autoescape</span></tt><a class="headerlink" href="#autoescape" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Ya sea que el escape automático esté habilitado o no, puedes marcar una sección de una plantilla para que sea escapada o no utilizando la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# La siguiente sintaxis trabaja desde Twig 1.8 -- ve abajo las notas para las versiones anteriores #}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="s1">&#39;js&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Todo en este bloque se escapará automáticamente con la estrategia</span>
+<span class="x">    de escape js</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se emitirá tal cual</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p>Antes de <em>Twig 1.8</em>, la sintaxis era distinta:</p>
+<div class="last highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se escapará automáticamente</span>
+<span class="x">    usando la estrategia HTML</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">false</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    En este bloque, todo se emitirá tal cual</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">autoescape</span> <span class="kp">true</span> <span class="nv">js</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Todo en este bloque se escapará automáticamente usando</span>
+<span class="x">    la estrategia de escape js</span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<p>Cuando se activa el escape automático, de manera predeterminada todo será escapado, salvo los valores marcados explícitamente como seguros. Estos se pueden marcar en la plantilla usando el filtro <a class="reference internal" href="../filters/raw.html"><em>raw</em></a>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">autoescape</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">safe_value</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endautoescape</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Las funciones que devuelven datos de la plantilla (como <a class="reference internal" href="macro.html"><em>macros</em></a> y <a class="reference internal" href="../functions/parent.html"><em>parent</em></a>) siempre devuelven marcado seguro.</p>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last"><em>Twig</em> es lo suficientemente inteligente como para no escapar un valor que ya fue escapado por el filtro <a class="reference internal" href="../filters/escape.html"><em>escape</em></a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Nota</p>
+<p class="last">El capítulo <a class="reference internal" href="../api.html"><em>Twig para desarrolladores</em></a> proporciona más información acerca de cuándo y cómo se aplica el escape automático.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <a href="https://github.com/fabpot/Twig"><img style="position: fixed; top: 0; right: 0; border: 0;" src="http://gitnacho.github.com/tnp/img/comun/bifurcame.png" alt="Bifúrcame en GitHub" /></a>
+  
+  <div style="width:740px;margin:10px auto;">
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="verbatim.html" title="verbatim"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="spaceless.html" title="spaceless"
+             >anterior</a> |</li>
+        <li><a href="../index.html">Twig en Español</a> &raquo;</li>
+          <li><a href="index.html" >Etiquetas</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+
+
+   <div style="width: 740px; margin: 0 auto;">
+     <div id="disqus_thread"></div>
+     
+    <div class="footer">
+        &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
+      Actualizado por última vez en Jan 13, 2013.
+      Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+   </div>
+   <script type="text/javascript">
+    var disqus_shortname = 'documentos-mx';
+    var disqus_developer = 1;
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+   </script>
+   <noscript>
+     Por favor activa JavaScript para ver los <a href="http://disqus.com/?ref_noscript">comentarios accionados por Disqus.</a>
+   </noscript>
+
+  </body>
+</html>

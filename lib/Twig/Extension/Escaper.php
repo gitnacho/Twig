@@ -21,7 +21,7 @@ class Twig_Extension_Escaper extends Twig_Extension
      * Devuelve instancias del analizador de segmentos para añadirlos a
          * la lista existente.
      *
-     * @return array Una matriz de instancias de Twig_TokenParserInterface
+     * @return array Un arreglo de instancias de Twig_TokenParserInterface
      *               o Twig_TokenParserBrokerInterface
      */
     public function getTokenParsers();
@@ -44,12 +44,12 @@ class Twig_Extension_Escaper extends Twig_Extension
      * Devuelve una lista de filtros para añadirla a la lista
          * existente.
      *
-     * @return array Una matriz de filtros
+     * @return array Un arreglo de filtros
      */
     public function getFilters()
     {
         return array(
-            'raw' => new Twig_Filter_Function('twig_raw_filter', array('is_safe' => array('all'))),
+            new Twig_SimpleFilter('raw', 'twig_raw_filter', array('is_safe' => array('all'))),
         );
     }
 
@@ -80,7 +80,9 @@ class Twig_Extension_Escaper extends Twig_Extension
      */
     public function getDefaultStrategy($filename)
     {
-        if (is_callable($this->defaultStrategy)) {
+        // disable string callables to avoid calling a function named html or js,
+        // or any other upcoming escaping strategy
+        if (!is_string($this->defaultStrategy) && is_callable($this->defaultStrategy)) {
             return call_user_func($this->defaultStrategy, $filename);
         }
 
@@ -107,4 +109,3 @@ function twig_raw_filter($string)
 {
     return $string;
 }
-
