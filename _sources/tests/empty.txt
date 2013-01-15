@@ -5,8 +5,8 @@
 
 .. code-block:: jinja
 
-    {# evalúa a true si la variable foo es null, false o la
-       cadena vacía #}
+    {# evalúa a true si la variable foo es null, false, un
+       arreglo vacío o la cadena vacía #}
     {% if foo is empty %}
         ...
     {% endif %}

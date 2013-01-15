@@ -1,7 +1,7 @@
 ``sort``
 ========
 
-El filtro ``sort`` ordena una matriz:
+El filtro ``sort`` ordena un arreglo:
 
 .. code-block:: jinja
 

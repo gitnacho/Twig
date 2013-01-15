@@ -79,7 +79,7 @@ Instalando vía ``Composer``
     php composer.phar install
 
 .. note::
-    Si  quieres aprender más sobre ``Composer``, la sintaxis del :file:`compositor.json` y su uso,  puedes leer la `documentación en línea`_.
+    Si  quieres aprender más sobre ``Composer``, la sintaxis del archivo :file:`composer.json` y su uso, puedes leer la `documentación en línea`_.
 
 Instalando la extensión *C*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,6 +122,10 @@ El primer paso para utilizar *Twig* es registrar su cargador automático:
     Twig_Autoloader::register();
 
 Sustituye ``/ruta/a/lib/`` con la ruta que utilizaste en la instalación de *Twig*.
+
+Si instalaste *Twig* vía ``Composer`` puedes aprovechar el mecanismo de autocarga de ``Composer`` reemplazando el fragmento anterior por::
+
+    require_once '/ruta/a/vendor/autoload.php'
 
 .. note::
 

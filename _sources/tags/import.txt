@@ -53,38 +53,9 @@ Alternativamente, puedes importar nombres desde la plantilla al espacio de nombr
     </dl>
     <p>{{ textarea('comment') }}</p>
 
-La importación no es necesaria si las macros y la plantilla están definidas en el mismo archivo; en su lugar usa la variable especial ``_self``:
+.. tip::
 
-.. code-block:: jinja
-
-    {# plantilla index.html #}
-
-    {% macro textarea(name, value, rows) %}
-        <textarea name="{{ name }}"
-              rows="{{ rows|default(10) }}"
-              cols="{{ cols|default(40) }}">
-              {{ value|e }}
-    </textarea>
-    {% endmacro %}
-
-    <p>{{ _self.textarea('comentario') }}</p>
-
-Pero sí puedes crear un alias importando la variable ``_self``:
-
-.. code-block:: jinja
-
-    {# plantilla index.html #}
-
-    {% macro textarea(name, value, rows) %}
-        <textarea name="{{ name }}"
-              rows="{{ rows|default(10) }}"
-              cols="{{ cols|default(40) }}">
-              {{ value|e }}
-    </textarea>
-    {% endmacro %}
-
-    {% import _self as forms %}
-
-    <p>{{ forms.textarea('comentario') }}</p>
+    To import macros from the current file, use the special ``_self`` variable
+    for the source.
 
 .. seealso:: :doc:`macro <../tags/macro>`, :doc:`from <../tags/from>`

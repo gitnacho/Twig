@@ -14,7 +14,7 @@ Recorre cada elemento de una secuencia. Por ejemplo, para mostrar una lista de u
 
 .. note::
 
-    Una secuencia puede ser una matriz o un objeto que implementa la interfaz ``Traversable``.
+    Una secuencia puede ser un arreglo o un objeto que implemente la interfaz ``Traversable``.
 
 Si necesitas iterar en una secuencia de números, el operador ``..`` es muy útil:
 
@@ -72,7 +72,7 @@ Variable              Descripción
 
 .. note::
 
-    Las variables ``loop.length``, ``loop.revindex``, ``loop.revindex0`` y ``loop.last`` únicamente están disponibles para matrices *PHP*, u objetos que implementen la interfaz ``Countable``. Tampoco están disponibles cuando iteras con una condición.
+    Las variables ``loop.length``, ``loop.revindex``, ``loop.revindex0`` y ``loop.last`` únicamente están disponibles para arreglos *PHP*, u objetos que implementen la interfaz ``Countable``. Tampoco están disponibles cuando iteras con una condición.
 
 .. versionadded:: 1.2
     La compatibilidad con el modificador ``if`` se añadió en *Twig* 1.2.

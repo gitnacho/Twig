@@ -11,7 +11,7 @@ En la forma más simple la puedes usar para probar si una expresión evalúa a `
         <p>Our website is in maintenance mode. Please, come back later.</p>
     {% endif %}
 
-También puedes probar si una matriz no está vacía:
+También puedes probar si un arreglo no está vacío:
 
 .. code-block:: jinja
 

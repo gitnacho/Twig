@@ -1,7 +1,7 @@
 ``merge``
 =========
 
-El filtro ``merge`` combina una matriz con otra matriz:
+El filtro ``merge`` combina un arreglo con otro arreglo:
 
 .. code-block:: jinja
 
@@ -33,7 +33,7 @@ Para las ``codificaciones``, el proceso de combinación ocurre en las claves: si
 
 .. tip::
 
-    Si te quieres asegurar de que algunos valores están definidos en una matriz (por determinados valores preestablecidos), revierte los dos elementos en la llamada:
+    Si te quieres asegurar de que algunos valores están definidos en un arreglo (por determinados valores preestablecidos), revierte los dos elementos en la llamada:
 
     .. code-block:: jinja
 

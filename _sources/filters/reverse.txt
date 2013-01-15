@@ -4,7 +4,7 @@
 .. versionadded:: 1.6
     La compatibilidad para cadenas se añadió en *Twig* 1.6.
 
-El filtro ``reverse`` invierte una secuencia, una matriz asociativa, o una cadena:
+El filtro ``reverse`` invierte una secuencia, un arreglo asociativo, o una cadena:
 
 .. code-block:: jinja
 

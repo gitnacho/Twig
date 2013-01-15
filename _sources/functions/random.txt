@@ -24,4 +24,9 @@ La función ``random`` devuelve un valor al azar dependiendo del tipo de paráme
                                 `mt_rand`_ nativa de PHP) #}
     {{ random(5) }}          {# ejemplo de salida: 3 #}
 
+Argumentos
+----------
+
+ * ``values``: The values
+
 .. _`mt_rand`: http://mx.php.net/mt_rand

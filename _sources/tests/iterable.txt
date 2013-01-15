@@ -4,7 +4,7 @@
 .. versionadded:: 1.7
     La prueba ``iterable`` se añadió en *Twig 1.7*.
 
-``iterable`` comprueba si una variable es una matriz o un objeto transitable:
+``iterable`` comprueba si una variable es un arreglo o un objeto transitable:
 
 .. code-block:: jinja
 

@@ -40,24 +40,35 @@ Los *IDEs* modernos son compatibles con el resaltado de sintaxis y autocompletad
 
 * *Textmate* vía el `paquete Twig`_
 * *Vim* vía el `complemento de sintaxis Jinja`_
-* *Netbeans* vía el `complemento de sintaxis Twig`_
+* *Netbeans* vía el `complemento de sintaxis Twig`_ (hasta 7.1, nativo a partir de 7.2)
 * *PhpStorm* (nativo desde la versión 2.1)
 * *Eclipse* vía el `complemento Twig`_
 * *Sublime Text* vía el `paquete Twig`_
 * *GtkSourceView* vía el `Twig language definition`_ (usado por *gedit* y otros proyectos)
-* *Coda* y *SubEthaEdit* vía el `Twig syntax mode`_
+* *Coda* y *SubEthaEdit* vía el `modo de sintaxis Twig`_
+* *Coda 2* vía el `otro modo de sintaxis Twig`_
+* *Komodo* y *Komodo Edit* vía el modo resaltador/comprobador de sintaxis *Twig*
+* *Notepad++* vía el `Resaltador Notepad++ de Twig`_
+* *Emacs* vía `web-mode.el`_
 
 Variables
 ---------
 
 La aplicación pasa variables a las plantillas para que puedas combinarlas en la plantilla. Las variables pueden tener atributos o elementos en ellas a los cuales puedes acceder también. Cómo se ve una variable, en gran medida, depende de la aplicación que la proporcione.
 
-Puedes utilizar un punto (``.``) para acceder a los atributos de una variable (métodos o propiedades de un objeto *PHP*, o elementos de una matriz *PHP*), o la así llamada sintaxis de "subíndice" (``[]``).
+Puedes utilizar un punto (``.``) para acceder a los atributos de una variable (métodos o propiedades de un objeto *PHP*, o elementos de un arreglo *PHP*), o la así llamada sintaxis de «subíndice» (``[]``).
 
 .. code-block:: jinja
 
     {{ foo.bar }}
     {{ foo['bar'] }}
+
+Cuando el atributo contiene caracteres especiales (como el guión ``-`` se debe interpretar como el operador de sustracción), en su lugar usa la función ``attribute()`` para acceder al valor de la variable ``attribute``:
+
+.. code-block:: jinja
+
+    {# equivalente al no funcional foo.data-foo #}
+    {{ attribute(foo, 'data-foo') }}
 
 .. note::
 
@@ -69,16 +80,16 @@ Si no existe una variable o atributo, recibirás un valor ``nulo`` cuando la opc
 
     Por razones de conveniencia :file:`foo.bar` hace lo siguiente en la capa *PHP*:
 
-    * Comprueba si ``foo`` es una matriz y ``bar`` un elemento válido;
+    * Comprueba si ``foo`` es un arreglo y ``bar`` un elemento válido;
     * si no, y si ``foo`` es un objeto, comprueba que ``bar`` es una propiedad válida;
     * si no, y si ``foo`` es un objeto, comprueba que ``bar`` es un método válido (incluso si ``bar`` es el constructor --- usa ``__construct()`` en su lugar);
     * si no, y si ``foo`` es un objeto, comprueba que ``getBar`` es un método válido;
     * si no, y si ``foo`` es un objeto, comprueba que ``isBar`` es un método válido;
     * si no, devuelve un valor ``null``.
 
-    ``foo['bar']`` por el contrario sólo trabaja con matrices *PHP*:
+    ``foo['bar']`` por el contrario sólo trabaja con arreglos *PHP*:
 
-    * Comprueba si ``foo`` es una matriz y ``bar`` un elemento válido;
+    * Comprueba si ``foo`` es un arreglo y ``bar`` un elemento válido;
     * si no, devuelve un valor ``null``.
 
 .. note::
@@ -147,6 +158,53 @@ Por ejemplo, la función ``range`` devuelve una lista que contiene una progresi�
 
 Ve a la página :doc:`funciones <functions/index>` para aprender más acerca de las funciones incorporadas.
 
+Argumentos nombrados
+--------------------
+
+.. versionadded:: 1.12
+    El soporte para los argumentos nombrados se añadió en *Twig* 1.12.
+
+Los argumentos para filtros y funciones también se pueden pasar como *argumentos nombrados*:
+
+.. code-block:: jinja
+
+    {% for i in range(low=1, high=10, step=2) %}
+        {{ i }},
+    {% endfor %}
+
+Utilizar argumentos nombrados hace tus plantillas más explícitas sobre el significado de los
+valores que pasas como argumentos:
+
+.. code-block:: jinja
+
+    {{ data|convert_encoding('UTF-8', 'iso-2022-jp') }}
+
+    {# contra #}
+
+    {{ data|convert_encoding(from='iso-2022-jp', to='UTF-8') }}
+
+Los argumentos nombrados también te permiten omitir algunos argumentos para los que no quieras cambiar el valor predefinido:
+
+.. code-block:: jinja
+
+    {# el primer argumento es el formato de fecha, el cual por omisión es el formato de fecha global si pasas null #}
+    {{ "now"|date(null, "Europe/Paris") }}
+
+    {# u omites el valor de formato utilizando un argumento nombrado para timezone #}
+    {{ "now"|date(timezone="Europe/Paris") }}
+
+También puedes utilizar ambos argumentos posicionales y nombrados en una llamada, lo cual no se recomienda cuando pueda provocar alguna confusión:
+
+.. code-block:: jinja
+
+    {# ambos trabajan #}
+    {{ "now"|date('d/m/Y H:i', timezone="Europe/Paris") }}
+    {{ "now"|date(timezone="Europe/Paris", 'd/m/Y H:i') }}
+
+.. tip::
+
+    Cada función y página de documentación del filtro tiene una sección donde los nombres de todos los argumentos están listados cuándo cuentan con apoyo.
+
 Estructuras de control
 ----------------------
 
@@ -193,7 +251,7 @@ Para comentar parte de una línea en una plantilla, utiliza la sintaxis de comen
 Incluyendo otras plantillas
 ---------------------------
 
-La etiqueta :doc:`include <tags/include>` es útil para incluir una plantilla y devolver el contenido reproducido de esa plantilla a la actual:
+La etiqueta :doc:`include <tags/include>` es útil para incluir una plantilla y devolver el contenido producido de esa plantilla a la actual:
 
 .. code-block:: jinja
 
@@ -222,9 +280,9 @@ Este comportamiento depende de la aplicación en que integres *Twig*.
 Herencia en plantillas
 ----------------------
 
-La parte más poderosa de *Twig* es la herencia entre plantillas. La herencia de plantillas te permite crear un "esqueleto" de plantilla base que contenga todos los elementos comunes de tu sitio y define los **bloques** que las plantillas descendientes pueden sustituir.
+La parte más poderosa de *Twig* es la herencia entre plantillas. La herencia de plantillas te permite crear un «esqueleto» de plantilla base que contenga todos los elementos comunes de tu sitio y define los **bloques** que las plantillas descendientes pueden sustituir.
 
-Suena complicado pero es muy básico. Es más fácil entenderlo si comenzamos con un ejemplo.
+Suena complicado pero es muy básico. Es más fácil entenderlo comenzando con un ejemplo.
 
 Vamos a definir una plantilla base, :file:`base.html`, la cual define el esqueleto de un documento *HTML* simple que puedes usar para una sencilla página de dos columnas:
 
@@ -268,11 +326,11 @@ Una plantilla hija podría tener este aspecto:
     {% block content %}
         <h1>Index</h1>
         <p class="important">
-            Welcome on my awesome homepage.
+            Bienvenido a mi impresionante página.
         </p>
     {% endblock %}
 
-Aquí, la clave es la etiqueta :doc:`extends <tags/extends>`. Esta le dice al motor de plantillas que esta plantilla "extiende" otra plantilla. Cuando el sistema de plantillas evalúa esta plantilla, en primer lugar busca la plantilla padre. La etiqueta ``extends`` debe ser la primera etiqueta en la plantilla.
+Aquí, la clave es la etiqueta :doc:`extends <tags/extends>`. Esta le dice al motor de plantillas que esta plantilla «extiende» otra plantilla. Cuando el sistema de plantillas evalúa esta plantilla, en primer lugar busca la plantilla padre. La etiqueta ``extends`` debe ser la primera etiqueta en la plantilla.
 
 Ten en cuenta que debido a que la plantilla heredera no define el bloque ``footer``, en su lugar se utiliza el valor de la plantilla padre.
 
@@ -308,12 +366,20 @@ Cuando generas *HTML* desde plantillas, siempre existe el riesgo de que una vari
 Trabajando con el escape manual
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si está habilitado el escape manual es **tu** responsabilidad escapar las variables si es necesario. ¿Qué escapar? Si tienes una variable que *puede* incluir cualquiera de los siguientes caracteres (``>``, ``<``, ``&`` o ``"``) **tienes** que escaparla a menos que la variable contenga *HTML* bien formado y sea de confianza. El escape trabaja *entubando* la variable a través del filtro ``|e``:
+Si el escape manual está habilitado, es **tu** responsabilidad escapar las variables si es necesario. ¿Qué escapar? Cualquier variable en que no confíes.
+
+El escape trabaja *entubando* la variable a través del filtro :doc:`escape <filters/escape>` o ``|e``:
 
 .. code-block:: jinja
 
     {{ user.username|e }}
+
+De manera predeterminada, el filtro ``escape`` utiliza la estrategia ``html``, pero dependiendo del contexto a escapar, posiblemente desees usar otras estrategias disponibles explícitamente:
+
     {{ user.username|e('js') }}
+    {{ user.username|e('css') }}
+    {{ user.username|e('url') }}
+    {{ user.username|e('html_attr') }}
 
 Trabajando con escape automático
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -322,8 +388,18 @@ Ya sea que el escape automático esté habilitado o no, puedes marcar una secci�
 
 .. code-block:: jinja
 
-    {% autoescape true %}
-        Todo en este bloque se va a escapar automáticamente
+    {% autoescape %}
+        En este bloque, todo se escapará automáticamente (usando
+        la estrategia HTML)
+    {% endautoescape %}
+
+De manera predeterminada, el autoescape utiliza la estrategia de escape ``HTML``. Si sacas variables en otros contextos, es necesario escaparlas explícitamente con la estrategia de escape adecuada:
+
+.. code-block:: jinja
+
+    {% autoescape 'js' %}
+        En este bloque, todo se escapará automáticamente (usando
+        la estrategia JS)
     {% endautoescape %}
 
 Escapando
@@ -337,10 +413,13 @@ La forma más sencilla es extraer la variable del delimitador (``{{``) usando un
 
     {{ '{{' }}
 
-Para secciones mayores tiene sentido marcar un bloque como :doc:`raw <tags/raw>`.
+Para grandes secciones tiene sentido marcar un bloque como :doc:`verbatim <tags/verbatim>`.
 
 Macros
 ------
+
+.. versionadded:: 1.12
+    El soporte para valores predefinidos de argumentos se añadió en *Twig* 1.12.
 
 Las macros son comparables con funciones en lenguajes de programación regulares. Son útiles para reutilizar *HTML* usado frecuentemente para no repetirlos tú mismo.
 
@@ -355,7 +434,7 @@ Una macro se define a través de la etiqueta :doc:`macro <tags/macro>`. Aquí es
                  size="{{ size|default(20) }}" />
     {% endmacro %}
 
-Puedes definir macros en cualquier plantilla, y necesitas "importarlas" con la etiqueta :doc:`import <tags/import>` antes de poder usarlas:
+Puedes definir macros en cualquier plantilla, y necesitas «importarlas» con la etiqueta :doc:`import <tags/import>` antes de poder usarlas:
 
 .. code-block:: jinja
 
@@ -376,6 +455,14 @@ Alternativamente, puedes importar nombres de macros individuales desde una plant
         <dd>{{ input_field('password', '', 'password') }}</dd>
     </dl>
 
+También puedes definir valores predefinidos para argumentos de macros cuando no se proporcionen en una llamada a la macro:
+
+.. code-block:: jinja
+
+    {% macro input(name, value = "", type = "text", size = 20) %}
+        <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}" size="{{ size }}" />
+    {% endmacro %}
+
 Expresiones
 -----------
 
@@ -393,13 +480,13 @@ Literales
 .. versionadded:: 1.5
     El soporte para codificar claves como nombres y expresiones se añadió en *Twig* 1.5.
 
-La forma más simple de las expresiones son literales. Los literales son representaciones para tipos *PHP*, tal como cadenas, números y matrices. Existen los siguientes literales:
+La forma más simple de las expresiones son literales. Los literales son representaciones para tipos *PHP*, tal como cadenas, números y arreglos. Existen los siguientes literales:
 
 * ``"Hello World"``: Todo lo que esté entre comillas simples o dobles es una cadena. Son útiles cuando necesitas una cadena en la plantilla (por ejemplo, como argumentos para llamadas a función, filtros o simplemente para extender o incluir una plantilla).
 
 * ``42`` / ``42.23``: Números enteros y números en coma flotante se crean tan sólo escribiendo el número. Si está presente un punto es un número en coma flotante, de lo contrario es un número entero.
 
-* ``["foo", "bar"]``: Las matrices se definen por medio de una secuencia de expresiones separadas por una coma (``,``) y envueltas entre paréntesis cuadrados (``[]``).
+* ``["foo", "bar"]``: Los arreglos se definen por medio de una secuencia de expresiones separadas por una coma (``,``) y envueltas entre corchetes (``[]``).
 
 * ``{"foo": "bar"}``: Los valores ``hash`` se definen con una lista de claves y valores separados por una coma (``,``) y envueltos entre llaves (``{}``).
 
@@ -412,7 +499,7 @@ La forma más simple de las expresiones son literales. Los literales son represe
        de Twig 1.5 #}
     { foo: 'foo', bar: 'bar' }
 
-    {# keys as integer #}
+    {# claves como entero #}
     { 2: 'foo', 4: 'bar' }
 
     {# claves como expresiones (la expresión se debe encerrar entre
@@ -429,6 +516,10 @@ Los arreglos y ``hashes`` se pueden anidar:
 
     {% set foo = [1, {"foo": "bar"}] %}
 
+.. tip::
+
+    Utilizar comillas dobles o sencillas en cadenas no tiene ningún impacto en el rendimiento pero la interpolación de cadenas sólo cuenta con apoyo en cadenas entre comillas dobles.
+
 Matemáticas
 ~~~~~~~~~~~
 
@@ -437,18 +528,18 @@ Matemáticas
 * ``+``: Suma dos objetos (los operandos se convierten a números). ``{{
   1 + 1 }}`` is ``2``.
 
-* ``-``: Sustrae el segundo número del primero. ``{{ 3 - 2 }}`` es ``1``.
+* ``-``: Resta el segundo número del primero. ``{{ 3 - 2 }}`` es ``1``.
 
-* ``/``: Divide dos números. El valor devuelto será un número en coma flotante. ``{{ 1 / 2 }}`` es ``{{ 0.5 }}``.
+* ``/``: Divide dos números. El valor devuelto será un número en punto flotante. ``{{ 1 / 2 }}`` es ``{{ 0.5 }}``.
 
 * ``%``: Calcula el residuo de una división entera. ``{{ 11 % 7 }}`` es ``4``.
 
 * ``//``: Divide dos números y devuelve el resultado entero truncado. ``{{
-  20 // 7 }}`` is ``2``.
+  20 // 7 }}`` es ``2``.
 
 * ``*``: Multiplica el operando de la izquierda con el de la derecha. ``{{ 2 * 2 }}`` devolverá ``4``.
 
-* ``**``: Eleva el operando izquierdo a la potencia del operando derecho. ``{{ 2 ** 3 }}`` would return ``8``.
+* ``**``: Eleva el operando izquierdo a la potencia del operando derecho. ``{{ 2 ** 3 }}`` devolverá ``8``.
 
 Lógica
 ~~~~~~
@@ -532,6 +623,9 @@ Ve a la página :doc:`Probando <tests/index>` para aprender más sobre las prueb
 Otros operadores
 ~~~~~~~~~~~~~~~~
 
+.. versionadded:: 1.12.0
+    El soporte para el operador ternario extendido se añadió en *Twig* 1.12.0.
+
 Los siguientes operadores son muy útiles pero no encajan en ninguna de las otras dos categorías:
 
 * ``..``: Crea una secuencia basada en el operando antes y después del operador (esta sólo es pura azúcar sintáctica para la función :doc:`range <functions/range>`).
@@ -542,7 +636,15 @@ Los siguientes operadores son muy útiles pero no encajan en ninguna de las otra
 
 * ``.``, ``[]``: Obtiene un atributo de un objeto.
 
-* ``?:``: El operador ternario de *PHP*: ``{{ foo ? 'yes' : 'no' }}``
+* ``?:``: El operador ternario:
+
+  .. code-block:: jinja
+
+      {{ foo ? 'yes' : 'no' }}
+
+      {# a partir de Twig 1.12.0 #}
+      {{ foo ?: 'no' }} == {{ foo ? foo : 'no' }}
+      {{ foo ? 'yes' }} == {{ foo ? 'yes' : '' }}
 
 Interpolando cadenas
 ~~~~~~~~~~~~~~~~~~~~
@@ -550,8 +652,7 @@ Interpolando cadenas
 .. versionadded:: 1.5
     La interpolación de cadenas se añadió en *Twig* 1.5.
 
-La interpolación de cadena (`#{expresión}`) permite que cualquier expresión válida aparezca
-dentro de una cadena. El resultado de la evaluación esa expresión se inserta en la cadena:
+La interpolación de cadenas (``#{expresión}``) permite que cualquier expresión válida aparezca dentro de una *cadena entre comillas dobles*. El resultado de la evaluación esa expresión se inserta en la cadena:
 
 .. code-block:: jinja
 
@@ -562,7 +663,7 @@ Controlando el espacio en blanco
 --------------------------------
 
 .. versionadded:: 1.1
-    La etiqueta para controlar el nivel de los espacios en blanco se añadió en la *Twig* 1.1.
+    La etiqueta para controlar el nivel de los espacios en blanco se añadió en *Twig* 1.1.
 
 La primer nueva línea después de una etiqueta de plantilla se elimina automáticamente (como en *PHP*). El motor de plantillas no modifica el espacio en blanco, por lo tanto cada espacio en blanco (espacios, tabuladores, nuevas líneas, etc.) se devuelve sin cambios.
 
@@ -604,14 +705,17 @@ Extendiendo
 
 Puedes extender *Twig* fácilmente.
 
-Si estás buscando nuevas etiquetas, filtros, o funciones, echa un vistazo al `repositorio de extensiones oficial de Twig`_.
+Si estás buscando nuevas etiquetas, filtros, o funciones, échale un vistazo al `repositorio de extensiones oficial de Twig`_.
 
-Si deseas crear una propia, lee el capítulo :doc:`Creando una extensión <creating_extensions>`.
+Si deseas crear una propia, lee el capítulo :ref:`Creando una extensión <creating_extensions>`.
 
-.. _`paquete Twig`:              https://github.com/Anomareh/PHP-Twig.tmbundle
-.. _`complemento de sintaxis Jinja`:      http://jinja.pocoo.org/2/documentation/integration
-.. _`complemento de sintaxis Twig`:       http://plugins.netbeans.org/plugin/37069/php-twig
-.. _`complemento Twig`:              https://github.com/pulse00/Twig-Eclipse-Plugin
-.. _`Twig language definition`: https://github.com/gabrielcorpse/gedit-twig-template-language
-.. _`repositorio de extensiones oficial de Twig`:     http://github.com/fabpot/Twig-extensions
-.. _`Twig syntax mode`:         https://github.com/bobthecow/Twig-HTML.mode
+.. _`paquete Twig`:                https://github.com/Anomareh/PHP-Twig.tmbundle
+.. _`complemento de sintaxis Jinja`:        http://jinja.pocoo.org/2/documentation/integration
+.. _`complemento de sintaxis Twig`:         http://plugins.netbeans.org/plugin/37069/php-twig
+.. _`complemento Twig`:                https://github.com/pulse00/Twig-Eclipse-Plugin
+.. _`Twig language definition`:   https://github.com/gabrielcorpse/gedit-twig-template-language
+.. _`repositorio de extensiones oficial de Twig`:       http://github.com/fabpot/Twig-extensions
+.. _`modo de sintaxis Twig`:           https://github.com/bobthecow/Twig-HTML.mode
+.. _`otro modo de sintaxis Twig`:     https://github.com/muxx/Twig-HTML.mode
+.. _`Resaltador Notepad++ de Twig`: https://github.com/Banane9/notepadplusplus-twig
+.. _`web-mode.el`:                http://web-mode.org/

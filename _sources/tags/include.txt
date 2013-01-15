@@ -17,24 +17,23 @@ Puedes añadir variables adicionales pasándolas después de la palabra clave ``
 
 .. code-block:: jinja
 
-    {# la plantilla foo tendrá acceso a las variables del contexto
-       actual y al de foo #}
-    {% include 'foo' with {'foo': 'bar'} %}
+    {# template.html will have access to the variables from the current context and the additional ones provided #}
+    {% include 'template.html' with {'foo': 'bar'} %}
 
     {% set vars = {'foo': 'bar'} %}
-    {% include 'foo' with vars %}
+    {% include 'template.html' with vars %}
 
 Puedes desactivar el acceso al contexto añadiendo la palabra clave ``only``:
 
 .. code-block:: jinja
 
     {# únicamente la variable foo será accesible #}
-    {% include 'foo' with {'foo': 'bar'} only %}
+    {% include 'template.html' with {'foo': 'bar'} only %}
 
 .. code-block:: jinja
 
-    {# ninguna variable será accesible #}
-    {% include 'foo' only %}
+    {# no variables will be accessible #}
+    {% include 'template.html' only %}
 
 .. tip::
 
@@ -63,9 +62,9 @@ Puedes marcar un ``include`` con ``ignore missing`` en cuyo caso *Twig* omitirá
 
 .. code-block:: jinja
 
-    {% include "sidebar.html" ignore missing %}
-    {% include "sidebar.html" ignore missing with {'foo': 'bar} %}
-    {% include "sidebar.html" ignore missing only %}
+    {% include 'sidebar.html' ignore missing %}
+    {% include 'sidebar.html' ignore missing with {'foo': 'bar'} %}
+    {% include 'sidebar.html' ignore missing only %}
 
 .. versionadded:: 1.2
     La posibilidad de pasar un arreglo de plantillas se añadió en *Twig* 1.2.

@@ -6,7 +6,7 @@ Este capítulo describe la *API* para *Twig* y no el lenguaje de plantillas. Ser
 Fundamentos
 -----------
 
-*Twig* utiliza un objeto central llamado el **entorno** (de la clase ``Twig_Environment``). Las instancias de esta clase se utilizan para almacenar la configuración y extensiones, y se utilizan para cargar plantillas del sistema de archivos o en otros lugares.
+*Twig* utiliza un objeto central llamado **entorno** (de la clase ``Twig_Environment``). Las instancias de esta clase se utilizan para almacenar la configuración y extensiones, y se utilizan para cargar plantillas del sistema de archivos o en otros lugares.
 
 La mayoría de las aplicaciones debe crear un objeto ``Twig_Environment`` al iniciar la aplicación y usarlo para cargar plantillas. En algunos casos, sin embargo, es útil disponer de múltiples entornos lado a lado, si estás usando distintas configuraciones.
 
@@ -24,7 +24,7 @@ Esto creará un entorno de plantillas con la configuración predeterminada y un 
 
 .. note::
 
-    Ten en cuenta que el segundo argumento del entorno es una matriz de opciones.
+    Ten en cuenta que el segundo argumento del entorno es un arreglo de opciones.
     La opción ``cache`` es un directorio de caché de compilación, donde *Twig* memoriza las plantillas compiladas para evitar la fase de análisis de las subsiguientes peticiones. Esta es muy diferente de la caché que posiblemente desees agregar para evaluar plantillas. Para tal necesidad, puedes utilizar cualquier biblioteca de caché *PHP* disponible.
 
 Para cargar una plantilla desde este entorno sólo tienes que llamar al método ``LoadTemplate()`` el cual devuelve una instancia de ``Twig_Template``::
@@ -51,7 +51,7 @@ También puedes exponer los métodos de extensión como funciones en tus plantil
 Opciones del entorno
 --------------------
 
-Al crear una nueva instancia de ``Twig_Environment``, puedes pasar una matriz de opciones como segundo argumento del constructor::
+Al crear una nueva instancia de ``Twig_Environment``, puedes pasar un arreglo de opciones como segundo argumento del constructor::
 
     $twig = new Twig_Environment($loader, array('debug' => true));
 
@@ -69,7 +69,12 @@ Las siguientes opciones están disponibles:
 
 * ``strict_variables``: Si se establece en ``false``, *Twig* ignorará silenciosamente las variables no válidas (variables y/o atributos/métodos que no existen) y los reemplazará con un valor ``null``. Cuando se establece en ``true``, *Twig* produce una excepción en su lugar (el predeterminado es ``false``).
 
-* ``autoescape``: Si se establece en ``true``, el escape automático será habilitado de manera predeterminada para todas las plantillas (por omisión a ``true``). A partir de *Twig 1.8*, puedes implantar la estrategia de escape para usar (``html``, ``js``, ``false`` para desactivarla, o una retrollamada PHP que tome el :file:`"nombre de archivo"` de la plantilla y devuelva la estrategia de escape a utilizar).
+* ``autoescape``: Si se establece en ``true``, el escape automático será habilitado de manera predeterminada para todas las plantillas (por omisión es ``true``). As of Twig 1.8, you can set the
+  escaping strategy to use (``html``, ``js``, ``false`` to disable).
+  As of Twig 1.9, you can set the escaping strategy to use (``css``, ``url``, 
+  ``html_attr``, or a PHP callback that takes the template "filename" and must 
+  return the escaping strategy to use -- the callback cannot be a function name
+  to avoid collision with built-in escaping strategies).
 
 * ``optimizations``: Una marca que indica cuales optimizaciones aplicar (por omisión a ``-1`` -- todas las optimizaciones están habilitadas; para desactivarla ponla a ``0``).
 
@@ -89,30 +94,104 @@ Cargadores integrados
 
 Aquí está una lista de los cargadores incorporados de que dispone *Twig*:
 
-* ``Twig_Loader_Filesystem``: Carga las plantillas desde el sistema de archivos. Este cargador puede encontrar plantillas en los directorios del sistema de archivos y es la manera preferida de cargarlas::
+``Twig_Loader_Filesystem``
+..........................
 
-        $loader = new Twig_Loader_Filesystem($templateDir);
+.. versionadded:: 1.10
+    The ``prependPath()`` and support for namespaces were added in Twig 1.10.
 
-  También puedes buscar plantillas en una matriz de directorios::
+``Twig_Loader_Filesystem``: Carga plantillas desde el sistema de archivos. Este cargador puede encontrar plantillas en los directorios del sistema de archivos y es la manera preferida de cargarlas::
 
-        $loader = new Twig_Loader_Filesystem(
+    $loader = new Twig_Loader_Filesystem($templateDir);
+
+También puedes buscar plantillas en un arreglo de directorios::
+
+    $loader = new Twig_Loader_Filesystem(
                                                array(  $templateDir1,
                                                        $templateDir2
                                             ));
 
-  Con esta configuración, *Twig* buscará primero las plantillas de ``$templateDir1`` y si no existen, regresará a buscar en ``$templateDir2``.
+Con esta configuración, *Twig* primero buscará las plantillas en ``$templateDir1`` y si no existen, regresará a buscar en ``$templateDir2``.
 
-* ``Twig_Loader_String``: Carga plantillas desde una cadena. Es un cargador silencioso que va cargando el código fuente directamente a medida que se lo vas pasando::
+You can add or prepend paths via the ``addPath()`` and ``prependPath()``
+methods::
 
-        $loader = new Twig_Loader_String();
+    $loader->addPath($templateDir3);
+    $loader->prependPath($templateDir4);
 
-* ``Twig_Loader_Array``: Carga una plantilla desde una matriz *PHP*. Se le pasa una matriz de cadenas vinculadas a los nombres de plantilla. Este cargador es útil para pruebas unitarias::
+The filesystem loader also supports namespaced templates. This allows to group
+your templates under different namespaces which have their own template paths.
 
-        $loader = new Twig_Loader_Array($templates);
+When using the ``setPaths()``, ``addPath()``, and ``prependPath()`` methods,
+specify the namespace as the second argument (when not specified, these
+methods act on the "main" namespace)::
+
+    $loader->addPath($templateDir, 'admin');
+
+Namespaced templates can be accessed via the special
+``@namespace_name/template_path`` notation::
+
+    $twig->render('@admin/index.html', array());
+
+``Twig_Loader_String``
+......................
+
+``Twig_Loader_String`` carga plantillas desde cadenas. Es un cargador ficticio como referencia a la plantilla es el código fuente de la plantilla::
+
+    $loader = new Twig_Loader_String();
+    $twig = new Twig_Environment($loader);
+
+    echo $twig->render('Hello {{ name }}!', array('name' => 'Fabien'));
+
+Este cargador sólo se debe utilizar en las pruebas unitarias, ya que tiene serias limitaciones:
+varias etiquetas, tal como ``extends`` o ``include`` no tiene sentido que se utilicen como referencia a la plantilla puesto que es el código fuente de plantilla en sí.
+
+``Twig_Loader_Array``
+.....................
+
+``Twig_Loader_Array`` carga una plantilla a partir de un arreglo *PHP*. Se le pasa un arreglo de cadenas vinculadas a los nombres de plantilla::
+
+    $loader = new Twig_Loader_Array(array(
+        'index.html' => 'Hello {{ name }}!',
+    ));
+    $twig = new Twig_Environment($loader);
+
+    echo $twig->render('index.html', array('name' => 'Fabien'));
+
+Este cargador es muy útil en las pruebas unitarias. También puede ser útil en proyectos pequeños donde tiene sentido almacenar todas las plantillas en un único archivo *PHP*.
 
 .. tip::
 
-    Cuando utilices los cargadores de ``matriz`` o ``cadena`` con un mecanismo de caché, debes saber que se genera una nueva clave de caché cada vez que "cambia" el contenido de una plantilla (la clave de caché es el código fuente de la plantilla). Si no deseas ver que tu caché crezca fuera de control, es necesario tener cuidado de limpiar el archivo de caché antiguo en sí mismo.
+    Cuando utilices los cargadores de ``Array`` o ``String`` con un mecanismo de caché, debes saber que se genera una nueva clave de caché cada vez que «cambia» el contenido de una plantilla (la clave de caché es el código fuente de la plantilla). Si no deseas ver que tu caché crezca fuera de control, es necesario tener cuidado de limpiar el archivo de caché antiguo en sí mismo.
+
+``Twig_Loader_Chain``
+.....................
+
+``Twig_Loader_Chain`` delegates the loading of templates to other loaders::
+
+    $loader1 = new Twig_Loader_Array(array(
+        'base.html' => '{% block content %}{% endblock %}',
+    ));
+    $loader2 = new Twig_Loader_Array(array(
+        'index.html' => '{% extends "base.twig" %}{% block content %}Hello {{ name }}{% endblock %}',
+        'base.html'  => 'Will never be loaded',
+    ));
+
+    $loader = new Twig_Loader_Chain(array($loader1, $loader2));
+
+    $twig = new Twig_Environment($loader);
+
+When looking for a template, Twig will try each loader in turn and it will
+return as soon as the template is found. When rendering the ``index.html``
+template from the above example, Twig will load it with ``$loader2`` but the
+``base.html`` template will be loaded from ``$loader1``.
+
+``Twig_Loader_Chain`` accepts any loader that implements
+``Twig_LoaderInterface``.
+
+.. note::
+
+    You can also add loaders via the ``addLoader()`` method.
 
 Creando tu propio cargador
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,6 +250,11 @@ A modo de ejemplo, esto es lo que dice el ``Twig_Loader_String`` incorporado::
 
 El método ``isFresh()`` debe devolver ``true`` si la plantilla actual en caché aún es fresca, dado el tiempo de la última modificación, o ``false`` de lo contrario.
 
+.. tip::
+
+    As of Twig 1.11.0, you can also implement ``Twig_ExistsLoaderInterface``
+    to make your loader faster when used with the chain loader.
+
 Usando extensiones
 ------------------
 
@@ -188,9 +272,7 @@ Las extensiones *Twig* son paquetes que añaden nuevas características a *Twig*
 
 * *Twig_Extension_Optimizer*: Optimiza el nodo del árbol antes de la compilación.
 
-El núcleo, las extensiones del mecanismo de escape y optimización no es necesario añadirlas al entorno *Twig*, debido a que se registran de forma predeterminada. Puedes desactivar una extensión registrada::
-
-    $twig->removeExtension('escaper');
+El núcleo, las extensiones del mecanismo de escape y optimización no es necesario añadirlas al entorno *Twig*, debido a que se registran de forma predeterminada.
 
 Extensiones incorporadas
 ------------------------
@@ -219,6 +301,13 @@ La extensión ``core`` define todas las características principales de *Twig*:
   * ``from``
   * ``set``
   * ``spaceless``
+  * ``autoescape``
+  * ``do``
+  * ``embed``
+  * ``flush``
+  * ``verbatim``
+  * ``sandbox``
+  * ``use``
 
 * Filtros:
 
@@ -241,6 +330,14 @@ La extensión ``core`` define todas las características principales de *Twig*:
   * ``keys``
   * ``escape``
   * ``e``
+  * ``abs``
+  * ``convert_encoding``
+  * ``date_modify``
+  * ``nl2br``
+  * ``number_format``
+  * ``raw``
+  * ``slice``
+  * ``trim``
 
 * Funciones:
 
@@ -249,6 +346,10 @@ La extensión ``core`` define todas las características principales de *Twig*:
   * ``cycle``
   * ``parent``
   * ``block``
+  * ``attribute``
+  * ``date``
+  * ``dump``
+  * ``random``
 
 * Pruebas:
 
@@ -260,6 +361,7 @@ La extensión ``core`` define todas las características principales de *Twig*:
   * ``divisibleby``
   * ``constant``
   * ``empty``
+  * ``iterable``
 
 Extensión ``escaper``
 ~~~~~~~~~~~~~~~~~~~~~
@@ -293,7 +395,7 @@ También puedes cambiar el modo de escape a nivel local usando la etiqueta ``aut
 
 Las reglas de escape se implementan de la siguiente manera:
 
-* Literales (enteros, booleanos, matrices, ...) utilizados en la plantilla directamente como variables o argumentos de filtros no son escapados automáticamente:
+* Literales (enteros, booleanos, arreglos, ...) utilizados en la plantilla directamente como variables o argumentos de filtros no son escapados automáticamente:
 
   .. code-block:: jinja
 
@@ -336,10 +438,10 @@ Las reglas de escape se implementan de la siguiente manera:
 
   .. code-block:: jinja
 
-        {% autoescape true js %}
-        {{ var|escape('html') }} {# será escapado para html y javascript #}
-        {{ var }} {# será escapado para javascript #}
-        {{ var|escape('js') }} {# no se escapará doblemente #}
+        {% autoescape 'js' %}
+            {{ var|escape('html') }} {# será escapado para html y javascript #}
+            {{ var }} {# será escapado para javascript #}
+            {{ var|escape('js') }} {# no se escapará doblemente #}
         {% endautoescape %}
 
 .. note::

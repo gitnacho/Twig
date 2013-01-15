@@ -1,7 +1,7 @@
 ``keys``
 ========
 
-El filtro ``keys`` devuelve las claves de una matriz. Es útil cuando deseas iterar sobre las claves de una matriz:
+El filtro ``keys`` devuelve las claves de un arreglo. Es útil cuando deseas iterar sobre las claves de un arreglo:
 
 .. code-block:: jinja
 

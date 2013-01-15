@@ -4,7 +4,7 @@
 .. versionadded:: 1.4
     El filtro ``convert_encoding`` se añadió en *Twig* 1.4.
 
-El filtro ``convert_encoding`` convierte una cadena de una codificación a otra. El primer argumento es el juego de caracteres esperado y el segundo es el juego de caracteres de entrada:
+El filtro ``convert_encoding`` convierte una cadena de una codificación a otra. El primer argumento es el juego de caracteres de salida esperado y el segundo es el juego de caracteres de entrada:
 
 .. code-block:: jinja
 
@@ -12,7 +12,13 @@ El filtro ``convert_encoding`` convierte una cadena de una codificación a otra.
 
 .. note::
 
-    Este filtro está basado en la extensión `iconv`_ o `mbstring`_, por lo tanto tienes que instalar una de ellas. En caso que tengas instaladas ambas, por omisión se utiliza `iconv`_.
+    Este filtro está basado en la extensión `iconv`_ o `mbstring`_, por lo tanto tienes que instalar una de ellas. En caso de que ambas estén instaladas, de manera predeterminada se utiliza `mbstring`_ (*Twig* antes de 1.8.1 usaba `iconv`_ por omisión).
+
+Argumentos
+----------
+
+ * ``from``: En juego de caracteres entrante
+ * ``to``:   El juego de caracteres saliente
 
 .. _`iconv`:    http://mx.php.net/iconv
 .. _`mbstring`: http://mx2.php.net/mbstring

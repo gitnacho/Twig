@@ -5,6 +5,7 @@ Filtros
     :maxdepth: 1
 
     date
+    date_modify
     format
     replace
     number_format
@@ -18,7 +19,9 @@ Filtros
     lower
     striptags
     join
+    split
     reverse
+    abs
     length
     sort
     default

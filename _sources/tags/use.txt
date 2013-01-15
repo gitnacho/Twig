@@ -92,7 +92,7 @@ En este ejemplo, el ``parent()`` correctamente llama al bloque ``sidebar`` de la
 
 .. tip::
 
-    En *Twig 1.2*, el cambio de nombre te permite simular la herencia llamando al bloque "padre":
+    En *Twig 1.2*, el cambio de nombre te permite simular la herencia llamando al bloque «padre»:
 
     .. code-block:: jinja
 
