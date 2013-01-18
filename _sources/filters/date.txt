@@ -11,7 +11,7 @@
     El soporte para la zona horaria predeterminada se añadió en *Twig* 1.6.1
 
 .. versionadded:: 1.11.0
-    The introduction of the false value for the timezone was introduced in Twig 1.11.0
+    La introducción del valor ``false`` para la zona horaria se introdujo en *Twig* 1.11.0
 
 El filtro ``date`` es capaz de formatear una fecha con una forma suministrada explícitamente:
 
@@ -25,16 +25,13 @@ El filtro ``date`` acepta cadenas (estas deben ser compatibles con los formatos 
 
     {{ "now"|date("m/d/Y") }}
 
-To escape words and characters in the date format use ``\\`` in front of each
-character:
+Para escapar palabras y caracteres en el formato de fecha usa ``\\`` al frente de cada carácter:
 
 .. code-block:: jinja
 
     {{ post.published_at|date("F jS \\a\\t g:ia") }}
 
-If the value passed to the ``date`` filter is ``null``, it will return the
-current date by default. If an empty string is desired instead of the current
-date, use a ternary operator:
+Si el valor pasado al filtro ``date`` es ``null``, por omisión devolverá la fecha actual. Si en lugar de la fecha actual quieres una cadena vacía, utiliza un operador ternario:
 
 .. code-block:: jinja
 
@@ -47,19 +44,16 @@ Si no proporcionas un formato, *Twig* utilizará el formato predefinido: ``F j, 
     $twig = new Twig_Environment($loader);
     $twig->getExtension('core')->setDateFormat('d/m/Y', '%d days');
 
-Timezone
---------
+Zona horaria
+------------
 
-By default, the date is displayed by applying the default timezone (the one
-specified in php.ini or declared in Twig -- see below), but you can override
-it by explicitly specifying a timezone:
+De manera predefinida, la fecha se muestra aplicando la zona horaria predefinida (la especificada en :file:`php.ini` o declarada en *Twig* ---ve más adelante---), pero la puedes sustituir explícitamente especificando una zona horaria (``timezone``):
 
 .. code-block:: jinja
 
     {{ post.published_at|date("m/d/Y", "Europe/Paris") }}
 
-If the date is already a DateTime object, and if you want to keep its current
-timezone, pass ``false`` as the timezone value:
+Si la fecha ya es un objeto ``DateTime``, y si quieres mantener la zona horaria actual, pasa ``false`` como el valor de la zona horaria:
 
 .. code-block:: jinja
 
@@ -75,8 +69,8 @@ Puedes fijar globalmente la zona horaria predefinida llamando a ``setTimezone()`
 Argumentos
 ----------
 
- * ``format``:   The date format
- * ``timezone``: The date timezone
+ * ``format``:   El formato de fecha
+ * ``timezone``: La zona horaria para fechas
 
 .. _`strtotime`:    http://www.php.net/strtotime
 .. _`DateTime`:     http://www.php.net/DateTime

@@ -13,7 +13,7 @@ Usa la etiqueta ``spaceless`` para eliminar espacios en blanco *entre las etique
 
     {# Producirá <div><strong>foo</strong></div> #}
 
-Esta etiqueta no tiene la intención de "optimizar" el tamaño del contenido *HTML* generado, sino simplemente eliminar espacios en blanco extra entre las etiquetas *HTML* para evitar la representación caprichosa en navegadores bajo algunas circunstancias.
+Esta etiqueta no tiene la intención de «optimizar» el tamaño del contenido *HTML* generado, sino simplemente eliminar espacios en blanco extra entre las etiquetas *HTML* para evitar una representación caprichosa en navegadores bajo determinadas circunstancias.
 
 .. tip::
 

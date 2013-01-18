@@ -22,4 +22,4 @@ El arreglo puede contener cualquier cantidad de valores:
 Argumentos
 ----------
 
- * ``position``: The cycle position
+ * ``position``: La posición del ciclo

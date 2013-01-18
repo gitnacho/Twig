@@ -2,9 +2,9 @@
 ===========
 
 .. versionadded:: 1.12
-    The include function was added in Twig 1.12.
+    La función ``include`` se añadió en *Twig* 1.12.
 
-The ``include`` function returns the rendered content of a template:
+La función ``include`` devuelve el contenido producido de una plantilla:
 
 .. code-block:: jinja
 
@@ -15,16 +15,15 @@ Las plantillas incluidas tienen acceso a las variables del contexto activo.
 
 Si estás utilizando el cargador del sistema de archivos, las plantillas se buscan en la ruta definida por este.
 
-The context is passed by default to the template but you can also pass
-additional variables:
+De manera predefinida, el contexto se pasa a la plantilla pero, además, puedes pasar variables adicionales:
 
 .. code-block:: jinja
 
-    {# template.html will have access to the variables from the current context and the additional ones provided #}
+    {# template.html tendrá acceso a las variables del contexto actual y adicionalmente a las proporcionadas #}
     {{ include('template.html', {foo: 'bar'}) }}
 
-You can disable access to the context by setting ``with_context`` to
-``false``:
+Puedes desactivar el acceso al contexto poniendo ``with_context`` a ``false``:
+
 
 .. code-block:: jinja
 
@@ -33,7 +32,7 @@ You can disable access to the context by setting ``with_context`` to
 
 .. code-block:: jinja
 
-    {# no variables will be accessible #}
+    {# ninguna variable será accesible #}
     {{ include('template.html', with_context = false) }}
 
 Y si la expresión evalúa como un objeto ``Twig_Template``, *Twig* la usará directamente::
@@ -45,24 +44,22 @@ Y si la expresión evalúa como un objeto ``Twig_Template``, *Twig* la usará di
     $twig->loadTemplate('template.twig')
          ->display(array('template' => $template));
 
-When you set the ``ignore_missing`` flag, Twig will return an empty string if
-the template does not exist:
+Cuándo configures la opción ``ignore_missing``, *Twig* regresará una cadena vacía si
+la plantilla no existe:
 
 .. code-block:: jinja
 
     {{ include('sidebar.html', ignore_missing = true) }}
 
-También puedes proporcionar una lista de plantillas para comprobar su existencia antes de la inclusión. The first template that exists will be rendered:
+También puedes proporcionar una lista de plantillas para comprobar su existencia antes de la inclusión. La primer plantilla existente será dibujada:
 
 .. code-block:: jinja
 
     {{ include(['page_detailed.html', 'page.html']) }}
 
-If ``ignore_missing`` is set, it will fall back to rendering nothing if none
-of the templates exist, otherwise it will throw an exception.
+Si configuraste ``ignore_missing``, caerá atrás sin producir nada si ninguna de las plantillas existe, de lo contrario lanzará una excepción.
 
-When including a template created by an end user, you should consider
-sandboxing it:
+Cuando incluyas una plantilla creada por un usuario final, debes considerar procesarla en el recinto de seguridad:
 
 .. code-block:: jinja
 
@@ -71,8 +68,8 @@ sandboxing it:
 Argumentos
 ----------
 
- * ``template``:       The template to render
- * ``variables``:      The variables to pass to the template
- * ``with_context``:   Whether to pass the current context variables or not
- * ``ignore_missing``: Whether to ignore missing templates or not
- * ``sandboxed``:      Whether to sandbox the template or not
+ * ``template``:       La plantilla a dibujar
+ * ``variables``:      Las variables por pasar a la plantilla
+ * ``with_context``:   Cuándo pasar las variables del contexto actual o no
+ * ``ignore_missing``: Cuándo ignorar plantillas omitidas o no
+ * ``sandboxed``:      Cuándo procesar la plantilla en el recinto de seguridad o no

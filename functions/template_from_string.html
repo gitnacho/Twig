@@ -76,17 +76,15 @@
   <div class="section" id="template-from-string">
 <h1><tt class="docutils literal"><span class="pre">template_from_string</span></tt><a class="headerlink" href="#template-from-string" title="Enlazar permanentemente con este título">¶</a></h1>
 <p class="versionadded">
-<span class="versionmodified">Nuevo en la versión 1.11: </span>The template_from_string function was added in Twig 1.11.</p>
-<p>The <tt class="docutils literal"><span class="pre">template_from_string</span></tt> function loads a template from a string:</p>
+<span class="versionmodified">Nuevo en la versión 1.11: </span>La función <tt class="docutils literal"><span class="pre">template_from_string</span></tt> se añadió en <em>Twig</em> 1.11.</p>
+<p>La función <tt class="docutils literal"><span class="pre">template_from_string</span></tt> carga una plantilla desde una cadena:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">include</span> <span class="nv">template_from_string</span><span class="o">(</span><span class="s2">&quot;Hello {{ name }}&quot;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
 <span class="cp">{%</span> <span class="k">include</span> <span class="nv">template_from_string</span><span class="o">(</span><span class="nv">page.template</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p>The <tt class="docutils literal"><span class="pre">template_from_string</span></tt> function is not available by default. You
-must add the <tt class="docutils literal"><span class="pre">Twig_Extension_StringLoader</span></tt> extension explicitly when
-creating your Twig environment:</p>
+<p>La función <tt class="docutils literal"><span class="pre">template_from_string</span></tt> de manera predeterminada no está disponible. Tienes que añadir explícitamente la extensión <tt class="docutils literal"><span class="pre">Twig_Extension_StringLoader</span></tt> al crear tu entorno <em>Twig</em>:</p>
 <div class="last highlight-php"><div class="highlight"><pre><span class="nv">$twig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twig_Environment</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
 <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="k">new</span> <span class="nx">Twig_Extension_StringLoader</span><span class="p">());</span>
 </pre></div>
@@ -94,15 +92,13 @@ creating your Twig environment:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">Even if you will probably always use the <tt class="docutils literal"><span class="pre">template_from_string</span></tt> function
-with the <tt class="docutils literal"><span class="pre">include</span></tt> tag, you can use it with any tag or function that
-takes a template as an argument (like the <tt class="docutils literal"><span class="pre">embed</span></tt> or <tt class="docutils literal"><span class="pre">extends</span></tt> tags).</p>
+<p class="last">Incluso si siempre utilizas la función <tt class="docutils literal"><span class="pre">template_from_string</span></tt> con la etiqueta <tt class="docutils literal"><span class="pre">include</span></tt>, la puedes utilizar con cualquier etiqueta o funció que tome una plantilla como un argumento (tal como las etiquetas <tt class="docutils literal"><span class="pre">embed</span></tt> o <tt class="docutils literal"><span class="pre">extends</span></tt>).</p>
 </div>
 <div class="section" id="argumentos">
 <h2>Argumentos<a class="headerlink" href="#argumentos" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">template</span></tt>: The template</li>
+<li><tt class="docutils literal"><span class="pre">template</span></tt>: La plantilla</li>
 </ul>
 </div></blockquote>
 </div>
@@ -141,7 +137,7 @@ takes a template as an argument (like the <tt class="docutils literal"><span cla
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

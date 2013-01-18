@@ -76,47 +76,42 @@
   <div class="section" id="split">
 <h1><tt class="docutils literal"><span class="pre">split</span></tt><a class="headerlink" href="#split" title="Enlazar permanentemente con este título">¶</a></h1>
 <p class="versionadded">
-<span class="versionmodified">Nuevo en la versión 1.10.3: </span>The split filter was added in Twig 1.10.3.</p>
-<p>The <tt class="docutils literal"><span class="pre">split</span></tt> filter splits a string by the given delimiter and returns a list
-of strings:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;one,two,three&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;,&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
-<span class="c">{# returns [&#39;one&#39;, &#39;two&#39;, &#39;three&#39;] #}</span><span class="x"></span>
+<span class="versionmodified">Nuevo en la versión 1.10.3: </span>El filtro <tt class="docutils literal"><span class="pre">split</span></tt> se añadió en <em>Twig</em> 1.10.3.</p>
+<p>El filtro <tt class="docutils literal"><span class="pre">split</span></tt> parte una cadena por el delimitador dado y regresa una lista de cadenas:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;uno,dos,tres&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;,&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="c">{# devuelve [&#39;uno&#39;, &#39;dos&#39;, &#39;tres&#39;] #}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>You can also pass a <tt class="docutils literal"><span class="pre">limit</span></tt> argument:</p>
+<p>También puedes pasar un argumento <tt class="docutils literal"><span class="pre">limit</span></tt>:</p>
 <blockquote>
 <div><ul class="simple">
-<li>If <tt class="docutils literal"><span class="pre">limit</span></tt> is positive, the returned array will contain a maximum of
-limit elements with the last element containing the rest of string;</li>
-<li>If <tt class="docutils literal"><span class="pre">limit</span></tt> is negative, all components except the last -limit are
-returned;</li>
-<li>If <tt class="docutils literal"><span class="pre">limit</span></tt> is zero, then this is treated as 1.</li>
+<li>Si <tt class="docutils literal"><span class="pre">limit</span></tt> es positivo, el arreglo devuelto contendrá un máximo de <tt class="docutils literal"><span class="pre">limit</span></tt> elementos con el último elemento conteniendo el resto de la cadena;</li>
+<li>Si <tt class="docutils literal"><span class="pre">limit</span></tt> es negativo, devolverá todos los componentes excepto el último -límite;</li>
+<li>Si <tt class="docutils literal"><span class="pre">limit</span></tt> es cero, entonces este será tratado como si fuera 1.</li>
 </ul>
 </div></blockquote>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;one,two,three,four,five&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;,&#39;</span><span class="o">,</span> <span class="m">3</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
-<span class="c">{# returns [&#39;one&#39;, &#39;two&#39;, &#39;three,four,five&#39;] #}</span><span class="x"></span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;uno,dos,tres,cuatro,cinco&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;,&#39;</span><span class="o">,</span> <span class="m">3</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="c">{# devuelve [&#39;uno&#39;, &#39;dos&#39;, &#39;tres,cuatro,cinco&#39;] #}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>If the <tt class="docutils literal"><span class="pre">delimiter</span></tt> is an empty string, then value will be split by equal
-chunks. Length is set by the <tt class="docutils literal"><span class="pre">limit</span></tt> argument (one character by default).</p>
+<p>Si el <tt class="docutils literal"><span class="pre">delimitador</span></tt> es una cadena vacía, entonces el valor será partido en segmentos iguales. La longitud la determina el argumento <tt class="docutils literal"><span class="pre">limit</span></tt> (de manera predeterminada es de un carácter).</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="s2">&quot;123&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
-<span class="c">{# returns [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;] #}</span><span class="x"></span>
+<span class="c">{# devuelve [&#39;1&#39;, &#39;2&#39;, &#39;3&#39;] #}</span><span class="x"></span>
 
 <span class="cp">{{</span> <span class="s2">&quot;aabbcc&quot;</span><span class="o">|</span><span class="nf">split</span><span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">,</span> <span class="m">2</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
-<span class="c">{# returns [&#39;aa&#39;, &#39;bb&#39;, &#39;cc&#39;] #}</span><span class="x"></span>
+<span class="c">{# devuelve [&#39;aa&#39;, &#39;bb&#39;, &#39;cc&#39;] #}</span><span class="x"></span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">Internally, Twig uses the PHP <a class="reference external" href="http://php.net/explode">explode</a> or <a class="reference external" href="http://php.net/str_split">str_split</a> (if delimiter is
-empty) functions for string splitting.</p>
+<p class="last">Internamente, <em>Twig</em> utiliza las funciones <a class="reference external" href="http://php.net/explode">explode</a> o <a class="reference external" href="http://php.net/str_split">str_split</a> de <em>PHP</em> (si el delimitador está vacío) para partir la cadena.</p>
 </div>
 <div class="section" id="argumentos">
 <h2>Argumentos<a class="headerlink" href="#argumentos" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">delimiter</span></tt>: The delimiter</li>
-<li><tt class="docutils literal"><span class="pre">limit</span></tt>:     The limit argument</li>
+<li><tt class="docutils literal"><span class="pre">delimiter</span></tt>: El delimitador</li>
+<li><tt class="docutils literal"><span class="pre">limit</span></tt>:     El argumento para el límite</li>
 </ul>
 </div></blockquote>
 </div>
@@ -155,7 +150,7 @@ empty) functions for string splitting.</p>
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

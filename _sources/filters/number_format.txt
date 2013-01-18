@@ -34,8 +34,8 @@ Puedes ajustar las opciones predefinidas para ``number_format`` en cada llamada 
 Argumentos
 ----------
 
- * ``decimal``:       The number of decimal points to display
- * ``decimal_point``: The character(s) to use for the decimal point
- * ``decimal_sep``:   The character(s) to use for the thousands separator
+ * ``decimal``:       El número de puntos decimales a mostrar
+ * ``decimal_point``: El carácter a utilizar para el punto decimal
+ * ``decimal_sep``:   El carácter a utilizar para el separador de miles
 
 .. _`number_format`: http://php.net/number_format

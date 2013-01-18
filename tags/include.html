@@ -84,7 +84,7 @@
 <p>Las plantillas incluidas tienen acceso a las variables del contexto activo.</p>
 <p>Si estás utilizando el cargador del sistema de archivos, las plantillas se buscan en la ruta definida por este.</p>
 <p>Puedes añadir variables adicionales pasándolas después de la palabra clave <tt class="docutils literal"><span class="pre">with</span></tt>:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# template.html will have access to the variables from the current context and the additional ones provided #}</span><span class="x"></span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# template.html tendrá acceso a las variables del contexto actual y adicionalmente a las proporcionadas #}</span><span class="x"></span>
 <span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;template.html&#39;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
 
 <span class="cp">{%</span> <span class="k">set</span> <span class="nv">vars</span> <span class="o">=</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
@@ -96,7 +96,7 @@
 <span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;template.html&#39;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">}</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# no variables will be accessible #}</span><span class="x"></span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# ninguna variable será accesible #}</span><span class="x"></span>
 <span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;template.html&#39;</span> <span class="nv">only</span> <span class="cp">%}</span><span class="x"></span>
 </pre></div>
 </div>
@@ -168,7 +168,7 @@
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

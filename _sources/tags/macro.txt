@@ -26,13 +26,13 @@ Pero como las funciones de *PHP*, las macros no tienen acceso a las variables de
 
     Puedes pasar todo el contexto como un argumento usando la variable especial ``_context``.
 
-Las macros se pueden definir en cualquier plantilla, y es necesario "importarlas", antes de utilizarlas (consulta la etiqueta :doc:`import <../tags/import>` para más información):
+Las macros se pueden definir en cualquier plantilla, y es necesario «importarlas», antes de utilizarlas (consulta la etiqueta :doc:`import <../tags/import>` para más información):
 
 .. code-block:: jinja
 
     {% import "formularios.html" as forms %}
 
-La llamada a ``import`` anterior importa el archivo "formularios.html" (el cual puede contener macros solamente, o una plantilla y algunas macros), e importa las funciones como elementos de la variable ``forms``.
+La anterior llamada a ``import`` importa el archivo «:file:`formularios.html`» (el cual puede contener macros solamente, o una plantilla y algunas macros), e importa las funciones como elementos de la variable ``forms``.
 
 Entonces puedes llamar a la macro a voluntad:
 
@@ -41,8 +41,7 @@ Entonces puedes llamar a la macro a voluntad:
     <p>{{ forms.input('username') }}</p>
     <p>{{ forms.input('password', null, 'password') }}</p>
 
-If macros are defined and used in the same template, you can use the
-special ``_self`` variable to import them:
+Si hay macros definidas y se usan en la misma plantilla, puedes utilizar la variable especial ``_self`` para importarlas:
 
 .. code-block:: jinja
 
@@ -52,13 +51,9 @@ special ``_self`` variable to import them:
 
 .. warning::
 
-    When you define a macro in the template where you are going to use it, you
-    might be tempted to call the macro directly via ``_self.input()`` instead
-    of importing it; even if seems to work, this is just a side-effect of the
-    current implementation and it won't work anymore in Twig 2.x.
+    Cuándo defines una macro en la plantilla donde la vas a utilizar, podría ser tentador llamar a la macro directamente vía ``_self.entrada()`` en vez de importarla; incluso si parece trabajar, este es justo un efecto colateral de la implementación actual y no trabajará más en *Twig* 2.x.
 
-When you want to use a macro in another macro from the same file, you need to
-import it locally:
+Cuándo quieras utilizar una macro en otra macro del mismo archivo, necesitas importarla localmente:
 
 .. code-block:: jinja
 

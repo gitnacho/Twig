@@ -14,6 +14,6 @@ El filtro ``json_encode`` devuelve la representación *JSON* de una cadena:
 Argumentos
 ----------
 
- * ``options``: The options
+ * ``options``: Las opciones
 
 .. _`json_encode`: http://mx.php.net/json_encode

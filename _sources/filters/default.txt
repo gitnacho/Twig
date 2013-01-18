@@ -21,9 +21,9 @@ Cuando usas el filtro ``default`` en una expresión que usa variables en alguna 
 
 .. note::
 
-    Lee más adelante la documentación de las pruebas :doc:`defined<../tests/defined>` y :doc:`empty<../tests/empty>` para aprender más acerca de su semántica.
+    Lee más adelante la documentación de las pruebas :doc:`defined <../tests/defined>` y :doc:`empty <../tests/empty>` para aprender más acerca de su semántica.
 
 Argumentos
 ----------
 
- * ``default``: The default value
+ * ``default``: El valor predefinido

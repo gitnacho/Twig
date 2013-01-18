@@ -100,15 +100,14 @@
 
 <span class="cp">{{</span> <span class="s1">&#39;1234&#39;</span><span class="o">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
 
-<span class="c">{# you can omit the first argument -- which is the same as 0 #}</span><span class="x"></span>
-<span class="cp">{{</span> <span class="s1">&#39;1234&#39;</span><span class="o">[:</span><span class="m">2</span><span class="o">]</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# will display &quot;12&quot; #}</span><span class="x"></span>
+<span class="c">{# puedes omitir el primer argumento -- que es lo mismo que 0 #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="s1">&#39;1234&#39;</span><span class="o">[:</span><span class="m">2</span><span class="o">]</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# mostrará &quot;12&quot; #}</span><span class="x"></span>
 
-<span class="c">{# you can omit the last argument -- which will select everything till the end #}</span><span class="x"></span>
-<span class="cp">{{</span> <span class="s1">&#39;1234&#39;</span><span class="o">[</span><span class="m">2</span><span class="o">:]</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# will display &quot;34 #}</span><span class="x"></span>
+<span class="c">{# Puedes omitir el último argumento -- con lo cuál seleccionará todo hasta el final #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="s1">&#39;1234&#39;</span><span class="o">[:</span><span class="m">2</span><span class="o">]</span> <span class="cp">}}</span><span class="x"> </span><span class="c">{# mostrará &quot;34&quot; #}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>El filtro <tt class="docutils literal"><span class="pre">slice</span></tt> trabaja como la función <tt class="docutils literal"><span class="pre">array_slice</span></tt> de <em>PHP</em> para los arreglos y
-<a class="reference external" href="http://php.net/substr">substr</a> para las cadenas.</p>
+<p>El filtro <tt class="docutils literal"><span class="pre">slice</span></tt> trabaja como la función <tt class="docutils literal"><span class="pre">array_slice</span></tt> de <em>PHP</em> para los arreglos y <a class="reference external" href="http://php.net/substr">substr</a> para las cadenas.</p>
 <p>Si <tt class="docutils literal"><span class="pre">start</span></tt> no es negativo, la secuencia iniciará en <tt class="docutils literal"><span class="pre">start</span></tt> en la variable. Si <tt class="docutils literal"><span class="pre">start</span></tt> es negativo, la secuencia comenzará en esa posición desde el final de la variable.</p>
 <p>Si se especifica <tt class="docutils literal"><span class="pre">length</span></tt> y es positivo, entonces la secuencia tendrá hasta tantos elementos en ella. Si la variable es más corta que la longitud, entonces, sólo los elementos disponibles en la variable estarán presentes. Si se especifica <tt class="docutils literal"><span class="pre">length</span></tt> y es negativo, entonces la secuencia se detendrá hasta tantos elementos a partir del final de la variable. Si se omite, la secuencia tendrá todo desde el desplazamiento hasta el final de la variable.</p>
 <div class="admonition note">
@@ -119,9 +118,9 @@
 <h2>Argumentos<a class="headerlink" href="#argumentos" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">start</span></tt>:         The start of the slice</li>
-<li><tt class="docutils literal"><span class="pre">length</span></tt>:        The size of the slice</li>
-<li><tt class="docutils literal"><span class="pre">preserve_keys</span></tt>: Whether to preserve key or not (when the input is an array)</li>
+<li><tt class="docutils literal"><span class="pre">start</span></tt>:         El inicio del segmento</li>
+<li><tt class="docutils literal"><span class="pre">length</span></tt>:        El tamaño del segmento</li>
+<li><tt class="docutils literal"><span class="pre">preserve_keys</span></tt>: Si preservar la clave o no (cuándo la entrada es un arreglo)</li>
 </ul>
 </div></blockquote>
 </div>
@@ -160,7 +159,7 @@
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

@@ -363,7 +363,7 @@ El compilador implementa una interfaz fluida y proporciona métodos que ayudan a
 
 * ``subcompile()``: Compila un nodo.
 
-* ``raw()``: Escribe la cadena dada tal cual.
+* ``raw()``: Escribe tal cual la cadena dada.
 
 * ``write()``: Escribe la cadena dada añadiendo sangría al principio de cada línea.
 

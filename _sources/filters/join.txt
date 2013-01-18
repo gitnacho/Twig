@@ -18,4 +18,4 @@ El separador predeterminado entre los elementos es una cadena vacía, lo puedes 
 Argumentos
 ----------
 
- * ``glue``: The separator
+ * ``glue``: El separador

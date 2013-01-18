@@ -36,8 +36,8 @@ El operador integrado ``..`` es pura azúcar sintáctica para la función ``rang
 Argumentos
 ----------
 
- * ``low``:  The first value of the sequence.
- * ``high``: The highest possible value of the sequence.
- * ``step``: The increment between elements of the sequence.
+ * ``low``:  El primer valor de la secuencia.
+ * ``high``: El valor más alto posible de la secuencia.
+ * ``step``: El incremento entre elementos de la secuencia.
 
 .. _`range`: http://mx2.php.net/range

@@ -14,6 +14,6 @@ El filtro ``reemplaza`` formatos de una cadena dada sustituyendo los marcadores 
 Argumentos
 ----------
 
- * ``replace_pairs``: The placeholder values
+ * ``replace_pairs``: Los valores de los marcadores de posición
 
-.. seealso:: :doc:`format<format>`
+.. seealso:: :doc:`format <format>`

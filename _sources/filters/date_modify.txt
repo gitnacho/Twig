@@ -10,14 +10,12 @@ El filtro ``date_modify`` modifica una fecha con una cadena de caracteres modifi
 
     {{ post.published_at|date_modify("+1 day")|date("m/d/Y") }}
 
-The ``date_modify`` filter accepts strings (it must be in a format supported
-by the `strtotime`_ function) or `DateTime`_ instances. You can easily combine
-it with the :doc:`date<date>` filter for formatting.
+El filtro ``date_modify`` acepta cadenas (deben estar en un formato compatible con la función `strtotime`_) o ser instancias de `DateTime`_. Fácilmente lo puedes combinar con el filtro :doc:`date <date>` para aplicar formato.
 
 Argumentos
 ----------
 
- * ``modifier``: The modifier
+ * ``modifier``: El modificador
 
 .. _`strtotime`: http://www.php.net/strtotime
 .. _`DateTime`:  http://www.php.net/DateTime

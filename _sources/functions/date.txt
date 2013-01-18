@@ -45,7 +45,7 @@ Si no suministras ningún argumento, la función devuelve la fecha actual:
 Argumentos
 ----------
 
- * ``date``:     The date
- * ``timezone``: The timezone
+ * ``date``:     La fecha
+ * ``timezone``: El zona horaria
 
 .. _`date`: http://www.php.net/date

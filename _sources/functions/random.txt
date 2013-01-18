@@ -27,6 +27,6 @@ La función ``random`` devuelve un valor al azar dependiendo del tipo de paráme
 Argumentos
 ----------
 
- * ``values``: The values
+ * ``values``: Los valores
 
 .. _`mt_rand`: http://mx.php.net/mt_rand

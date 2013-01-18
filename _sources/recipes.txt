@@ -56,21 +56,21 @@ Puedes sustituir esta plantilla poniendo un archivo con el mismo nombre en ``...
 
 .. code-block:: jinja
 
-    {# page.twig in .../templates/mysite #}
-    {% extends "page.twig" %} {# from .../templates/default #}
+    {# page.twig en .../templates/mysite #}
+    {% extends "page.twig" %} {# desde .../templates/default #}
 
 Por supuesto, esto no funcionará debido a que *Twig* siempre carga la plantilla desde ``.../templates/mysite``.
 
-Resulta que es posible conseguir que esto funcione, añadiendo el directorio adecuado al final de tus directorios de plantilla, el cual es el padre de todos los otros directorios: ``.../templates`` en nuestro caso. Esto tiene el efecto de hacer que cada archivo de plantilla dentro de nuestro sistema sea direccionable unívocamente. La mayoría de las veces utilizarás rutas "normales", pero en el caso especial de querer extender una plantilla con una versión que se redefine a sí misma podemos referirnos a la ruta completa del padre, sin ambigüedades, en la etiqueta ``extends`` de la plantilla:
+Resulta que es posible conseguir que esto funcione, añadiendo el directorio adecuado al final de tus directorios de plantilla, el cual es el padre de todos los otros directorios: ``.../templates`` en nuestro caso. Esto tiene el efecto de hacer que cada archivo de plantilla dentro de nuestro sistema sea direccionable unívocamente. La mayoría de las veces utilizarás rutas «normales», pero en el caso especial de querer extender una plantilla con una versión que se redefine a sí misma podemos referirnos a la ruta completa del padre, sin ambigüedades, en la etiqueta ``extends`` de la plantilla:
 
 .. code-block:: jinja
 
-    {# page.twig in .../templates/mysite #}
+    {# page.twig en .../templates/mysite #}
     {% extends "default/page.twig" %} {# from .../templates #}
 
 .. note::
 
-    Esta receta está inspirada en la página "Extendiendo plantillas" del *wiki* de *Django*:
+    Esta receta está inspirada en la página «Extendiendo plantillas» del *wiki* de *Django*:
     La puedes ver `aquí <http://code.djangoproject.com/wiki/ExtendingTemplates>`_
 
 Personalizando la sintaxis
@@ -89,7 +89,7 @@ Para cambiar los delimitadores de bloque, necesitas crear tu propio objeto anali
     ));
     $twig->setLexer($lexer);
 
-Éstos son algunos ejemplos de configuración que simulan la sintaxis de algunos otros motores de plantilla::
+Estos son algunos ejemplos de configuración que simulan la sintaxis de algunos otros motores de plantilla::
 
     // sintaxis erb de Ruby
     $lexer = new Twig_Lexer($twig, array(
@@ -176,7 +176,7 @@ Reproducirá algo similar a:
 
 En el bucle interno, utilizamos la variable ``loop.parent`` para acceder al contexto externo. Así, el índice del ``tema`` actual definido en el exterior del bucle es accesible a través de la variable ``loop.parent.loop.index``.
 
-Definiendo al vuelo funciones indefinidas y filtros
+Definiendo al vuelo funciones y filtros indefinidos
 ---------------------------------------------------
 
 Cuando una función (o un filtro) no está definido, de manera predeterminada *Twig* lanza una excepción ``Twig_Error_Syntax``. Sin embargo, también puede invocar una `retrollamada`_ (cualquier *PHP* válido que se pueda ejecutar) la cual debe devolver una función (o un filtro).
@@ -275,7 +275,7 @@ Usando el nombre de la plantilla para determinar la estrategia de escape predete
 .. versionadded:: 1.8
     Esta receta requiere *Twig 1.8* o posterior.
 
-El opción ``autoescape`` determina la estrategia de escapar predefinida a utilizar cuando no se aplica escape a una variable. Cuando utilizas *Twig* para generar en su mayoría archivos *HTML*, la puedes establecer a ``html`` y cambiarla explícitamente a ``js`` cuando tengas algunos archivos *JavaScript* dinámicos gracias a la etiqueta ``autoescape``:
+La opción ``autoescape`` determina la estrategia de escape predefinida a utilizar cuando no se aplica escape a una variable. Cuando utilizas *Twig* para generar en su mayoría archivos *HTML*, la puedes establecer a ``html`` y cambiarla explícitamente a ``js`` cuando tengas algunos archivos *JavaScript* dinámicos gracias a la etiqueta ``autoescape``:
 
 .. code-block:: jinja
 
@@ -283,7 +283,7 @@ El opción ``autoescape`` determina la estrategia de escapar predefinida a utili
         ... algún JS ...
     {% endautoescape %}
 
-Pero si tienes muchos archivos *HTML* y *JS*, y si tus nombres de plantilla siguen algunas convenciones, en su lugar puedes determinar la estrategia de escapar a usar en función del nombre de la plantilla. Digamos que tus nombres de plantilla siempre terminan con ``.html`` para archivos *HTML* y ``.js`` para los de *JavaScript*, aquí tienes cómo puedes configurar a *Twig*::
+Pero si tienes muchos archivos *HTML* y *JS*, y si tus nombres de plantilla siguen algunas convenciones, en su lugar puedes determinar la estrategia de escape a usar en función del nombre de la plantilla. Digamos que tus nombres de plantilla siempre terminan con ``.html`` para archivos *HTML* y ``.js`` para los de *JavaScript*, aquí tienes cómo lo puedes configurar en *Twig*::
 
     class TwigEscapingGuesser
     {
@@ -309,16 +309,14 @@ Pero si tienes muchos archivos *HTML* y *JS*, y si tus nombres de plantilla sigu
         'autoescape' => array(new TwigEscapingGuesser(), 'guess'),
     ));
 
-Esta estrategia dinámica no incurre en ningún tipo de sobrecarga en tiempo de ejecución como lo hace el autoescape en tiempo de compilación.
+Esta estrategia dinámica no incurre en ningún tipo de sobrecarga en tiempo de ejecución puesto que el autoescape se hace en tiempo de compilación.
 
-Using a Database to store Templates
------------------------------------
+Usando una base de datos para almacenar plantillas
+--------------------------------------------------
 
-If you are developing a CMS, templates are usually stored in a database. This
-recipe gives you a simple PDO template loader you can use as a starting point
-for your own.
+Si  estás desarrollando un *CMS*, las plantillas normalmente se almacenan en una base de datos. Esta receta te da un sencillo cargador de plantilla *PDO* que puedes utilizar como punto de partida para el tuyo.
 
-First, let's create a temporary in-memory SQLite3 database to work with::
+Primero, crea una base de datos *SQLite3* provisional en memoria con la cual trabajar::
 
     $dbh = new PDO('sqlite::memory:');
     $dbh->exec('CREATE TABLE templates (name STRING, source STRING, last_modified INTEGER)');
@@ -331,10 +329,10 @@ First, let's create a temporary in-memory SQLite3 database to work with::
     $dbh->exec("INSERT INTO templates (name, source, last_modified) VALUES ('base.twig', '$base', $now)");
     $dbh->exec("INSERT INTO templates (name, source, last_modified) VALUES ('index.twig', '$index', $now)");
 
-We have created a simple ``templates`` table that hosts two templates:
-``base.twig`` and ``index.twig``.
+Creaste una sencilla tabla ``templates`` que hospeda dos plantillas:
+``base.twig`` e ``index.twig``.
 
-Now, let's define a loader able to use this database::
+Ahora, define un cargador capaz de utilizar esa base de datos::
 
     class DatabaseTwigLoader implements Twig_LoaderInterface, Twig_ExistsLoaderInterface
     {
@@ -354,7 +352,7 @@ Now, let's define a loader able to use this database::
             return $source;
         }
 
-        // Twig_ExistsLoaderInterface as of Twig 1.11
+        // Twig_ExistsLoaderInterface a partir de Twig 1.11
         public function exists($name)
         {
             return $name === $this->getValue('name', $name);
@@ -383,26 +381,20 @@ Now, let's define a loader able to use this database::
         }
     }
 
-Finally, here is an example on how you can use it::
+Finalmente, aquí tienes un ejemplo de cómo la puedes utilizar::
 
     $loader = new DatabaseTwigLoader($dbh);
     $twig = new Twig_Environment($loader);
 
     echo $twig->render('index.twig', array('name' => 'Fabien'));
 
-Using different Template Sources
---------------------------------
+Usando diferentes fuentes de plantillas
+---------------------------------------
 
-This recipe is the continuation of the previous one. Even if you store the
-contributed templates in a database, you might want to keep the original/base
-templates on the filesystem. When templates can be loaded from different
-sources, you need to use the ``Twig_Loader_Chain`` loader.
+Esta receta es la continuación de la anterior. Incluso si almacenas plantillas contribuidas en una base de datos, podrías querer mantener las plantillas originales/base en el sistema de archivos. Puesto que puedes cargar plantillas desde diferentes fuentes, necesitas utilizar el cargador ``Twig_Loader_Chain``.
 
-As you can see in the previous recipe, we reference the template in the exact
-same way as we would have done it with a regular filesystem loader. This is
-the key to be able to mix and match templates coming from the database, the
-filesystem, or any other loader for that matter: the template name should be a
-logical name, and not the path from the filesystem::
+Como puedes ver en la receta anterior, se refirió la plantilla exactamente de la misma manera que como se hizo con un cargador regular del sistema de archivos. Esta es la clave para poder mezclar plantillas que provienen desde la base de datos, el
+sistema de archivos, o cualquiera otro cargador: el nombre de la plantilla debería ser un nombre lógico, y no la ruta del sistema de archivos::
 
     $loader1 = new DatabaseTwigLoader($dbh);
     $loader2 = new Twig_Loader_Array(array(
@@ -414,7 +406,6 @@ logical name, and not the path from the filesystem::
 
     echo $twig->render('index.twig', array('name' => 'Fabien'));
 
-Now that the ``base.twig`` templates is defined in an array loader, you can
-remove it from the database, and everything else will still work as before.
+Ahora que la Plantilla ``base.twig`` está definida en un arreglo cargador, la puedes remover de la base de datos, y todo trabajará como antes.
 
 .. _`retrollamada`: http://www.php.net/manual/es/function.is-callable.php

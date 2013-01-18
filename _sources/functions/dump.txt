@@ -53,7 +53,7 @@ Si no pasas ningún valor, se vierten todas las variables del contexto actual:
 Argumentos
 ----------
 
- * ``context``: The context to dump
+ * ``context``: El contexto a verter
 
 .. _`XDebug`:   http://xdebug.org/docs/display
 .. _`var_dump`: http://php.net/var_dump

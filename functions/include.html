@@ -76,27 +76,25 @@
   <div class="section" id="include">
 <h1><tt class="docutils literal"><span class="pre">include</span></tt><a class="headerlink" href="#include" title="Enlazar permanentemente con este título">¶</a></h1>
 <p class="versionadded">
-<span class="versionmodified">Nuevo en la versión 1.12: </span>The include function was added in Twig 1.12.</p>
-<p>The <tt class="docutils literal"><span class="pre">include</span></tt> function returns the rendered content of a template:</p>
+<span class="versionmodified">Nuevo en la versión 1.12: </span>La función <tt class="docutils literal"><span class="pre">include</span></tt> se añadió en <em>Twig</em> 1.12.</p>
+<p>La función <tt class="docutils literal"><span class="pre">include</span></tt> devuelve el contenido producido de una plantilla:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;template.html&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 <span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="nv">some_var</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
 <p>Las plantillas incluidas tienen acceso a las variables del contexto activo.</p>
 <p>Si estás utilizando el cargador del sistema de archivos, las plantillas se buscan en la ruta definida por este.</p>
-<p>The context is passed by default to the template but you can also pass
-additional variables:</p>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# template.html will have access to the variables from the current context and the additional ones provided #}</span><span class="x"></span>
+<p>De manera predefinida, el contexto se pasa a la plantilla pero, además, puedes pasar variables adicionales:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# template.html tendrá acceso a las variables del contexto actual y adicionalmente a las proporcionadas #}</span><span class="x"></span>
 <span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;template.html&#39;</span><span class="o">,</span> <span class="o">{</span><span class="nv">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>You can disable access to the context by setting <tt class="docutils literal"><span class="pre">with_context</span></tt> to
-<tt class="docutils literal"><span class="pre">false</span></tt>:</p>
+<p>Puedes desactivar el acceso al contexto poniendo <tt class="docutils literal"><span class="pre">with_context</span></tt> a <tt class="docutils literal"><span class="pre">false</span></tt>:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# únicamente la variable foo será accesible #}</span><span class="x"></span>
 <span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;template.html&#39;</span><span class="o">,</span> <span class="o">{</span><span class="nv">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="o">},</span> <span class="nv">with_context</span> <span class="o">=</span> <span class="kp">false</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
-<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# no variables will be accessible #}</span><span class="x"></span>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# ninguna variable será accesible #}</span><span class="x"></span>
 <span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;template.html&#39;</span><span class="o">,</span> <span class="nv">with_context</span> <span class="o">=</span> <span class="kp">false</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
@@ -109,19 +107,17 @@ additional variables:</p>
      <span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="nv">$template</span><span class="p">));</span>
 </pre></div>
 </div>
-<p>When you set the <tt class="docutils literal"><span class="pre">ignore_missing</span></tt> flag, Twig will return an empty string if
-the template does not exist:</p>
+<p>Cuándo configures la opción <tt class="docutils literal"><span class="pre">ignore_missing</span></tt>, <em>Twig</em> regresará una cadena vacía si
+la plantilla no existe:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;sidebar.html&#39;</span><span class="o">,</span> <span class="nv">ignore_missing</span> <span class="o">=</span> <span class="kp">true</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>También puedes proporcionar una lista de plantillas para comprobar su existencia antes de la inclusión. The first template that exists will be rendered:</p>
+<p>También puedes proporcionar una lista de plantillas para comprobar su existencia antes de la inclusión. La primer plantilla existente será dibujada:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">include</span><span class="o">([</span><span class="s1">&#39;page_detailed.html&#39;</span><span class="o">,</span> <span class="s1">&#39;page.html&#39;</span><span class="o">])</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
-<p>If <tt class="docutils literal"><span class="pre">ignore_missing</span></tt> is set, it will fall back to rendering nothing if none
-of the templates exist, otherwise it will throw an exception.</p>
-<p>When including a template created by an end user, you should consider
-sandboxing it:</p>
+<p>Si configuraste <tt class="docutils literal"><span class="pre">ignore_missing</span></tt>, caerá atrás sin producir nada si ninguna de las plantillas existe, de lo contrario lanzará una excepción.</p>
+<p>Cuando incluyas una plantilla creada por un usuario final, debes considerar procesarla en el recinto de seguridad:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;page.html&#39;</span><span class="o">,</span> <span class="nv">sandboxed</span> <span class="o">=</span> <span class="kp">true</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
 </pre></div>
 </div>
@@ -129,11 +125,11 @@ sandboxing it:</p>
 <h2>Argumentos<a class="headerlink" href="#argumentos" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">template</span></tt>:       The template to render</li>
-<li><tt class="docutils literal"><span class="pre">variables</span></tt>:      The variables to pass to the template</li>
-<li><tt class="docutils literal"><span class="pre">with_context</span></tt>:   Whether to pass the current context variables or not</li>
-<li><tt class="docutils literal"><span class="pre">ignore_missing</span></tt>: Whether to ignore missing templates or not</li>
-<li><tt class="docutils literal"><span class="pre">sandboxed</span></tt>:      Whether to sandbox the template or not</li>
+<li><tt class="docutils literal"><span class="pre">template</span></tt>:       La plantilla a dibujar</li>
+<li><tt class="docutils literal"><span class="pre">variables</span></tt>:      Las variables por pasar a la plantilla</li>
+<li><tt class="docutils literal"><span class="pre">with_context</span></tt>:   Cuándo pasar las variables del contexto actual o no</li>
+<li><tt class="docutils literal"><span class="pre">ignore_missing</span></tt>: Cuándo ignorar plantillas omitidas o no</li>
+<li><tt class="docutils literal"><span class="pre">sandboxed</span></tt>:      Cuándo procesar la plantilla en el recinto de seguridad o no</li>
 </ul>
 </div></blockquote>
 </div>
@@ -172,7 +168,7 @@ sandboxing it:</p>
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

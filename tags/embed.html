@@ -81,7 +81,7 @@
 <a class="reference internal" href="extends.html"><em>extends</em></a>.
 Esta te permite incluir contenido de otras plantillas, tal cómo lo hace <tt class="docutils literal"><span class="pre">include</span></tt>. Pero también te permite reemplazar cualquier bloque definido en la
 plantilla incluida, como cuando extiendes una plantilla.</p>
-<p>Piensa en una plantilla integrada como un esqueleto del &#8220;microdiseño&#8221;.</p>
+<p>Piensa en una plantilla integrada como un esqueleto del «microdiseño».</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">embed</span> <span class="s2">&quot;esqueleto_tentativo.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    </span><span class="c">{# Estos bloques están definidos en &quot;esqueleto_tentativo.twig&quot; #}</span><span class="x"></span>
 <span class="x">    </span><span class="c">{# Y los sustituimos aquí:                    #}</span><span class="x"></span>
@@ -95,10 +95,10 @@ plantilla incluida, como cuando extiendes una plantilla.</p>
 </pre></div>
 </div>
 <p>La etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> lleva la idea de la herencia de plantillas a nivel de
-fragmentos de contenido. Si bien la herencia de plantillas posibilita los &#8220;esqueletos de documento&#8221;,
-que están llenos de vida por las plantillas hijas, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> te permite crear &#8220;esqueletos&#8221; para las más pequeñas unidades de contenido y reutilizarlas y llenarlas en cualquier lugar que quieras.</p>
+fragmentos de contenido. Si bien la herencia de plantillas posibilita los «esqueletos de documento»,
+que están llenos de vida por las plantillas hijas, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> te permite crear «esqueletos» para las más pequeñas unidades de contenido y reutilizarlas y llenarlas en cualquier lugar que quieras.</p>
 <p>Debido al caso de uso puede no ser tan obvio, veamos un ejemplo simplificado.
-Imagina una plantilla base compartida por varias páginas <em>HTML</em>, la cual define un solo bloque llamado &#8220;contenido&#8221;:</p>
+Imagina una plantilla base compartida por varias páginas <em>HTML</em>, la cual define un solo bloque llamado «contenido»:</p>
 <div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
 │                                     │
 │        ┌── bloque &quot;contenido&quot; ──┐   │
@@ -113,7 +113,7 @@ Imagina una plantilla base compartida por varias páginas <em>HTML</em>, la cual
 └─────────────────────────────────────┘
 </pre></div>
 </div>
-<p>Algunas páginas (&#8220;foo&#8221; y &#8220;bar&#8221;) comparten la misma estructura del contenido &#8212;
+<p>Algunas páginas («foo» y «bar») comparten la misma estructura del contenido &#8212;
 dos cajas apiladas verticalmente:</p>
 <div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
 │                                     │
@@ -129,7 +129,7 @@ dos cajas apiladas verticalmente:</p>
 └─────────────────────────────────────┘
 </pre></div>
 </div>
-<p>mientras otras páginas (&#8220;boom&#8221; y &#8220;baz&#8221;) comparten una estructura de contenido diferente &#8212; dos cajas lado a lado:</p>
+<p>mientras otras páginas («boom» y «baz») comparten una estructura de contenido diferente &#8212; dos cajas lado a lado:</p>
 <div class="highlight-text"><div class="highlight"><pre>┌─── diseño de página ────────────────┐
 │                                     │
 │        ┌── bloque &quot;contenido&quot; ──┐   │
@@ -147,7 +147,7 @@ dos cajas apiladas verticalmente:</p>
 <p>Sin la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt>, tienes dos maneras de diseñar tus plantillas:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Crear dos plantillas base &#8220;intermedias&#8221; que extiendan a la plantilla del diseño principal: una con cajas apiladas verticalmente usada por las páginas &#8220;foo&#8221; y &#8220;bar&#8221; y otra con cajas lado a lado para las páginas &#8220;boom&#8221; y &#8220;baz&#8221;.</li>
+<li>Crea dos plantillas base «intermedias» que extiendan a la plantilla del diseño principal: una con cajas apiladas verticalmente usada por las páginas «foo» y «bar» y otra con cajas lado a lado para las páginas «boom» y «baz».</li>
 <li>Integrar el marcado para las cajas sup/inf e izq/der en cada plantilla de página directamente.</li>
 </ul>
 </div></blockquote>
@@ -158,7 +158,7 @@ dos cajas apiladas verticalmente:</p>
 <li>La segunda solución consiste en duplicar código común con todos sus efectos y consecuencias negativas: cualquier cambio implica encontrar y editar todas las copias afectadas por la estructura, la corrección se tiene que verificar en cada copia, las copias pueden estar fuera de sincronía por modificaciones descuidadas, etc.</li>
 </ul>
 </div></blockquote>
-<p>En tal situación, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> viene muy bien. El código del diseño común puede vivir en una sola plantilla base, y las dos estructuras de contenido diferentes, vamos a llamarlas &#8220;microdiseños&#8221; tendremos plantillas separadas, que serán integradas conforme sea necesario:</p>
+<p>En tal situación, la etiqueta <tt class="docutils literal"><span class="pre">embed</span></tt> viene muy bien. El código del diseño común puede vivir en una sola plantilla base, y las dos estructuras de contenido diferentes, vamos a llamarlas «microdiseños» tendremos plantillas separadas, que serán integradas conforme sea necesario:</p>
 <p>Plantilla de la página <tt class="docutils literal"><span class="pre">foo.twig</span></tt>:</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;layout_skeleton.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
 
@@ -206,7 +206,7 @@ dos cajas apiladas verticalmente:</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Advertencia</p>
-<p class="last">Debido a que las plantillas integradas no tienen &#8220;nombres&#8221;, las estrategias de autoescape basadas en el <tt class="file docutils literal"><span class="pre">&quot;nombre</span> <span class="pre">de</span> <span class="pre">archivo&quot;</span></tt> de la plantilla no funcionan como se espera si cambias el contexto (por ejemplo, si integras una plantilla <em>CSS</em>/<em>JavaScript</em> en un archivo <em>HTML</em>). En ese caso, establece explícitamente el valor predefinido para la estrategia de escape automático con la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>.</p>
+<p class="last">Debido a que las plantillas integradas no tienen «nombres», las estrategias de autoescape basadas en el <tt class="docutils literal"><span class="pre">«nombre</span> <span class="pre">de</span> <span class="pre">archivo»</span></tt> de la plantilla no funcionan como se espera si cambias el contexto (por ejemplo, si integras una plantilla <em>CSS</em>/<em>JavaScript</em> en un archivo <em>HTML</em>). En ese caso, establece explícitamente el valor predefinido para la estrategia de escape automático con la etiqueta <tt class="docutils literal"><span class="pre">autoescape</span></tt>.</p>
 </div>
 <div class="admonition-ver-tambien admonition seealso">
 <p class="first admonition-title">Ver también</p>
@@ -247,7 +247,7 @@ dos cajas apiladas verticalmente:</p>
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>

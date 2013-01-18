@@ -1,15 +1,12 @@
-Deprecated Features
-===================
+Características depreciadas
+===========================
 
-This document lists all deprecated features in Twig. Deprecated features are
-kept for backward compatibility and removed in the next major release (a
-feature that was deprecated in Twig 1.x is removed in Twig 2.0).
+Este documento enumera todas las características depreciadas en *Twig*. Las características depreciadas se mantienen por compatibilidad hacia atrás y se quitan en la siguiente liberación importante (una característica que estaba depreciada en *Twig* 1.x se quita en *Twig* 2.0).
 
-Token Parsers
--------------
+Analizadores de segmentos
+-------------------------
 
-* As of Twig 1.x, the token parser broker sub-system is deprecated. The
-  following class and interface will be removed in 2.0:
+* A partir de *Twig* 1.x, el agente del subsistema analizador de segmentos está depreciado. La siguiente clase e interfaz serán removidas en 2.0:
 
   * ``Twig_TokenParserBrokerInterface``
   * ``Twig_TokenParserBroker``
@@ -17,20 +14,18 @@ Token Parsers
 Extendiendo
 -----------
 
-* As of Twig 1.x, the ability to remove an extension is deprecated and the
-  ``Twig_Environment::removeExtension()`` method will be removed in 2.0.
+* A partir de *Twig* 1.x, la habilidad de remover una extensión está depreciada y el método ``Twig_Environment::removeExtension()`` se removerá en 2.0.
 
-PEAR
-----
+*PEAR*
+------
 
-PEAR support will be discontinued in Twig 2.0, and no PEAR packages will be
-provided. Use Composer instead.
+El soporte para *PEAR* será interrumpido en *Twig* 2.0, y ningún paquete de *PEAR* será
+proporcionado. En su lugar usa ``Composer``.
 
 Filtros
 -------
 
-* As of Twig 1.x, use ``Twig_SimpleFilter`` to add a filter. The following
-  classes and interfaces will be removed in 2.0:
+* A partir de *Twig* 1.x, usa ``Twig_SimpleFilter`` para añadir un filtro. Las siguientes clases e interfaces serán removidas en 2.0:
 
   * ``Twig_FilterInterface``
   * ``Twig_FilterCallableInterface``
@@ -39,15 +34,12 @@ Filtros
   * ``Twig_Filter_Method``
   * ``Twig_Filter_Node``
 
-* As of Twig 2.x, the ``Twig_SimpleFilter`` class is deprecated and will be
-  removed in Twig 3.x (use ``Twig_Filter`` instead). In Twig 2.x,
-  ``Twig_SimpleFilter`` is just an alias for ``Twig_Filter``.
+* A partir de *Twig* 2.x, la clase ``Twig_SimpleFilter`` está depreciada y será removida en *Twig* 3.x (en su lugar usa ``Twig_Filter``). En *Twig* 2.x, ``Twig_SimpleFilter`` sólo es un alias para ``Twig_Filter``.
 
 Funciones
 ---------
 
-* As of Twig 1.x, use ``Twig_SimpleFunction`` to add a function. The following
-  classes and interfaces will be removed in 2.0:
+* A partir de *Twig* 1.x, usa ``Twig_SimpleFunction`` para añadir una función. Las siguientes clases e interfaces serán removidas en 2.0:
 
   * ``Twig_FunctionInterface``
   * ``Twig_FunctionCallableInterface``
@@ -56,15 +48,12 @@ Funciones
   * ``Twig_Function_Method``
   * ``Twig_Function_Node``
 
-* As of Twig 2.x, the ``Twig_SimpleFunction`` class is deprecated and will be
-  removed in Twig 3.x (use ``Twig_Function`` instead). In Twig 2.x,
-  ``Twig_SimpleFunction`` is just an alias for ``Twig_Function``.
+* A partir de *Twig* 2.x, la clase ``Twig_SimpleFunction`` está depreciada y será removida en *Twig* 3.x (en su lugar usa ``Twig_Function``). En *Twig* 2.x,  ``Twig_SimpleFunction`` sólo es un alias para ``Twig_Function``.
 
 Pruebas
 -------
 
-* As of Twig 1.x, use ``Twig_SimpleTest`` to add a test. The following classes
-  and interfaces will be removed in 2.0:
+* A partir de *Twig* 1.x, usa ``Twig_SimpleTest`` para añadir una prueba. Las siguientes clases e interfaces serán removidas en 2.0:
 
   * ``Twig_TestInterface``
   * ``Twig_TestCallableInterface``
@@ -73,19 +62,16 @@ Pruebas
   * ``Twig_Test_Method``
   * ``Twig_Test_Node``
 
-* As of Twig 2.x, the ``Twig_SimpleTest`` class is deprecated and will be
-  removed in Twig 3.x (use ``Twig_Test`` instead). In Twig 2.x,
-  ``Twig_SimpleTest`` is just an alias for ``Twig_Test``.
+* A partir de *Twig* 2.x, la clase ``Twig_SimpleTest`` está depreciada y será removida en *Twig* 3.x (en su lugar usa ``Twig_Test``). En *Twig* 2.x, ``Twig_SimpleTest`` sólo es un alias para ``Twig_Test``.
 
 Interfaces
 ----------
 
-* As of Twig 2.x, the following interfaces are deprecated and empty (they will
-  be removed in Twig 3.0):
+* A partir de *Twig* 2.x, las siguientes interfaces están depreciadas y vacías (serán removidas en *Twig* 3.0):
 
-* ``Twig_CompilerInterface``     (use ``Twig_Compiler`` instead)
-* ``Twig_LexerInterface``        (use ``Twig_Lexer`` instead)
-* ``Twig_NodeInterface``         (use ``Twig_Node`` instead)
-* ``Twig_ParserInterface``       (use ``Twig_Parser`` instead)
-* ``Twig_ExistsLoaderInterface`` (merged with ``Twig_LoaderInterface``)
-* ``Twig_TemplateInterface``     (use ``Twig_Template`` instead)
+* ``Twig_CompilerInterface``     (en su lugar usa ``Twig_Compiler``)
+* ``Twig_LexerInterface``        (en su lugar usa ``Twig_Lexer``)
+* ``Twig_NodeInterface``         (en su lugar usa ``Twig_Node``)
+* ``Twig_ParserInterface``       (en su lugar usa ``Twig_Parser``)
+* ``Twig_ExistsLoaderInterface`` (fusionada con ``Twig_LoaderInterface``)
+* ``Twig_TemplateInterface``     (en su lugar usa ``Twig_Template``)

@@ -15,7 +15,7 @@ Dentro del código de los bloques también puedes asignar valores a variables. L
 
     {% set foo, bar = 'foo', 'bar' %}
 
-La etiqueta ``set`` también se puede usar ​​para "capturar" trozos de texto:
+La etiqueta ``set`` también se puede usar ​​para «capturar» trozos de texto:
 
 .. code-block:: jinja
 

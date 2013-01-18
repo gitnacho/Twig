@@ -1,11 +1,11 @@
 ``import``
 ==========
 
-*Twig* apoya poner en macros el código usado frecuentemente :doc:`macros <../tags/macro>`. Estas macros pueden estar en diferentes plantillas y se importan desde allí.
+*Twig* cuenta con el soporte necesario para poner en macros el código usado frecuentemente :doc:`macros <../tags/macro>`. Estas macros pueden estar en diferentes plantillas y se importan desde allí.
 
 Hay dos formas de importar plantillas. Puedes importar la plantilla completa en una variable o solicitar macros específicas de ella.
 
-Imaginemos que tienes un módulo auxiliar que reproduce formularios (llamado :file:`formularios.html`):
+Imagina que tienes un módulo auxiliar que reproduce formularios (llamado :file:`formularios.html`):
 
 .. code-block:: jinja
 
@@ -55,7 +55,6 @@ Alternativamente, puedes importar nombres desde la plantilla al espacio de nombr
 
 .. tip::
 
-    To import macros from the current file, use the special ``_self`` variable
-    for the source.
+    Para importar macros desde el archivo actual, usa la variable especial ``_self`` para la fuente.
 
 .. seealso:: :doc:`macro <../tags/macro>`, :doc:`from <../tags/from>`

@@ -17,7 +17,7 @@ Puedes añadir variables adicionales pasándolas después de la palabra clave ``
 
 .. code-block:: jinja
 
-    {# template.html will have access to the variables from the current context and the additional ones provided #}
+    {# template.html tendrá acceso a las variables del contexto actual y adicionalmente a las proporcionadas #}
     {% include 'template.html' with {'foo': 'bar'} %}
 
     {% set vars = {'foo': 'bar'} %}
@@ -32,7 +32,7 @@ Puedes desactivar el acceso al contexto añadiendo la palabra clave ``only``:
 
 .. code-block:: jinja
 
-    {# no variables will be accessible #}
+    {# ninguna variable será accesible #}
     {% include 'template.html' only %}
 
 .. tip::

@@ -51,35 +51,31 @@ El filtro ``escape`` admite las siguientes estrategias de escape:
 
 .. caution::
 
-    When using automatic escaping, Twig tries to not double-escape a variable
-    when the automatic escaping strategy is the same as the one applied by the
-    escape filter; but that does not work when using a variable as the
-    escaping strategy:
+    Al utilizar el escape automático, *Twig* intenta no escapar doblemente una variable cuándo la estrategia de escape automático es la misma que la aplicada por el filtro ``escape``; Pero esto no trabaja cuándo utilizas una variable como estrategia de escape:
 
     .. code-block:: jinja
 
         {% set strategy = 'html' %}
 
         {% autoescape 'html' %}
-            {{ var|escape('html') }}   {# won't be double-escaped #}
-            {{ var|escape(strategy) }} {# will be double-escaped #}
+            {{ var|escape('html') }}   {# no se escapará doblemente #}
+            {{ var|escape(strategy) }} {# no se escapará doblemente #}
         {% endautoescape %}
 
-    When using a variable as the escaping strategy, you should disable
-    automatic escaping:
+    Cuándo utilizas una variable como estrategia de escape, deberías desactivar el escape automático:
 
     .. code-block:: jinja
 
         {% set strategy = 'html' %}
 
         {% autoescape 'html' %}
-            {{ var|escape(strategy)|raw }} {# won't be double-escaped #}
+            {{ var|escape(strategy)|raw }} {# no se escapará doblemente #}
         {% endautoescape %}
 
 Argumentos
 ----------
 
- * ``strategy``: The escaping strategy
- * ``charset``:  The string charset
+ * ``strategy``: La estrategia de escape
+ * ``charset``:  La cadena del juego de caracteres
 
 .. _`htmlspecialchars`: http://php.net/htmlspecialchars

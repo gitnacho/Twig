@@ -15,8 +15,7 @@ La etiqueta ``sandbox`` se puede utilizar para activar el modo de recinto de seg
 
 .. note::
 
-    La etiqueta ``sandboc`` sólo se puede utilizar para asegurar una etiqueta ``include`` y no se puede utilizar para proteger una sección de una plantilla. The following example
-    won't work:
+    La etiqueta ``sandbox`` sólo se puede utilizar para procesar en el recinto de seguridad una etiqueta ``include`` y no se puede utilizar para proteger una sección de una plantilla. El siguiente ejemplo no trabajará:
 
     .. code-block:: jinja
 

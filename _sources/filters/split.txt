@@ -2,52 +2,47 @@
 =========
 
 .. versionadded:: 1.10.3
-    The split filter was added in Twig 1.10.3.
+    El filtro ``split`` se añadió en *Twig* 1.10.3.
 
-The ``split`` filter splits a string by the given delimiter and returns a list
-of strings:
-
-.. code-block:: jinja
-
-    {{ "one,two,three"|split(',') }}
-    {# returns ['one', 'two', 'three'] #}
-
-You can also pass a ``limit`` argument:
-
- * If ``limit`` is positive, the returned array will contain a maximum of
-   limit elements with the last element containing the rest of string;
-
- * If ``limit`` is negative, all components except the last -limit are
-   returned;
-
- * If ``limit`` is zero, then this is treated as 1.
+El filtro ``split`` parte una cadena por el delimitador dado y regresa una lista de cadenas:
 
 .. code-block:: jinja
 
-    {{ "one,two,three,four,five"|split(',', 3) }}
-    {# returns ['one', 'two', 'three,four,five'] #}
+    {{ "uno,dos,tres"|split(',') }}
+    {# devuelve ['uno', 'dos', 'tres'] #}
 
-If the ``delimiter`` is an empty string, then value will be split by equal
-chunks. Length is set by the ``limit`` argument (one character by default).
+También puedes pasar un argumento ``limit``:
+
+ * Si ``limit`` es positivo, el arreglo devuelto contendrá un máximo de ``limit`` elementos con el último elemento conteniendo el resto de la cadena;
+
+ * Si ``limit`` es negativo, devolverá todos los componentes excepto el último -límite;
+
+ * Si ``limit`` es cero, entonces este será tratado como si fuera 1.
+
+.. code-block:: jinja
+
+    {{ "uno,dos,tres,cuatro,cinco"|split(',', 3) }}
+    {# devuelve ['uno', 'dos', 'tres,cuatro,cinco'] #}
+
+Si el ``delimitador`` es una cadena vacía, entonces el valor será partido en segmentos iguales. La longitud la determina el argumento ``limit`` (de manera predeterminada es de un carácter).
 
 .. code-block:: jinja
 
     {{ "123"|split('') }}
-    {# returns ['1', '2', '3'] #}
+    {# devuelve ['1', '2', '3'] #}
 
     {{ "aabbcc"|split('', 2) }}
-    {# returns ['aa', 'bb', 'cc'] #}
+    {# devuelve ['aa', 'bb', 'cc'] #}
 
 .. note::
 
-    Internally, Twig uses the PHP `explode`_ or `str_split`_ (if delimiter is
-    empty) functions for string splitting.
+    Internamente, *Twig* utiliza las funciones `explode`_ o `str_split`_ de *PHP* (si el delimitador está vacío) para partir la cadena.
 
 Argumentos
 ----------
 
- * ``delimiter``: The delimiter
- * ``limit``:     The limit argument
+ * ``delimiter``: El delimitador
+ * ``limit``:     El argumento para el límite
 
 .. _`explode`:   http://php.net/explode
 .. _`str_split`: http://php.net/str_split

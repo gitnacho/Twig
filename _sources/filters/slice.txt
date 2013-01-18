@@ -34,14 +34,13 @@ Como azúcar sintáctica, también puedes utilizar la notación ``[]``:
 
     {{ '1234'[1:2] }}
 
-    {# you can omit the first argument -- which is the same as 0 #}
-    {{ '1234'[:2] }} {# will display "12" #}
+    {# puedes omitir el primer argumento -- que es lo mismo que 0 #}
+    {{ '1234'[:2] }} {# mostrará "12" #}
 
-    {# you can omit the last argument -- which will select everything till the end #}
-    {{ '1234'[2:] }} {# will display "34 #}
+    {# Puedes omitir el último argumento -- con lo cuál seleccionará todo hasta el final #}
+    {{ '1234'[:2] }} {# mostrará "34" #}
 
-El filtro ``slice`` trabaja como la función ``array_slice`` de *PHP* para los arreglos y
-`substr`_ para las cadenas.
+El filtro ``slice`` trabaja como la función ``array_slice`` de *PHP* para los arreglos y `substr`_ para las cadenas.
 
 Si ``start`` no es negativo, la secuencia iniciará en ``start`` en la variable. Si ``start`` es negativo, la secuencia comenzará en esa posición desde el final de la variable.
 
@@ -54,9 +53,9 @@ Si se especifica ``length`` y es positivo, entonces la secuencia tendrá hasta t
 Argumentos
 ----------
 
- * ``start``:         The start of the slice
- * ``length``:        The size of the slice
- * ``preserve_keys``: Whether to preserve key or not (when the input is an array)
+ * ``start``:         El inicio del segmento
+ * ``length``:        El tamaño del segmento
+ * ``preserve_keys``: Si preservar la clave o no (cuándo la entrada es un arreglo)
 
 .. _`Traversable`: http://php.net/manual/en/class.traversable.php
 .. _`array_slice`: http://php.net/array_slice

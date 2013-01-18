@@ -75,9 +75,9 @@
             
   <div class="section" id="import">
 <h1><tt class="docutils literal"><span class="pre">import</span></tt><a class="headerlink" href="#import" title="Enlazar permanentemente con este título">¶</a></h1>
-<p><em>Twig</em> apoya poner en macros el código usado frecuentemente <a class="reference internal" href="macro.html"><em>macros</em></a>. Estas macros pueden estar en diferentes plantillas y se importan desde allí.</p>
+<p><em>Twig</em> cuenta con el soporte necesario para poner en macros el código usado frecuentemente <a class="reference internal" href="macro.html"><em>macros</em></a>. Estas macros pueden estar en diferentes plantillas y se importan desde allí.</p>
 <p>Hay dos formas de importar plantillas. Puedes importar la plantilla completa en una variable o solicitar macros específicas de ella.</p>
-<p>Imaginemos que tienes un módulo auxiliar que reproduce formularios (llamado <tt class="file docutils literal"><span class="pre">formularios.html</span></tt>):</p>
+<p>Imagina que tienes un módulo auxiliar que reproduce formularios (llamado <tt class="file docutils literal"><span class="pre">formularios.html</span></tt>):</p>
 <div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">input</span><span class="o">(</span><span class="nv">name</span><span class="o">,</span> <span class="nv">value</span><span class="o">,</span> <span class="nv">type</span><span class="o">,</span> <span class="nv">size</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
 <span class="x">    &lt;input type=&quot;</span><span class="cp">{{</span> <span class="nv">type</span><span class="o">|</span><span class="nf">default</span><span class="o">(</span><span class="s1">&#39;text&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;</span>
 <span class="x">             name=&quot;</span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">&quot;</span>
@@ -121,8 +121,7 @@ De esa manera puedes acceder a los atributos:</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Truco</p>
-<p class="last">To import macros from the current file, use the special <tt class="docutils literal"><span class="pre">_self</span></tt> variable
-for the source.</p>
+<p class="last">Para importar macros desde el archivo actual, usa la variable especial <tt class="docutils literal"><span class="pre">_self</span></tt> para la fuente.</p>
 </div>
 <div class="admonition-ver-tambien admonition seealso">
 <p class="first admonition-title">Ver también</p>
@@ -163,7 +162,7 @@ for the source.</p>
      
     <div class="footer">
         &copy; Copyright 2011-2013, Traducido por Nacho Pacheco.
-      Actualizado por última vez en Jan 13, 2013.
+      Actualizado por última vez en Jan 18, 2013.
       Creado con <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
    </div>
